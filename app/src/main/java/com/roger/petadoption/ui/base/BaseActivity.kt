@@ -13,8 +13,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.*
 import androidx.viewbinding.ViewBinding
 import com.roger.petadoption.R
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+
+    protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
     protected lateinit var params: Bundle
     protected var binding: VB? = null
         private set
@@ -29,6 +33,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         if (savedInstanceState == null) {
             initParam(params)
         }
+        getViewModel()
+            .subscribeViewEvent(this::handleViewEvent)
+            .addTo(compositeDisposable)
         initView(savedInstanceState)
     }
 
@@ -70,6 +77,26 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
+
+    protected open fun handleViewEvent(event: ViewEvent) {
+        when (event) {
+            is ViewEvent.Loading -> {
+            }
+
+            is ViewEvent.Done -> {
+            }
+
+            is ViewEvent.Error -> {
+                Toast.makeText(this, event.message, Toast.LENGTH_SHORT).show()
+            }
+
+            is ViewEvent.UnknownError -> {
+                val errMsg = event.error?.message ?: getString(R.string.unknown_error)
+                Toast.makeText(this, errMsg, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     protected open fun showToast(
         @StringRes resId: Int? = null,
