@@ -51,11 +51,14 @@ dependencies {
 
     // Timber
     implementation "com.jakewharton.timber:timber:5.0.1"
-    
+
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
     // LifeData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+
+    // Gson
+    implementation "com.google.code.gson:gson:2.8.6"
 
 }
