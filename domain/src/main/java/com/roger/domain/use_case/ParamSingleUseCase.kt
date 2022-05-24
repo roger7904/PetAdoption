@@ -1,4 +1,4 @@
-package com.roger.domain.usecase
+package com.roger.domain.use_case
 
 import com.roger.domain.common.DataResult
 import com.roger.domain.common.ErrorHandler
