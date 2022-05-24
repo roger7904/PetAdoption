@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance"/>
+
+    <style name="TextAppearance.H1">
+        <item name="android:textSize">@dimen/dp_40</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H2">
+        <item name="android:textSize">@dimen/dp_32</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H3">
+        <item name="android:textSize">@dimen/dp_24</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H4">
+        <item name="android:textSize">@dimen/dp_20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H5">
+        <item name="android:textSize">@dimen/dp_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H6">
+        <item name="android:textSize">@dimen/dp_14</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.H7">
+        <item name="android:textSize">@dimen/dp_12</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.P1">
+        <item name="android:textSize">@dimen/dp_20</item>
+    </style>
+
+    <style name="TextAppearance.P2">
+        <item name="android:textSize">@dimen/dp_18</item>
+    </style>
+
+    <style name="TextAppearance.P3">
+        <item name="android:textSize">@dimen/dp_16</item>
+    </style>
+
+    <style name="TextAppearance.P4">
+        <item name="android:textSize">@dimen/dp_14</item>
+    </style>
+
+</resources>
