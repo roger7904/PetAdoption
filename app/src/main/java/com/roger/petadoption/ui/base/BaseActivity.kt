@@ -4,15 +4,22 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.appbar.MaterialToolbar
 import com.roger.petadoption.R
+import com.roger.petadoption.utils.toPx
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 
@@ -23,11 +30,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     protected var binding: VB? = null
         private set
     private var toast: Toast? = null
+    private var progressBar: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = initViewBinding().apply {
             setContentView(root)
+            progressBar = root.findViewById(R.id.progressBar)
         }
         params = intent.extras ?: Bundle.EMPTY
         if (savedInstanceState == null) {
@@ -56,6 +65,40 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onDestroy()
     }
 
+    protected fun setActionBar(
+        toolbar: Toolbar?,
+        @StringRes titleId: Int? = null,
+        title: String? = null,
+        showBackButton: Boolean = true
+    ) {
+        setSupportActionBar(toolbar)
+        val actionBarTitle = when {
+            titleId != null -> getString(titleId)
+            title != null -> title
+            else -> ""
+        }
+        supportActionBar?.run {
+            this.title = actionBarTitle
+            setDisplayHomeAsUpEnabled(showBackButton)
+        }
+    }
+
+    fun setAppBar(
+        toolbar: MaterialToolbar,
+        title: String? = null,
+        @DrawableRes backBtnResId: Int? = null
+    ) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.run {
+            this.title = title
+            if (backBtnResId != null) {
+                setHomeAsUpIndicator(backBtnResId)
+                setDisplayHomeAsUpEnabled(true)
+                toolbar.setContentInsetsRelative(0, 72.toPx(this@BaseActivity).toInt())
+            }
+        }
+    }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         when (ev?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -81,13 +124,20 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     protected open fun handleViewEvent(event: ViewEvent) {
         when (event) {
             is ViewEvent.Loading -> {
+                progressBar?.run {
+                    setBackgroundColor(
+                        ContextCompat.getColor(this@BaseActivity, R.color.transparent)
+                    )
+                    isVisible = true
+                }
             }
 
             is ViewEvent.Done -> {
+                progressBar?.isVisible = false
             }
 
             is ViewEvent.Error -> {
-                Toast.makeText(this, event.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, event.message ?: "unknown", Toast.LENGTH_SHORT).show()
             }
 
             is ViewEvent.UnknownError -> {
@@ -96,7 +146,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
         }
     }
-
 
     protected open fun showToast(
         @StringRes resId: Int? = null,
