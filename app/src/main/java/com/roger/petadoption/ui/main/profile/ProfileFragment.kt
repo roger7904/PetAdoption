@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.roger.petadoption.BuildConfig
 import com.roger.petadoption.R
 import com.roger.petadoption.databinding.FragmentProfileBinding
 import com.roger.petadoption.ui.auth.SignInActivity
@@ -45,6 +46,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 .load(auth.currentUser?.photoUrl)
                 .centerCrop()
                 .into(ivAvatar)
+
+            tvVersionName.text =
+                getString(R.string.profile_version_number, BuildConfig.VERSION_NAME)
 
             clSignOut.setOnClickListener {
                 showDialog(
