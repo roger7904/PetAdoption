@@ -42,4 +42,12 @@
     <string name="profile_version_number">V%1$s</string>
     <string name="profile_sign_out_dialog_title">登出</string>
     <string name="profile_sign_out_dialog_content">請確認是否要登出</string>
+
+    <!--EditProfile-->
+    <string name="editProfile_title">編輯個人資料</string>
+    <string name="editProfile_nickname">暱稱</string>
+    <string name="editProfile_email">E-mail</string>
+    <string name="editProfile_success">成功編輯暱稱</string>
+    <string name="editProfile_back_dialog_title">資料尚未儲存</string>
+    <string name="editProfile_back_dialog_content">您的個人資料尚未儲存，請確認是否離開</string>
 </resources>

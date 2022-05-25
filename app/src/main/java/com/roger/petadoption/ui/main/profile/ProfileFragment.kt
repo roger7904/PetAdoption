@@ -1,10 +1,12 @@
 package com.roger.petadoption.ui.main.profile
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +27,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private val viewModel: ProfileViewModel by viewModels()
     private var auth: FirebaseAuth = Firebase.auth
+
+    private val updateUserLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != Activity.RESULT_OK)
+                return@registerForActivityResult
+            val intent = result.data
+            intent?.getStringExtra(BUNDLE_USER_NAME)?.let { viewModel.setUserName(it) }
+        }
 
     override fun initParam(data: Bundle) {
     }
@@ -49,6 +59,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
             viewModel.userName.observe(viewLifecycleOwner) {
                 tvUserName.text = it
+            }
+
+            clProfile.setOnClickListener {
+                val intent = Intent(activity, EditProfileActivity::class.java)
+                updateUserLauncher.launch(intent)
             }
 
             tvVersionName.text =
@@ -87,6 +102,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     companion object {
+
+        private const val BUNDLE_USER_NAME = "name"
+
         @JvmStatic
         fun newInstance() = ProfileFragment().apply {
             arguments = Bundle().apply {
