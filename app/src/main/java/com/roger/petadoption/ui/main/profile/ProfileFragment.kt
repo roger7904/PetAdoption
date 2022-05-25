@@ -47,6 +47,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 .centerCrop()
                 .into(ivAvatar)
 
+            viewModel.userName.observe(viewLifecycleOwner) {
+                tvUserName.text = it
+            }
+
             tvVersionName.text =
                 getString(R.string.profile_version_number, BuildConfig.VERSION_NAME)
 
