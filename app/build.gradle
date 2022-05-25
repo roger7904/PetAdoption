@@ -4,6 +4,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdk 32
@@ -16,20 +18,31 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                facebook_client_token: properties.getProperty('facebook_client_token')
+        ]
     }
 
     buildFeatures {
         viewBinding true
     }
     buildTypes {
+        def GOOGLE_SERVER_CLIENT_ID = properties.getProperty('GOOGLE_SERVER_CLIENT_ID')
+        def facebook_app_id = properties.getProperty('facebook_app_id')
+
         debug {
             debuggable true
             minifyEnabled false
+            buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
+            resValue("string", "facebook_app_id", facebook_app_id)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             debuggable false
             minifyEnabled true
+            buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
+            resValue("string", "facebook_app_id", facebook_app_id)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -102,4 +115,10 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.0.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+
+    // Google auth
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    // Facebook
+    implementation 'com.facebook.android:facebook-login:12.0.0'
 }
