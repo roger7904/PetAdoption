@@ -25,6 +25,10 @@ open class BaseViewModel(private val state: SavedStateHandle) : ViewModel() {
         compositeDisposable.clear()
     }
 
+    fun resetViewEventPublisher() {
+        viewEventPublisher.onNext(ViewEvent.None)
+    }
+
     fun <T> Single<DataResult<T>>.sub(
         onError: ((Throwable?) -> Boolean)? = null,
         ignoreError: Boolean = false,

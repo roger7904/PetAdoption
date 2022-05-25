@@ -10,6 +10,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -27,6 +29,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         private set
     private var onBackPressedCallback: OnBackPressedCallback? = null
     private var toast: Toast? = null
+    private var progressBar: View? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,16 +60,20 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBar = view.findViewById(R.id.progressBar)
         getViewModel()?.subscribeViewEvent(this::handleViewEvent)?.addTo(compositeDisposable)
         initView(savedInstanceState)
     }
 
     override fun onDestroyView() {
+        getViewModel()?.resetViewEventPublisher()
         binding = null
+        compositeDisposable.clear()
         super.onDestroyView()
     }
 
     override fun onDestroy() {
+        compositeDisposable.dispose()
         super.onDestroy()
     }
 
@@ -88,16 +95,16 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open fun handleViewEvent(event: ViewEvent) {
         when (event) {
             is ViewEvent.Loading -> {
-//                progressBar?.run {
-//                    setBackgroundColor(
-//                        ContextCompat.getColor(requireContext(), R.color.transparent)
-//                    )
-//                    isVisible = true
-//                }
+                progressBar?.run {
+                    setBackgroundColor(
+                        ContextCompat.getColor(requireContext(), R.color.transparent)
+                    )
+                    isVisible = true
+                }
             }
 
             is ViewEvent.Done -> {
-//                progressBar?.isVisible = false
+                progressBar?.isVisible = false
             }
 
             is ViewEvent.Error -> {
