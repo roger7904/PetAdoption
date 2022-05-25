@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextInput">
+        <attr name="TextInput_isEnabled" format="boolean" />
+        <attr name="TextInput_isTitleVisible" format="boolean" />
+        <attr name="TextInput_title" format="reference" />
+        <attr name="TextInput_hint" format="reference" />
+        <attr name="TextInput_text" format="reference" />
+        <attr name="TextInput_descText" format="reference" />
+        <attr name="android:maxLength" />
+        <attr name="android:inputType" />
+        <attr name="counterEnabled" />
+        <attr name="counterMaxLength" />
+        <attr name="endIconMode" />
+        <attr name="endIconDrawable" />
+        <attr name="endIconTint" />
+    </declare-styleable>
+</resources>
