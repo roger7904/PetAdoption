@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">PetAdoption</string>
+    <string name="app_name_chinese">寵物領養</string>
+
+    <!-- Launch -->
+    <string name="launch_desc">PetAdoption © Code: Roger Chang</string>
 
     <!-- Button text -->
     <string name="confirm">確認</string>
