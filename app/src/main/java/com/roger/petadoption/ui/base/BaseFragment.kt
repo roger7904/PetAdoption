@@ -16,8 +16,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewbinding.ViewBinding
 import com.roger.petadoption.R
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+
+    protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
     protected lateinit var params: Bundle
     protected var binding: VB? = null
         private set
@@ -45,7 +49,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         binding = initViewBinding(inflater, container, savedInstanceState)
         return binding!!.root
@@ -53,6 +57,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getViewModel()?.subscribeViewEvent(this::handleViewEvent)?.addTo(compositeDisposable)
         initView(savedInstanceState)
     }
 
@@ -80,10 +85,36 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         activity?.supportActionBar?.setHomeAsUpIndicator(drawableId)
     }
 
+    protected open fun handleViewEvent(event: ViewEvent) {
+        when (event) {
+            is ViewEvent.Loading -> {
+//                progressBar?.run {
+//                    setBackgroundColor(
+//                        ContextCompat.getColor(requireContext(), R.color.transparent)
+//                    )
+//                    isVisible = true
+//                }
+            }
+
+            is ViewEvent.Done -> {
+//                progressBar?.isVisible = false
+            }
+
+            is ViewEvent.Error -> {
+                Toast.makeText(requireContext(), event.message ?: "", Toast.LENGTH_SHORT).show()
+            }
+
+            is ViewEvent.UnknownError -> {
+                val errMsg = event.error?.message ?: getString(R.string.unknown_error)
+                Toast.makeText(requireContext(), errMsg, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     protected open fun showToast(
         @StringRes resId: Int? = null,
         text: String? = null,
-        duration: Int = Toast.LENGTH_SHORT
+        duration: Int = Toast.LENGTH_SHORT,
     ) {
         activity ?: return
         val toastText = when {
@@ -110,7 +141,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         containerId: Int,
         fragment: Fragment,
         tag: String? = fragment::class.java.name,
-        anim: FragmentAnim? = null
+        anim: FragmentAnim? = null,
     ): FragmentTransaction {
         return childFragmentManager.beginTransaction().addFragment(containerId, fragment, tag, anim)
     }
@@ -119,7 +150,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         containerId: Int,
         fragment: Fragment,
         tag: String? = fragment::class.java.name,
-        anim: FragmentAnim? = null
+        anim: FragmentAnim? = null,
     ): FragmentTransaction {
         return this.apply {
             setFragmentAnimation(this, anim)
@@ -132,7 +163,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         fragment: Fragment,
         backStackName: String? = fragment::class.java.name,
         addToBackStack: Boolean = true,
-        anim: FragmentAnim = FragmentAnim.SLIDE_HORIZONTAL
+        anim: FragmentAnim = FragmentAnim.SLIDE_HORIZONTAL,
     ): FragmentTransaction {
         return childFragmentManager.beginTransaction()
             .replaceFragment(containerId, fragment, backStackName, addToBackStack, anim)
@@ -143,7 +174,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         fragment: Fragment,
         backStackName: String? = fragment::class.java.name,
         addToBackStack: Boolean = true,
-        anim: FragmentAnim = FragmentAnim.SLIDE_HORIZONTAL
+        anim: FragmentAnim = FragmentAnim.SLIDE_HORIZONTAL,
     ): FragmentTransaction {
         return this.apply {
             setFragmentAnimation(this, anim)
@@ -159,7 +190,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     protected fun FragmentTransaction.removeFragment(
-        tag: String
+        tag: String,
     ): FragmentTransaction {
         val fragment = childFragmentManager.findFragmentByTag(tag)
         return this.apply {
@@ -252,7 +283,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected abstract fun initViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): VB
 
     protected abstract fun initView(savedInstanceState: Bundle?)
