@@ -32,4 +32,6 @@
     <string name="sign_in_continue_with_facebook">以 Facebook 繼續</string>
     <string name="sign_in_continue_with_google">以 Google 繼續</string>
     <string name="sign_in_welcome">歡迎使用寵物領養</string>
+    <string name="sign_in_authentication_failed">Authentication failed</string>
+    <string name="sign_in_account_already_exists">An account may already exists with the same email address</string>
 </resources>
