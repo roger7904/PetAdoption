@@ -128,4 +128,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-rxjava3:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
+
+    // stetho
+    debugImplementation "com.facebook.stetho:stetho:1.6.0"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:1.6.0"
 }
