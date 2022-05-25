@@ -34,4 +34,20 @@
     <string name="sign_in_welcome">歡迎使用寵物領養</string>
     <string name="sign_in_authentication_failed">Authentication failed</string>
     <string name="sign_in_account_already_exists">An account may already exists with the same email address</string>
+
+    <!-- Profile -->
+    <string name="profile_info">個人資料</string>
+    <string name="profile_version">版本紀錄</string>
+    <string name="profile_logout">登出</string>
+    <string name="profile_version_number">V%1$s</string>
+    <string name="profile_sign_out_dialog_title">登出</string>
+    <string name="profile_sign_out_dialog_content">請確認是否要登出</string>
+
+    <!--EditProfile-->
+    <string name="editProfile_title">編輯個人資料</string>
+    <string name="editProfile_nickname">暱稱</string>
+    <string name="editProfile_email">E-mail</string>
+    <string name="editProfile_success">成功編輯暱稱</string>
+    <string name="editProfile_back_dialog_title">資料尚未儲存</string>
+    <string name="editProfile_back_dialog_content">您的個人資料尚未儲存，請確認是否離開</string>
 </resources>
