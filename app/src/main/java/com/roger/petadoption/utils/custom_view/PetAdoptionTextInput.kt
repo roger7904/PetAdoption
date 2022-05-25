@@ -155,28 +155,28 @@ class PetAdoptionTextInput : ConstraintLayout {
         binding = ViewPetadoptionTextInputBinding.bind(root)
 
         context.obtainStyledAttributes(
-            attrs, R.styleable.TextInput, 0, 0
+            attrs, R.styleable.PetAdoptionTextInput, 0, 0
         ).run {
             binding?.run {
                 val isEnabled =
-                    getBoolean(R.styleable.TextInput_TextInput_isEnabled, true)
+                    getBoolean(R.styleable.PetAdoptionTextInput_TextInput_isEnabled, true)
                 changeEnable(isEnabled)
 
                 val isTitleVisible =
-                    getBoolean(R.styleable.TextInput_TextInput_isTitleVisible, true)
+                    getBoolean(R.styleable.PetAdoptionTextInput_TextInput_isTitleVisible, true)
                 tvTilTitle.visibility =
                     if (isTitleVisible) View.VISIBLE else View.GONE
 
                 val titleResId =
                     getResourceId(
-                        R.styleable.TextInput_TextInput_title,
+                        R.styleable.PetAdoptionTextInput_TextInput_title,
                         0
                     ).takeIf { it != 0 }
                 tvTilTitle.text = titleResId?.let { context.getString(titleResId) }
 
                 val hintResId =
                     getResourceId(
-                        R.styleable.TextInput_TextInput_hint,
+                        R.styleable.PetAdoptionTextInput_TextInput_hint,
                         0
                     ).takeIf { it != 0 }
                 tieTil.hint = hintResId?.let { context.getString(it) }
@@ -184,27 +184,27 @@ class PetAdoptionTextInput : ConstraintLayout {
 
                 val textResId =
                     getResourceId(
-                        R.styleable.TextInput_TextInput_text,
+                        R.styleable.PetAdoptionTextInput_TextInput_text,
                         0
                     ).takeIf { it != 0 }
                 tieTil.setText(textResId?.let { context.getString(it) })
 
 
                 val inputType: Int =
-                    getInt(R.styleable.TextInput_android_inputType, InputType.TYPE_CLASS_TEXT)
+                    getInt(R.styleable.PetAdoptionTextInput_android_inputType, InputType.TYPE_CLASS_TEXT)
                 tieTil.inputType = inputType
 
-                val endIconResId = getResourceId(R.styleable.TextInput_endIconDrawable, 0)
+                val endIconResId = getResourceId(R.styleable.PetAdoptionTextInput_endIconDrawable, 0)
                     .takeIf { it != 0 }
                 til.endIconDrawable =
                     endIconResId?.let { context.getDrawable(it) }
 
                 val endIconMode =
-                    getInt(R.styleable.TextInput_endIconMode, TextInputLayout.END_ICON_NONE)
+                    getInt(R.styleable.PetAdoptionTextInput_endIconMode, TextInputLayout.END_ICON_NONE)
                 til.endIconMode = endIconMode
 
                 val descTextResId = getResourceId(
-                    R.styleable.TextInput_TextInput_descText, 0
+                    R.styleable.PetAdoptionTextInput_TextInput_descText, 0
                 ).takeIf { it != 0 }
                 if (descTextResId != null) {
                     descText = context.getString(descTextResId)
@@ -212,17 +212,17 @@ class PetAdoptionTextInput : ConstraintLayout {
                     tvDesc.visibility = GONE
                 }
 
-                val countEnable = getBoolean(R.styleable.TextInput_counterEnabled, false)
+                val countEnable = getBoolean(R.styleable.PetAdoptionTextInput_counterEnabled, false)
                 til.isCounterEnabled = countEnable
 
                 val counterMaxLength =
-                    getInt(R.styleable.TextInput_counterMaxLength, 0).takeIf { it != 0 }
+                    getInt(R.styleable.PetAdoptionTextInput_counterMaxLength, 0).takeIf { it != 0 }
                 counterMaxLength?.let {
                     til.counterMaxLength = it
                 }
 
                 val maxLength =
-                    getInt(R.styleable.TextInput_android_maxLength, 0).takeIf { it != 0 }
+                    getInt(R.styleable.PetAdoptionTextInput_android_maxLength, 0).takeIf { it != 0 }
                 maxLength?.let {
                     tieTil.filters = arrayOf<InputFilter>(LengthFilter(maxLength))
                 }

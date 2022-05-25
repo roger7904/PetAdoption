@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
         android:textAppearance="@style/TextAppearance.H5"
-        android:textColor="@color/colorNeutral_N1_primary_text"
+        android:textColor="@color/colorNeutral_N2_secondary_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />

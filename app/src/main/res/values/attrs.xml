@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TextInput">
+    <declare-styleable name="PetAdoptionTextInput">
         <attr name="TextInput_isEnabled" format="boolean" />
         <attr name="TextInput_isTitleVisible" format="boolean" />
         <attr name="TextInput_title" format="reference" />
