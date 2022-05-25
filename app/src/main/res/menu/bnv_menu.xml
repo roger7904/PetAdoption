@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuItem_bnv_home"
+        android:icon="@drawable/selector_tab_home"
+        android:title="@string/bnv_home" />
+
+    <item
+        android:id="@+id/menuItem_bnv_favorite"
+        android:icon="@drawable/selector_tab_favorite"
+        android:title="@string/bnv_favorite" />
+
+    <item
+        android:id="@+id/menuItem_bnv_theme"
+        android:icon="@drawable/selector_tab_map"
+        android:title="@string/bnv_map" />
+
+    <item
+        android:id="@+id/menuItem_bnv_hospital"
+        android:icon="@drawable/selector_tab_hospital"
+        android:title="@string/bnv_hospital" />
+
+    <item
+        android:id="@+id/menuItem_bnv_profile"
+        android:icon="@drawable/selector_tab_profile"
+        android:title="@string/bnv_profile" />
+</menu>
