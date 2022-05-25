@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "256807232134",
+    "project_id": "petadoption-e0647",
+    "storage_bucket": "petadoption-e0647.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256807232134:android:8572af58826f5fdcf82707",
+        "android_client_info": {
+          "package_name": "com.roger.petadoption"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256807232134-1rd2t3qr5ikr4upd50937gp05mg7qgvq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roger.petadoption",
+            "certificate_hash": "572497432a6902632f21ed9ac5a4713473ac66cb"
+          }
+        },
+        {
+          "client_id": "256807232134-v5qk24cd0iu19fol56ui6f3lnn9rpacf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnCR0TsdVZ8Wwl6A7WzD6j0tSlXQnmIsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256807232134-v5qk24cd0iu19fol56ui6f3lnn9rpacf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

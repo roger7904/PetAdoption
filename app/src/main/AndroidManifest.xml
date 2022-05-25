@@ -14,7 +14,14 @@
         android:theme="@style/Theme.PetAdoption">
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.launch.LaunchActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PetAdoption_launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

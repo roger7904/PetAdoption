@@ -1,6 +1,30 @@
 <resources>
     <string name="app_name">PetAdoption</string>
+    <string name="app_name_chinese">寵物領養</string>
+
+    <!-- Launch -->
+    <string name="launch_desc">PetAdoption © Code: Roger Chang</string>
+
+    <!-- Button text -->
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="save">儲存</string>
+    <string name="last">上一步</string>
+    <string name="next">下一步</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="finish">完成</string>
 
     <!-- General -->
+    <string name="field_required">＊</string>
+    <string name="more">more</string>
     <string name="unknown_error">未知錯誤</string>
+    <string name="other">其他</string>
+
+    <!-- Main -->
+    <string name="bnv_home">配對</string>
+    <string name="bnv_favorite">收藏</string>
+    <string name="bnv_map">地圖</string>
+    <string name="bnv_hospital">醫院</string>
+    <string name="bnv_profile">個人</string>
 </resources>
