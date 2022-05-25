@@ -2,7 +2,6 @@ package com.roger.petadoption.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.facebook.AccessToken
@@ -17,10 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.jakewharton.rxbinding4.view.clicks
 import com.roger.petadoption.BuildConfig
 import com.roger.petadoption.R
@@ -28,6 +24,7 @@ import com.roger.petadoption.databinding.ActivitySignInBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.SimpleDialogFragment
+import com.roger.petadoption.ui.base.ViewEvent
 import com.roger.petadoption.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.kotlin.addTo
@@ -37,7 +34,6 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 class SignInActivity : BaseActivity<ActivitySignInBinding>() {
 
     private val viewModel: SignInViewModel by viewModels()
-    private lateinit var auth: FirebaseAuth
     private val callbackManager: CallbackManager = CallbackManager.Factory.create()
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private val googleSignInLauncher =
@@ -57,7 +53,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
         ActivitySignInBinding.inflate(layoutInflater)
 
     override fun initView(savedInstanceState: Bundle?) {
-        auth = Firebase.auth
         initFacebookCallbackManager()
         initGoogleSignInClient()
 
@@ -79,6 +74,27 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                     }
                 }
                 .addTo(compositeDisposable)
+        }
+    }
+
+    override fun handleViewEvent(event: ViewEvent) {
+        super.handleViewEvent(event)
+        when (event) {
+            is SignInViewEvent.LoginSuccess -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            is SignInViewEvent.LoginFail -> {
+                val dialog = SimpleDialogFragment.newInstance(
+                    title = getString(R.string.sign_in_authentication_failed),
+                    content = getString(R.string.sign_in_account_already_exists),
+                    btnConfirm = getString(R.string.confirm),
+                    btnCancel = getString(R.string.cancel)
+                )
+                showDialog(dialog)
+            }
         }
     }
 
@@ -107,28 +123,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
     private fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
         try {
             val googleIdToken = task.result.idToken
-            // switch to viewModel
-            val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
-            auth.signInWithCredential(firebaseCredential)
-                .addOnCompleteListener(this) { taskFirebase ->
-                    if (taskFirebase.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TAG", "signInWithCredential:success")
-                        val user = auth.currentUser
-                        //updateUI(user)
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        val dialog = SimpleDialogFragment.newInstance(
-                            title = getString(R.string.sign_in_authentication_failed),
-                            content = null,
-                            btnConfirm = getString(R.string.confirm),
-                            btnCancel = getString(R.string.cancel)
-                        )
-                        showDialog(dialog)
-                    }
-                }
+            val credential = GoogleAuthProvider.getCredential(googleIdToken, null)
+            viewModel.firebaseLogin(credential)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -137,26 +133,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
     private fun handleFacebookSignInResult(token: AccessToken) {
         try {
             val credential = FacebookAuthProvider.getCredential(token.token)
-            // switch to viewModel
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TAG", "signInWithCredential:success")
-                        val user = auth.currentUser
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        val dialog = SimpleDialogFragment.newInstance(
-                            title = getString(R.string.sign_in_authentication_failed),
-                            content = getString(R.string.sign_in_account_already_exists),
-                            btnConfirm = getString(R.string.confirm),
-                            btnCancel = getString(R.string.cancel)
-                        )
-                        showDialog(dialog)
-                    }
-                }
+            viewModel.firebaseLogin(credential)
         } catch (e: Exception) {
             e.printStackTrace()
         }
