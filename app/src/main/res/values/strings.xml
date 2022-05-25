@@ -27,4 +27,9 @@
     <string name="bnv_map">地圖</string>
     <string name="bnv_hospital">醫院</string>
     <string name="bnv_profile">個人</string>
+
+    <!-- SignIn -->
+    <string name="sign_in_continue_with_facebook">以 Facebook 繼續</string>
+    <string name="sign_in_continue_with_google">以 Google 繼續</string>
+    <string name="sign_in_welcome">歡迎使用寵物領養</string>
 </resources>
