@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.processors.BehaviorProcessor
+import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subscribers.DisposableSubscriber
 import timber.log.Timber
 
@@ -30,7 +31,7 @@ open class BaseViewModel(private val state: SavedStateHandle) : ViewModel() {
         dismissLoadingOnResult: Boolean = true,
         onSuccess: (T?) -> Unit = {}
     ): Disposable {
-        return subscribe { result, throwable ->
+        return subscribeOn(Schedulers.io()).subscribe { result, throwable ->
             val throwable = throwable ?: (result as? DataResult.Failure<T>)?.error
             if (throwable != null) {
                 if (ignoreError) {
@@ -97,5 +98,3 @@ open class BaseViewModel(private val state: SavedStateHandle) : ViewModel() {
         abstract fun onEvent(event: ViewEvent)
     }
 }
-
-

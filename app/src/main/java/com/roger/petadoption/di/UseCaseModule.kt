@@ -2,7 +2,11 @@ package com.roger.petadoption.di
 
 import com.roger.domain.common.ErrorHandler
 import com.roger.domain.repository.pet.PetRepository
+import com.roger.domain.repository.user.UserRepository
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
+import com.roger.domain.use_case.user.GetUserUseCase
+import com.roger.domain.use_case.user.InitUserUseCase
+import com.roger.domain.use_case.user.UpdateUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +23,27 @@ object UseCaseModule {
         return GetPetInfoUseCase(petRepository, errorHandler)
     }
 
+    @Provides
+    fun provideInitUserUseCase(
+        userRepository: UserRepository,
+        errorHandler: ErrorHandler,
+    ): InitUserUseCase {
+        return InitUserUseCase(userRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideUpdateUserUseCase(
+        userRepository: UserRepository,
+        errorHandler: ErrorHandler,
+    ): UpdateUserUseCase {
+        return UpdateUserUseCase(userRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetUserUseCase(
+        userRepository: UserRepository,
+        errorHandler: ErrorHandler,
+    ): GetUserUseCase {
+        return GetUserUseCase(userRepository, errorHandler)
+    }
 }

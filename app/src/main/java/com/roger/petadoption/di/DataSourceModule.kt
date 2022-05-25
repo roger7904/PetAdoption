@@ -2,6 +2,8 @@ package com.roger.petadoption.di
 
 import com.roger.data.data_source.pet.PetRemoteDataSource
 import com.roger.data.data_source.pet.PetRemoteDataSourceImpl
+import com.roger.data.data_source.user.UserDataSource
+import com.roger.data.data_source.user.UserLocalDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,4 +14,7 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataSourceModule {
     @Binds
     abstract fun bindPetRemoteDataSource(petRemoteDataSourceImpl: PetRemoteDataSourceImpl): PetRemoteDataSource
+
+    @Binds
+    abstract fun bindUserLocalDataSource(userLocalDataSource: UserLocalDataSource): UserDataSource.Local
 }
