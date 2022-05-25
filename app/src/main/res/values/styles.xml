@@ -101,4 +101,25 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
     </style>
+
+    <!--TextInput-->
+    <style name="TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="boxBackgroundColor">@color/til_box_bg_color</item>
+        <item name="boxStrokeColor">@color/til_box_stroke_color</item>
+        <item name="boxStrokeErrorColor">@color/functional_error</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Rounded_16</item>
+    </style>
+
+    <style name="TextInput.password">
+        <item name="endIconMode">password_toggle</item>
+        <item name="endIconTint">@null</item>
+    </style>
+
+    <style name="TextInputTextView">
+        <item name="android:textColor">@color/colorNeutral_N1_primary_text</item>
+        <item name="android:textColorHint">@color/til_boxStroke</item>
+    </style>
 </resources>
