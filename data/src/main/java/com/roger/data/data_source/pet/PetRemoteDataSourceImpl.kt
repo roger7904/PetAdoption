@@ -10,6 +10,6 @@ class PetRemoteDataSourceImpl @Inject constructor(private val petApiService: Pet
     PetRemoteDataSource {
 
     override fun getPetInfo(): Single<ApiResult<List<PetDto>>> {
-        return petApiService.getPetInfo()
+        return petApiService.getPetInfo(10, 0, null, null)
     }
 }
