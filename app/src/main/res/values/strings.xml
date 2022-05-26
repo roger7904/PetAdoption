@@ -35,6 +35,9 @@
     <string name="sign_in_authentication_failed">Authentication failed</string>
     <string name="sign_in_account_already_exists">An account may already exists with the same email address</string>
 
+    <!-- Home -->
+    <string name="home_pet_empty">找無資料，請更改篩選條件</string>
+
     <!-- Profile -->
     <string name="profile_info">個人資料</string>
     <string name="profile_version">版本紀錄</string>
