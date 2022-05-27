@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoption">
         <activity
+            android:name=".ui.main.home.PetDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.main.profile.EditProfileActivity"
             android:exported="true" />
         <activity

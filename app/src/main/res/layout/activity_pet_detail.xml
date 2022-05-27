@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_home_holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlue_BL1"
+    tools:context=".ui.main.home.PetDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/ctb_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expandedTitleGravity="top"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_home"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:background="@color/colorPrimary"
+                app:layout_collapseMode="pin" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="1.0">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_close"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    app:cardCornerRadius="@dimen/dp_10">
+
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_left_arrow" />
+
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_300"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pet" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_variety"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="混種狗"
+                        android:textAppearance="@style/TextAppearance.H4"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:src="@drawable/ic_female"
+                        app:layout_constraintStart_toEndOf="@id/tv_variety"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="桃園市新屋區"
+                        android:textAppearance="@style/TextAppearance.P2"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_variety" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_favorite"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    app:cardCornerRadius="@dimen/dp_25">
+
+                    <ImageView
+                        android:id="@+id/iv_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_favorite" />
+
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlue_BL1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_12"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_3">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/ll_state"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toStartOf="@+id/ll_gender"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_state"
+                                android:layout_width="@dimen/dp_60"
+                                android:layout_height="@dimen/dp_60"
+                                android:layout_marginTop="@dimen/dp_20"
+                                app:cardCornerRadius="@dimen/dp_25">
+
+                                <ImageView
+                                    android:id="@+id/iv_state"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_state" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_state"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_8"
+                                android:layout_marginBottom="@dimen/dp_20"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="@string/home_pet_state_pos"
+                                android:textAppearance="@style/TextAppearance.P3"
+                                android:textColor="@color/colorNeutral_N1_primary_text" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toStartOf="@+id/ll_color"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/ll_state"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_gender"
+                                android:layout_width="@dimen/dp_60"
+                                android:layout_height="@dimen/dp_60"
+                                android:layout_marginTop="@dimen/dp_20"
+                                app:cardCornerRadius="@dimen/dp_25">
+
+                                <ImageView
+                                    android:id="@+id/iv_gender2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_female" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_gender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_8"
+                                android:layout_marginBottom="@dimen/dp_20"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="@string/female"
+                                android:textAppearance="@style/TextAppearance.P3"
+                                android:textColor="@color/colorNeutral_N1_primary_text" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/ll_gender"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_color"
+                                android:layout_width="@dimen/dp_60"
+                                android:layout_height="@dimen/dp_60"
+                                android:layout_marginTop="@dimen/dp_20"
+                                app:cardCornerRadius="@dimen/dp_25">
+
+                                <ImageView
+                                    android:id="@+id/iv_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_color" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_color"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_8"
+                                android:layout_marginBottom="@dimen/dp_20"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="黑色"
+                                android:textAppearance="@style/TextAppearance.P3"
+                                android:textColor="@color/colorNeutral_N1_primary_text" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_12"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_title"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="臺北市動物之家"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_mobile_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_mobile"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_mobile_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="02-22503838"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_address_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_address"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_address_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginBottom="@dimen/dp_12"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="臺北市內湖區安美街191號"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_12"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_title"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_content2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="臺北市動物之家"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_mobile_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_mobile"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_mobile_content2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="02-22503838"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_address_title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_shelter_address"
+                            android:textAppearance="@style/TextAppearance.H4"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_shelter_address_content2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginBottom="@dimen/dp_12"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="臺北市內湖區安美街191號"
+                            android:textAppearance="@style/TextAppearance.P3"
+                            android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
