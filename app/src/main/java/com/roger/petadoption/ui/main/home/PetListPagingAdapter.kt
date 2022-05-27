@@ -10,7 +10,9 @@ import com.roger.domain.entity.pet.PetEntity
 import com.roger.petadoption.R
 import com.roger.petadoption.databinding.ItemPetInfoBinding
 
-class PetListPagingAdapter() : PagingDataAdapter<PetEntity, PetListPagingAdapter.ViewHolder>(
+class PetListPagingAdapter(
+    private val clickEvent: ((petEntity: PetEntity) -> Unit),
+) : PagingDataAdapter<PetEntity, PetListPagingAdapter.ViewHolder>(
     DiffCallback
 ) {
 
@@ -33,7 +35,8 @@ class PetListPagingAdapter() : PagingDataAdapter<PetEntity, PetListPagingAdapter
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-
+                val pet = getItem(bindingAdapterPosition) ?: return@setOnClickListener
+                clickEvent.invoke(pet)
             }
         }
 

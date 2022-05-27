@@ -4,5 +4,11 @@ import com.roger.data.dto.pet.PetDto
 import io.reactivex.rxjava3.core.Single
 
 interface PetRemoteDataSource {
-    fun getPetInfo(): Single<List<PetDto>>
+    fun getPetInfo(
+        animalId: Int?,
+        top: Int?,
+        skip: Int?,
+        animalKind: String?,
+        animalSex: String?,
+    ): Single<List<PetDto>>
 }

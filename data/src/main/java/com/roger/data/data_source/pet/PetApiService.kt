@@ -9,6 +9,7 @@ interface PetApiService {
 
     @GET(endpoint)
     fun getPetInfo(
+        @Query("animal_id") animal_id: Int?,
         @Query("\$top") top: Int?,
         @Query("\$skip") skip: Int?,
         @Query("animal_kind") animal_kind: String?,

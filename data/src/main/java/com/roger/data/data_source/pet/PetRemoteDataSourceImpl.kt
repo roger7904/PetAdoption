@@ -8,7 +8,19 @@ import javax.inject.Inject
 class PetRemoteDataSourceImpl @Inject constructor(private val petApiService: PetApiService) :
     PetRemoteDataSource {
 
-    override fun getPetInfo(): Single<List<PetDto>> {
-        return petApiService.getPetInfo(10, 10, "貓", "M")
+    override fun getPetInfo(
+        animalId: Int?,
+        top: Int?,
+        skip: Int?,
+        animalKind: String?,
+        animalSex: String?,
+    ): Single<List<PetDto>> {
+        return petApiService.getPetInfo(
+            animal_id = animalId,
+            top = top,
+            skip = skip,
+            animal_kind = animalKind,
+            animal_sex = animalSex
+        )
     }
 }
