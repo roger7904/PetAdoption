@@ -11,25 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_info"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            app:cardCornerRadius="@dimen/dp_25"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_info"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_info" />
-
-        </androidx.cardview.widget.CardView>
-
         <ImageView
             android:id="@+id/iv_cover"
             android:layout_width="match_parent"
