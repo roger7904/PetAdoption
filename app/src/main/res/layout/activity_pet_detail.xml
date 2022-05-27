@@ -279,6 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_12"
+                    app:cardBackgroundColor="@color/colorBlue_BL1"
                     app:cardCornerRadius="@dimen/dp_10"
                     app:cardElevation="@dimen/dp_3">
 
@@ -286,6 +287,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                app:srcCompat="@drawable/ic_shelter" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_shelter"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:text="@string/home_shelter_info"
+                                android:textAppearance="@style/TextAppearance.H4"
+                                android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        </LinearLayout>
+
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_shelter_title"
@@ -368,6 +394,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    app:cardBackgroundColor="@color/colorRed_R1_background"
                     app:cardCornerRadius="@dimen/dp_10"
                     app:cardElevation="@dimen/dp_3">
 
@@ -376,76 +404,75 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                app:srcCompat="@drawable/ic_common_info" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_common_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:text="@string/home_pet_common_info"
+                                android:textAppearance="@style/TextAppearance.H4"
+                                android:textColor="@color/colorNeutral_N1_primary_text" />
+
+                        </LinearLayout>
+
+
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_title2"
+                            android:id="@+id/tv_update_time_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"
                             android:layout_marginTop="@dimen/dp_16"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="@string/home_shelter_title"
+                            android:text="@string/home_pet_update_time_title"
                             android:textAppearance="@style/TextAppearance.H4"
                             android:textColor="@color/colorNeutral_N1_primary_text" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_content2"
+                            android:id="@+id/tv_update_time_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"
                             android:layout_marginTop="@dimen/dp_16"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="臺北市動物之家"
+                            android:text="2022/04/29"
                             android:textAppearance="@style/TextAppearance.P3"
                             android:textColor="@color/colorNeutral_N1_primary_text" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_mobile_title2"
+                            android:id="@+id/tv_remark_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"
                             android:layout_marginTop="@dimen/dp_16"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="@string/home_shelter_mobile"
+                            android:text="@string/home_pet_remark_title"
                             android:textAppearance="@style/TextAppearance.H4"
                             android:textColor="@color/colorNeutral_N1_primary_text" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_mobile_content2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="02-22503838"
-                            android:textAppearance="@style/TextAppearance.P3"
-                            android:textColor="@color/colorNeutral_N1_primary_text" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_address_title2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="@string/home_shelter_address"
-                            android:textAppearance="@style/TextAppearance.H4"
-                            android:textColor="@color/colorNeutral_N1_primary_text" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_shelter_address_content2"
+                            android:id="@+id/tv_remark_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"
                             android:layout_marginTop="@dimen/dp_16"
                             android:layout_marginBottom="@dimen/dp_12"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="臺北市內湖區安美街191號"
+                            android:text="本站動物皆採現場互動面談後評估能否認養 不接受系統上的預約"
                             android:textAppearance="@style/TextAppearance.P3"
                             android:textColor="@color/colorNeutral_N1_primary_text" />
 

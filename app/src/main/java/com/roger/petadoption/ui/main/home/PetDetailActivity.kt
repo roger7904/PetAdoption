@@ -24,6 +24,10 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.run {
+            cvClose.setOnClickListener {
+                onBackPressed()
+            }
+
             viewModel.petInfo.observe(this@PetDetailActivity) {
                 Glide.with(this@PetDetailActivity)
                     .load(it.albumFile)
@@ -43,6 +47,9 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
                 tvShelterContent.text = it.shelterName
                 tvShelterAddressContent.text = it.shelterAddress
                 tvShelterMobileContent.text = it.shelterTel
+                tvUpdateTimeContent.text = it.infoUpdateTime
+                tvRemarkContent.text =
+                    if (it.remark.isNullOrEmpty()) getString(R.string.home_pet_remark_title) else it.remark
             }
         }
     }
