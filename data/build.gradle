@@ -100,4 +100,9 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-rxjava3:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
+
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-rxjava3:3.1.1"
+    implementation "androidx.paging:paging-guava:3.1.1"
 }

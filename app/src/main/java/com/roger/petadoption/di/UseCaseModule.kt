@@ -3,6 +3,7 @@ package com.roger.petadoption.di
 import com.roger.domain.common.ErrorHandler
 import com.roger.domain.repository.pet.PetRepository
 import com.roger.domain.repository.user.UserRepository
+import com.roger.domain.use_case.pet.GetPagingPetListUseCase
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
 import com.roger.domain.use_case.user.GetUserUseCase
 import com.roger.domain.use_case.user.InitUserUseCase
@@ -45,5 +46,13 @@ object UseCaseModule {
         errorHandler: ErrorHandler,
     ): GetUserUseCase {
         return GetUserUseCase(userRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetPagingPetListUseCase(
+        petRepository: PetRepository,
+        errorHandler: ErrorHandler
+    ): GetPagingPetListUseCase {
+        return GetPagingPetListUseCase(petRepository, errorHandler)
     }
 }

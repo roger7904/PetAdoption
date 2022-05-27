@@ -2,12 +2,10 @@
 <resources>
     <color name="colorPrimary">@color/colorBlue_BL3_action</color>
     <color name="colorPrimary_pressed">@color/colorBlue_BL5_pressed</color>
+    <color name="white">@color/colorWhite_W100_highlight</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="white_gray">#F1F1F1</color>
-    <color name="light_blue">#94CBFF</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="home_background">#FFFEFA</color>
 
     <color name="colorNeutral_N7_form_bg">#F8F9FC</color>
     <color name="colorNeutral_N6_background">#F3F5F9</color>
@@ -17,19 +15,18 @@
     <color name="colorNeutral_N2_secondary_text">#475161</color>
     <color name="colorNeutral_N1_primary_text">#1B212B</color>
 
-    <color name="colorBlue_BL1">#F1F9FF</color>
-    <color name="colorBlue_BL2">#C0E1FF</color>
-    <color name="colorBlue_BL3_action">#0FA9DE</color>
-    <color name="colorBlue_BL5_pressed">#007CA3</color>
-    <color name="colorBlue_BL6_image">#016D8F</color>
+    <color name="colorBlue_BL1">#EBF4FF</color>
+    <color name="colorBlue_BL2">#C9E2FF</color>
+    <color name="colorBlue_BL3_action">#0057B8</color>
+    <color name="colorBlue_BL5_pressed">#003f85</color>
     <color name="colorBlue_checked_stroke">@color/colorBlue_BL2</color>
     <color name="colorBlue_checked_bg">@color/colorBlue_BL1</color>
 
-    <color name="colorYellow_Y1_background">#FFF8E1</color>
-    <color name="colorYellow_Y3_brand">#FFC42E</color>
-    <color name="colorYellow_Y5_pressed">#E39600</color>
+    <color name="colorYellow_Y1_background">#FEF9D1</color>
+    <color name="colorYellow_Y3_brand">#F7DA00</color>
+    <color name="colorYellow_Y5_pressed">#DFAE00</color>
 
-    <color name="colorRed_R1_background">#FFEFEF</color>
+    <color name="colorRed_R1_background">#FDE3DB</color>
     <color name="colorRed_R3">#F36161</color>
     <color name="colorRed_R5">#AC3737</color>
 
@@ -47,7 +44,7 @@
     <color name="colorWhite_W38_dark_disabled">#66FFFFFF</color>
     <color name="colorWhite_W68_secondary_text">#99FFFFFF</color>
     <color name="colorWhite_W87_primary_text">#E6FFFFFF</color>
-    <color name="colorWhite_W100_highlight">#FFFFFF</color>
+    <color name="colorWhite_W100_highlight">#FFFFFFFF</color>
 
     <color name="til_boxStroke_focused">@color/colorBlue_checked_stroke</color>
     <color name="til_boxStroke_disabled">@color/colorNeutral_N5_div</color>
