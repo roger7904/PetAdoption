@@ -22,7 +22,7 @@ class PetRepositoryImpl @Inject constructor(
 ) : PetRepository {
     override fun getPetInfo(): Single<List<PetEntity>> {
         return petRemoteDataSource.getPetInfo().map { list ->
-            list.data?.map {
+            list.map {
                 petMapper.toEntity(it)
             }
         }
@@ -31,7 +31,7 @@ class PetRepositoryImpl @Inject constructor(
     override fun getPetInfoPagingData(param: GetPagingPetListUseCase.Param): Flowable<PagingData<PetEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 12,
+                pageSize = 10,
             ),
             pagingSourceFactory = {
                 PetListPagingSource(petApiService, petMapper, param)

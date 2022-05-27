@@ -25,14 +25,14 @@ class PetListPagingSource @Inject constructor(
         val position = params.key ?: 1
         val pageMapper = PageMapper.getPage(position)
         return petApiService
-            .getPetInfo(pageMapper.top, pageMapper.skip, null, null)
+            .getPetInfo(pageMapper.top, pageMapper.skip, param.animalKind, param.animalSex)
             .subscribeOn(Schedulers.io())
             .map<LoadResult<Int, PetEntity>> { result ->
-                val entityList = result.data?.map {
+                val entityList = result.map {
                     petMapper.toEntity(it)
                 }
                 LoadResult.Page(
-                    data = entityList ?: emptyList(),
+                    data = entityList,
                     prevKey = if (position == 1) null else position - 1,
                     nextKey = if (position == pageMapper.total) null else position + 1
                 )
