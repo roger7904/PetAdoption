@@ -12,8 +12,7 @@ class ErrorHandlerImpl @Inject constructor(private val gson: Gson) : ErrorHandle
 
     override fun parseError(statusCode: Int, message: String?, data: Any?): DomainError {
         return when (statusCode) {
-            // handle status code
-            else -> DomainError.CommonError(message)
+            else -> DomainError.CommonError(statusCode, message)
         }
     }
 
@@ -39,7 +38,7 @@ class ErrorHandlerImpl @Inject constructor(private val gson: Gson) : ErrorHandle
                     DomainError.UnknownError(httpException, httpStatusCode)
 
                 else ->
-                    DomainError.CommonError(message)
+                    DomainError.CommonError(httpStatusCode, message)
             }
         } catch (e: Exception) {
             DomainError.UnknownError(httpException)
