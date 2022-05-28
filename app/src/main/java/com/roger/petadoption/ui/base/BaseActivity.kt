@@ -31,6 +31,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         private set
     private var toast: Toast? = null
     private var progressBar: View? = null
+    private val loadDialog = LoadDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +125,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     protected open fun handleViewEvent(event: ViewEvent) {
         when (event) {
             is ViewEvent.Loading -> {
+                showDialog(loadDialog)
                 progressBar?.run {
                     setBackgroundColor(
                         ContextCompat.getColor(this@BaseActivity, R.color.transparent)
@@ -133,6 +135,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
 
             is ViewEvent.Done -> {
+                dismissDialog(loadDialog)
                 progressBar?.isVisible = false
             }
 

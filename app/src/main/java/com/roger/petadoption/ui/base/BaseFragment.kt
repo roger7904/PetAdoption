@@ -30,6 +30,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var onBackPressedCallback: OnBackPressedCallback? = null
     private var toast: Toast? = null
     private var progressBar: View? = null
+    private val loadDialog = LoadDialogFragment()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -95,6 +96,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open fun handleViewEvent(event: ViewEvent) {
         when (event) {
             is ViewEvent.Loading -> {
+                showDialog(loadDialog)
                 progressBar?.run {
                     setBackgroundColor(
                         ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -104,6 +106,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             }
 
             is ViewEvent.Done -> {
+                dismissDialog(loadDialog)
                 progressBar?.isVisible = false
             }
 
