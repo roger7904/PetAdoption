@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewbinding.ViewBinding
 import com.roger.petadoption.R
+import com.roger.petadoption.utils.toPx
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 
@@ -30,6 +32,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var onBackPressedCallback: OnBackPressedCallback? = null
     private var toast: Toast? = null
     private var progressBar: View? = null
+    private val loadDialog = LoadDialogFragment()
+    protected var toolbar: Toolbar? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,6 +65,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = view.findViewById(R.id.progressBar)
+        toolbar = view.findViewById<Toolbar>(R.id.tb_default)?.apply { setActionBar(this) }
         getViewModel()?.subscribeViewEvent(this::handleViewEvent)?.addTo(compositeDisposable)
         initView(savedInstanceState)
     }
@@ -95,6 +100,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open fun handleViewEvent(event: ViewEvent) {
         when (event) {
             is ViewEvent.Loading -> {
+                showDialog(loadDialog)
                 progressBar?.run {
                     setBackgroundColor(
                         ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -104,6 +110,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             }
 
             is ViewEvent.Done -> {
+                dismissDialog(loadDialog)
                 progressBar?.isVisible = false
             }
 
@@ -114,6 +121,36 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             is ViewEvent.UnknownError -> {
                 val errMsg = event.error?.message ?: getString(R.string.unknown_error)
                 Toast.makeText(requireContext(), errMsg, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    protected fun setActionBar(
+        toolbar: Toolbar? = null,
+        @StringRes titleId: Int? = null,
+        title: String? = null,
+        showBackButton: Boolean? = null
+    ) {
+        (activity as? AppCompatActivity)?.run {
+            if (toolbar != null) {
+                setSupportActionBar(toolbar)
+            }
+            val actionBarTitle = when {
+                titleId != null -> getString(titleId)
+                title != null -> title
+                else -> null
+            }
+            supportActionBar?.run {
+                if (actionBarTitle != null) {
+                    this.title = actionBarTitle
+                } else this.title = ""
+                if (showBackButton != null) {
+                    this@BaseFragment.toolbar?.setContentInsetsRelative(
+                        0,
+                        if (showBackButton) 72.toPx(requireContext()).toInt() else 0
+                    )
+                    setDisplayHomeAsUpEnabled(showBackButton)
+                }
             }
         }
     }
