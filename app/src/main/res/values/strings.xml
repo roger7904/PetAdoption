@@ -50,6 +50,13 @@
     <string name="home_pet_state_pos">可領養</string>
     <string name="home_pet_state_neg">已被領養</string>
 
+    <!-- Filter -->
+    <string name="filter_btn">篩選</string>
+    <string name="filter_type">寵物種類</string>
+    <string name="filter_gender">性別</string>
+    <string name="filter_body_type">體型</string>
+    <string name="filter_color">顏色</string>
+
     <!-- Profile -->
     <string name="profile_info">個人資料</string>
     <string name="profile_version">版本紀錄</string>

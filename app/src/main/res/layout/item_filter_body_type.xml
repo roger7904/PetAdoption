@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:src="@drawable/ic_color" />
+        tools:src="@drawable/ic_body_type_big" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_body_type"
@@ -33,5 +33,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/iv_body_type"
         app:layout_constraintTop_toBottomOf="@+id/iv_body_type"
-        tools:text="黑色" />
+        tools:text="大" />
 </com.roger.petadoption.utils.custom_view.CheckableConstraintLayout>
