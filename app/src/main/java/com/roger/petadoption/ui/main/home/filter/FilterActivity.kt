@@ -13,6 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class FilterActivity : BaseActivity<ActivityFilterBinding>() {
 
     private val viewModel: FilterViewModel by viewModels()
+    private var typeAdapter: FilterTypeAdapter? = null
+    private var genderAdapter: FilterGenderAdapter? = null
+    private var bodyTypeAdapter: FilterBodyTypeAdapter? = null
+    private var colorAdapter: FilterColorAdapter? = null
 
     override fun initParam(data: Bundle) {
     }
