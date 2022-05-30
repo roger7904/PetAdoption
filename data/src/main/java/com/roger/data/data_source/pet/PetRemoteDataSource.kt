@@ -10,5 +10,7 @@ interface PetRemoteDataSource {
         skip: Int?,
         animalKind: String?,
         animalSex: String?,
+        animalBodyType: String?,
+        animalColor: String?,
     ): Single<List<PetDto>>
 }

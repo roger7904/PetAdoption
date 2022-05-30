@@ -14,13 +14,17 @@ class PetRemoteDataSourceImpl @Inject constructor(private val petApiService: Pet
         skip: Int?,
         animalKind: String?,
         animalSex: String?,
+        animalBodyType: String?,
+        animalColor: String?,
     ): Single<List<PetDto>> {
         return petApiService.getPetInfo(
             animal_id = animalId,
             top = top,
             skip = skip,
             animal_kind = animalKind,
-            animal_sex = animalSex
+            animal_sex = animalSex,
+            animal_bodytype = animalBodyType,
+            animal_colour = animalColor
         )
     }
 }

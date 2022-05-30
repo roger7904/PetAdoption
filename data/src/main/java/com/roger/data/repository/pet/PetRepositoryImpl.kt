@@ -28,7 +28,9 @@ class PetRepositoryImpl @Inject constructor(
             param.top,
             param.skip,
             param.animalKind,
-            param.animalSex
+            param.animalSex,
+            param.animalBodyType,
+            param.animalColour
         ).map { list ->
             list.map {
                 petMapper.toEntity(it)
