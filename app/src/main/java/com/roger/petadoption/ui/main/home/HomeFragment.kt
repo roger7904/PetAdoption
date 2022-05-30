@@ -31,6 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                viewModel.setType(result.data?.getParcelableExtra(FilterActivity.ARG_TYPE))
+                viewModel.setGender(result.data?.getParcelableExtra(FilterActivity.ARG_GENDER))
+                viewModel.setBodyType(result.data?.getParcelableExtra(FilterActivity.ARG_BODY_TYPE))
+                viewModel.setColor(result.data?.getParcelableExtra(FilterActivity.ARG_COLOR))
                 viewModel.getFilterPagingList()
             }
         }

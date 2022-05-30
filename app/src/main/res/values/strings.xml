@@ -51,6 +51,7 @@
     <string name="home_pet_state_neg">已被領養</string>
 
     <!-- Filter -->
+    <string name="filter_title">篩選</string>
     <string name="filter_btn">篩選</string>
     <string name="filter_type">寵物種類</string>
     <string name="filter_gender">性別</string>

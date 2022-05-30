@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.roger.petadoption.databinding.ItemFilterColorBinding
 
-class FilterColorAdapter(val clickEvent: (FilterColor) -> Unit) :
+class FilterColorAdapter(val clickEvent: (FilterColor?) -> Unit) :
     ListAdapter<FilterColor, FilterColorAdapter.ViewHolder>(DiffCallback) {
 
     var selectionType: FilterColor? = null
@@ -32,12 +32,13 @@ class FilterColorAdapter(val clickEvent: (FilterColor) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                val type = currentList[bindingAdapterPosition] ?: return@setOnClickListener
-                clickEvent.invoke(type)
-                selectionType = if (binding.root.isChecked) {
-                    null
+                val color = currentList[bindingAdapterPosition] ?: return@setOnClickListener
+                if (binding.root.isChecked) {
+                    selectionType = null
+                    clickEvent.invoke(null)
                 } else {
-                    type
+                    selectionType = color
+                    clickEvent.invoke(color)
                 }
             }
         }

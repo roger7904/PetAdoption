@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.roger.petadoption.databinding.ItemFilterBodyTypeBinding
 
-class FilterBodyTypeAdapter(val clickEvent: (FilterBodyType) -> Unit) :
+class FilterBodyTypeAdapter(val clickEvent: (FilterBodyType?) -> Unit) :
     ListAdapter<FilterBodyType, FilterBodyTypeAdapter.ViewHolder>(DiffCallback) {
 
     var selectionType: FilterBodyType? = null
@@ -32,12 +32,13 @@ class FilterBodyTypeAdapter(val clickEvent: (FilterBodyType) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                val type = currentList[bindingAdapterPosition] ?: return@setOnClickListener
-                clickEvent.invoke(type)
-                selectionType = if (binding.root.isChecked) {
-                    null
+                val bodyType = currentList[bindingAdapterPosition] ?: return@setOnClickListener
+                if (binding.root.isChecked) {
+                    selectionType = null
+                    clickEvent.invoke(null)
                 } else {
-                    type
+                    selectionType = bodyType
+                    clickEvent.invoke(bodyType)
                 }
             }
         }
@@ -46,7 +47,8 @@ class FilterBodyTypeAdapter(val clickEvent: (FilterBodyType) -> Unit) :
             val context = itemView.context
             binding.run {
                 tvBodyType.text = value.content
-                ivBodyType.setImageDrawable(AppCompatResources.getDrawable(context, value.iconResId))
+                ivBodyType.setImageDrawable(AppCompatResources.getDrawable(context,
+                    value.iconResId))
                 root.isChecked = selectionType == value
             }
         }

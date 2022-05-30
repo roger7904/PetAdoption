@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.roger.petadoption.databinding.ItemFilterTypeBinding
 
-class FilterTypeAdapter(val clickEvent: (FilterType) -> Unit) :
+class FilterTypeAdapter(val clickEvent: (FilterType?) -> Unit) :
     ListAdapter<FilterType, FilterTypeAdapter.ViewHolder>(DiffCallback) {
 
     var selectionType: FilterType? = null
@@ -33,11 +33,12 @@ class FilterTypeAdapter(val clickEvent: (FilterType) -> Unit) :
         init {
             binding.root.setOnClickListener {
                 val type = currentList[bindingAdapterPosition] ?: return@setOnClickListener
-                clickEvent.invoke(type)
-                selectionType = if (binding.root.isChecked) {
-                    null
+                if (binding.root.isChecked) {
+                    selectionType = null
+                    clickEvent.invoke(null)
                 } else {
-                    type
+                    selectionType = type
+                    clickEvent.invoke(type)
                 }
             }
         }

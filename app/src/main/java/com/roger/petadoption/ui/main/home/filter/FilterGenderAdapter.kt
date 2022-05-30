@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.roger.petadoption.databinding.ItemFilterGenderBinding
 
-class FilterGenderAdapter(val clickEvent: (FilterGender) -> Unit) :
+class FilterGenderAdapter(val clickEvent: (FilterGender?) -> Unit) :
     ListAdapter<FilterGender, FilterGenderAdapter.ViewHolder>(DiffCallback) {
 
     var selectionType: FilterGender? = null
@@ -32,12 +32,13 @@ class FilterGenderAdapter(val clickEvent: (FilterGender) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                val type = currentList[bindingAdapterPosition] ?: return@setOnClickListener
-                clickEvent.invoke(type)
-                selectionType = if (binding.root.isChecked) {
-                    null
+                val gender = currentList[bindingAdapterPosition] ?: return@setOnClickListener
+                if (binding.root.isChecked) {
+                    selectionType = null
+                    clickEvent.invoke(null)
                 } else {
-                    type
+                    selectionType = gender
+                    clickEvent.invoke(gender)
                 }
             }
         }
