@@ -14,6 +14,8 @@ interface PetApiService {
         @Query("\$skip") skip: Int?,
         @Query("animal_kind") animal_kind: String?,
         @Query("animal_sex") animal_sex: String?,
+        @Query("animal_bodytype") animal_bodytype: String?,
+        @Query("animal_colour") animal_colour: String?,
     ): Single<List<PetDto>>
 
     companion object {

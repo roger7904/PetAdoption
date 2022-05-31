@@ -141,4 +141,40 @@
     <style name="ToolbarTitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textAppearance">@style/TextAppearance.H4</item>
     </style>
+
+    <!--Button-->
+    <style name="BaseTextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="PrimaryButton" parent="BaseTextButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Rounded_16</item>
+        <item name="backgroundTint">@color/btn_primary_background_color</item>
+        <item name="android:textColor">@color/btn_primary_text_color</item>
+    </style>
+
+    <style name="PrimaryButton.Large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.H5</item>
+    </style>
+
+    <style name="SecondaryButton" parent="BaseTextButton">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Rounded_16</item>
+        <item name="backgroundTint">@color/btn_secondary_background_color</item>
+        <item name="android:textColor">@color/btn_secondary_text_color</item>
+    </style>
+
+    <style name="SecondaryButton.Large">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.H5</item>
+    </style>
 </resources>

@@ -21,5 +21,7 @@ class GetPetInfoUseCase(
         val skip: Int?,
         val animalKind: String?,
         val animalSex: String?,
+        val animalBodyType: String?,
+        val animalColour: String?
     )
 }

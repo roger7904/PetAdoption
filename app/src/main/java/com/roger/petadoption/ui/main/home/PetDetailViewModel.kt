@@ -26,7 +26,9 @@ class PetDetailViewModel @Inject constructor(
             top = null,
             skip = null,
             animalKind = null,
-            animalSex = null
+            animalSex = null,
+            animalBodyType = null,
+            animalColour = null
         )
 
         getPetInfoUseCase(param).sub {

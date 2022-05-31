@@ -50,6 +50,40 @@
     <string name="home_pet_state_pos">可領養</string>
     <string name="home_pet_state_neg">已被領養</string>
 
+    <!-- Filter -->
+    <string name="filter_title">篩選</string>
+    <string name="filter_btn">篩選</string>
+    <string name="filter_type">寵物種類</string>
+    <string name="filter_gender">性別</string>
+    <string name="filter_body_type">體型</string>
+    <string name="filter_color">顏色</string>
+
+    <!-- FilterType -->
+    <string name="filter_type_cat">貓貓</string>
+    <string name="filter_type_dog">狗狗</string>
+    <string name="filter_type_casual">不拘</string>
+
+    <!-- FilterGender -->
+    <string name="filter_gender_male">男生</string>
+    <string name="filter_gender_female">女生</string>
+    <string name="filter_gender_casual">不拘</string>
+
+    <!-- FilterBodyType -->
+    <string name="filter_body_type_small">小</string>
+    <string name="filter_body_type_medium">中</string>
+    <string name="filter_body_type_big">大</string>
+
+    <!-- FilterColor -->
+    <string name="filter_color_coffee">咖啡色</string>
+    <string name="filter_color_yellow">黃色</string>
+    <string name="filter_color_tabby">虎斑色</string>
+    <string name="filter_color_black">黑色</string>
+    <string name="filter_color_brown">棕色</string>
+    <string name="filter_color_white">白色</string>
+    <string name="filter_color_tortoiseshell">玳瑁色</string>
+    <string name="filter_color_beige">米色</string>
+    <string name="filter_color_casual">不拘</string>
+
     <!-- Profile -->
     <string name="profile_info">個人資料</string>
     <string name="profile_version">版本紀錄</string>

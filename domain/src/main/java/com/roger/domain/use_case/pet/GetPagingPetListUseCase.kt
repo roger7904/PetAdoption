@@ -18,6 +18,8 @@ class GetPagingPetListUseCase(
 
     data class Param(
         val animalKind: String?,
-        val animalSex: String?
+        val animalSex: String?,
+        val animalBodyType: String?,
+        val animalColour: String?
     )
 }
