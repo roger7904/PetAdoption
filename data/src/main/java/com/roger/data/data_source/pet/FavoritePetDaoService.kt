@@ -16,7 +16,7 @@ interface FavoritePetDaoService {
                 " WHERE ${FavoritePetModel.COL_USER_ID} = :userId" +
                 " AND ${FavoritePetModel.COL_PET_ID} = :petId"
     )
-    fun deleteFavoritePet(userId: String, petId: String): Completable
+    fun deleteFavoritePet(userId: String, petId: Int): Completable
 
     @Query(
         "SELECT * FROM ${DatabaseManager.TABLE_FAVORITE_PET}" +

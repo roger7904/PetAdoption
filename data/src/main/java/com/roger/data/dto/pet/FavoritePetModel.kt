@@ -7,15 +7,15 @@ import com.roger.data.local_storage.DatabaseManager
 
 @Entity(tableName = DatabaseManager.TABLE_FAVORITE_PET)
 data class FavoritePetModel(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = COL_ID)
-    val id: Int,
+    val id: String,
 
     @ColumnInfo(name = COL_USER_ID)
     var userId: String,
 
     @ColumnInfo(name = COL_PET_ID)
-    var petId: Int?,
+    var petId: Int,
 ) {
     companion object {
         const val COL_ID = "id"
