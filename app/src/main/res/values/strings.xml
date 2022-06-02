@@ -49,6 +49,8 @@
     <string name="home_pet_remark_title">備註</string>
     <string name="home_pet_state_pos">可領養</string>
     <string name="home_pet_state_neg">已被領養</string>
+    <string name="home_set_favorite_success">已加入收藏</string>
+    <string name="home_set_not_favorite_success">已刪除收藏</string>
 
     <!-- Filter -->
     <string name="filter_title">篩選</string>

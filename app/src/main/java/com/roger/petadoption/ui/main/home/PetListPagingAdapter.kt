@@ -12,6 +12,8 @@ import com.roger.petadoption.databinding.ItemPetInfoBinding
 
 class PetListPagingAdapter(
     private val clickEvent: ((petEntity: PetEntity) -> Unit),
+    private val favoriteEvent: ((petEntity: PetEntity) -> Unit),
+    private val closeEvent: ((position: Int) -> Unit),
 ) : PagingDataAdapter<PetEntity, PetListPagingAdapter.ViewHolder>(
     DiffCallback
 ) {
@@ -49,6 +51,15 @@ class PetListPagingAdapter(
                 tvVariety.text = value.variety
                 tvLocation.text = value.petPlace
                 ivGender.setImageResource(if (value.sex == "M") R.drawable.ic_male else R.drawable.ic_female)
+
+                cvFavorite.setOnClickListener {
+                    val pet = getItem(bindingAdapterPosition) ?: return@setOnClickListener
+                    favoriteEvent.invoke(pet)
+                }
+
+                cvClose.setOnClickListener {
+                    closeEvent.invoke(bindingAdapterPosition)
+                }
             }
         }
     }

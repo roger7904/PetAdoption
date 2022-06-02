@@ -10,10 +10,11 @@
         android:id="@+id/cv_filter"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_60"
+        android:layout_gravity="end"
         android:layout_marginStart="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_12"
         android:layout_marginEnd="@dimen/dp_12"
-        android:layout_gravity="end"
+        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/dp_10">
 
         <LinearLayout
@@ -25,8 +26,8 @@
                 android:id="@+id/iv_info"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="@dimen/dp_6"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_6"
                 android:src="@drawable/ic_filter" />
 
             <com.google.android.material.textview.MaterialTextView

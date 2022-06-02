@@ -10,24 +10,19 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
+import com.roger.domain.entity.pet.PetEntity
 import com.roger.petadoption.databinding.FragmentHomeBinding
 import com.roger.petadoption.ui.base.BaseFragment
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.main.home.filter.FilterActivity
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
-    private val petListPagingAdapter: PetListPagingAdapter by lazy {
-        PetListPagingAdapter { petEntity ->
-            val intent = Intent(activity, PetDetailActivity::class.java).apply {
-                putExtra(PetDetailActivity.ARG_PET_ID, petEntity.id)
-            }
-            startActivity(intent)
-        }
-    }
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -38,6 +33,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 viewModel.getFilterPagingList()
             }
         }
+    private val detailLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                if (result.data?.getBooleanExtra(ARG_IS_SET_FAVORITE, true) == true) {
+                    viewModel.getFavoritePetList()
+                }
+            }
+        }
+    private val petListPagingAdapter: PetListPagingAdapter by lazy {
+        PetListPagingAdapter(
+            ::rvItemClickEvent,
+            ::rvItemFavoriteClickEvent,
+            ::rvItemCloseClickEvent
+        )
+    }
 
     override fun initParam(data: Bundle) {
     }
@@ -86,7 +96,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    private fun rvItemClickEvent(petEntity: PetEntity) {
+        val intent = Intent(activity, PetDetailActivity::class.java).apply {
+            putExtra(PetDetailActivity.ARG_PET_ID, petEntity.id)
+        }
+        detailLauncher.launch(intent)
+    }
+
+    private fun rvItemFavoriteClickEvent(petEntity: PetEntity) {
+        viewModel.insertFavoritePet(petEntity.id ?: 0)
+        petListPagingAdapter.refresh()
+    }
+
+    private fun rvItemCloseClickEvent(position: Int) {
+        val smoothScroller: SmoothScroller = object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
+        }
+        smoothScroller.targetPosition = position + 1
+        binding?.rvPetList?.layoutManager?.startSmoothScroll(smoothScroller)
+    }
+
     companion object {
+        const val ARG_IS_SET_FAVORITE = "is_set_favorite"
+
         @JvmStatic
         fun newInstance() = HomeFragment().apply {
             arguments = Bundle().apply {

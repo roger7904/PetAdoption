@@ -9,7 +9,7 @@ import com.roger.data.local_storage.DatabaseManager
 data class FavoritePetModel(
     @PrimaryKey
     @ColumnInfo(name = COL_ID)
-    val id: String,
+    var id: String,
 
     @ColumnInfo(name = COL_USER_ID)
     var userId: String,

@@ -17,6 +17,6 @@ class InsertFavoritePetUseCase(
     data class Param(
         val id: String,
         val userId: String,
-        val petId: Int,
+        val petId: Int
     )
 }
