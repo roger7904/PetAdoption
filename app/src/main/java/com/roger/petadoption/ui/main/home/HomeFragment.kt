@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import com.roger.domain.entity.pet.PetEntity
@@ -18,26 +19,28 @@ import com.roger.petadoption.ui.main.home.filter.FilterActivity
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller
+import com.roger.petadoption.ui.main.MainViewModel
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
+    private val activityViewModel: MainViewModel by activityViewModels()
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                viewModel.setType(result.data?.getParcelableExtra(FilterActivity.ARG_TYPE))
-                viewModel.setGender(result.data?.getParcelableExtra(FilterActivity.ARG_GENDER))
-                viewModel.setBodyType(result.data?.getParcelableExtra(FilterActivity.ARG_BODY_TYPE))
-                viewModel.setColor(result.data?.getParcelableExtra(FilterActivity.ARG_COLOR))
-                viewModel.getFilterPagingList()
+                activityViewModel.setType(result.data?.getParcelableExtra(FilterActivity.ARG_TYPE))
+                activityViewModel.setGender(result.data?.getParcelableExtra(FilterActivity.ARG_GENDER))
+                activityViewModel.setBodyType(result.data?.getParcelableExtra(FilterActivity.ARG_BODY_TYPE))
+                activityViewModel.setColor(result.data?.getParcelableExtra(FilterActivity.ARG_COLOR))
+                activityViewModel.getFilterPagingList()
             }
         }
     private val detailLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 if (result.data?.getBooleanExtra(ARG_IS_SET_FAVORITE, true) == true) {
-                    viewModel.getFavoritePetList()
+                    activityViewModel.getFavoritePetList()
                 }
             }
         }
@@ -68,10 +71,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             cvFilter.setOnClickListener {
                 val intent = FilterActivity.createIntent(
                     activity,
-                    viewModel.type.value,
-                    viewModel.gender.value,
-                    viewModel.bodyType.value,
-                    viewModel.color.value,
+                    activityViewModel.type.value,
+                    activityViewModel.gender.value,
+                    activityViewModel.bodyType.value,
+                    activityViewModel.color.value,
                 )
                 filterLauncher.launch(intent)
             }
@@ -80,7 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 adapter = petListPagingAdapter
             }
 
-            viewModel.petListPagingData.observe(viewLifecycleOwner) {
+            activityViewModel.petListPagingData.observe(viewLifecycleOwner) {
                 petListPagingAdapter.submitData(lifecycle, it)
             }
 
@@ -104,7 +107,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun rvItemFavoriteClickEvent(petEntity: PetEntity) {
-        viewModel.insertFavoritePet(petEntity.id ?: 0)
+        activityViewModel.insertFavoritePet(petEntity.id ?: 0)
         petListPagingAdapter.refresh()
     }
 
