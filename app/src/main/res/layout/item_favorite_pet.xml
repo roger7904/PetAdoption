@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/dp_16"
-    android:layout_marginTop="@dimen/dp_16"
+    android:layout_marginEnd="@dimen/dp_16"
+    android:layout_marginBottom="@dimen/dp_12"
     app:cardCornerRadius="@dimen/dp_20"
     app:cardElevation="@dimen/dp_4">
 
@@ -15,8 +15,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_remove"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_12"
             android:layout_marginEnd="@dimen/dp_12"
             android:foreground="?attr/selectableItemBackground"
@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_close" />
 
@@ -36,7 +36,7 @@
         <ImageView
             android:id="@+id/iv_cover"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="@dimen/dp_140"
             android:background="@color/colorBlack_B60_overlay"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
                 android:id="@+id/tv_variety"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.H4"
+                android:textAppearance="@style/TextAppearance.H5"
                 android:textColor="@color/colorNeutral_N2_secondary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -78,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.P2"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.P4"
                 android:textColor="@color/colorNeutral_N3_info_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_variety"
