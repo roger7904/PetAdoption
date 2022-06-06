@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import javax.inject.Inject
 
-class UserLocalDataSource @Inject constructor(
+class UserLocalDataSourceImpl @Inject constructor(
     private val userDaoService: UserDaoService
 ) : UserDataSource.Local {
     override fun initUser(user: UserModel): Completable {

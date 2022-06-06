@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Single
 
 class GetPetInfoUseCase(
     private val petRepository: PetRepository,
-    errorHandler: ErrorHandler,
+    val errorHandler: ErrorHandler,
 ) : ParamSingleUseCase<GetPetInfoUseCase.Param, List<PetEntity>>(errorHandler) {
 
     override fun buildUseCase(param: Param): Single<List<PetEntity>> {

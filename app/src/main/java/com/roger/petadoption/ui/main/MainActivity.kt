@@ -6,7 +6,7 @@ import com.roger.petadoption.R
 import com.roger.petadoption.databinding.ActivityMainBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
-import com.roger.petni.ui.main.favorite.FavoriteFragment
+import com.roger.petadoption.ui.main.favorite.FavoriteFragment
 import com.roger.petadoption.ui.main.home.HomeFragment
 import com.roger.petadoption.ui.main.hospital.HospitalFragment
 import com.roger.petadoption.ui.main.map.MapFragment
@@ -38,6 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         }
 
                         R.id.menuItem_bnv_favorite -> {
+                            viewModel.getFavoritePetList()
                             val favoriteFragment =
                                 findFragmentByTag(FavoriteFragment::class.java.name)
                                     ?: FavoriteFragment.newInstance()

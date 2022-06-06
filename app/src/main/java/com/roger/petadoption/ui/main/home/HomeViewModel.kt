@@ -5,19 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
 import androidx.paging.filter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.roger.domain.common.DataResult
+import com.roger.domain.entity.pet.FavoritePetEntity
 import com.roger.domain.entity.pet.PetEntity
+import com.roger.domain.use_case.pet.GetFavoritePetListUseCase
 import com.roger.domain.use_case.pet.GetPagingPetListUseCase
+import com.roger.domain.use_case.pet.InsertFavoritePetUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.main.home.filter.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val state: SavedStateHandle,
     private val getPagingPetListUseCase: GetPagingPetListUseCase,
+    private val insertFavoritePetUseCase: InsertFavoritePetUseCase,
+    private val getFavoritePetListUseCase: GetFavoritePetListUseCase,
 ) : BaseViewModel(state) {
+
+    private var auth: FirebaseAuth = Firebase.auth
     private val _petListPagingData =
         MutableLiveData<PagingData<PetEntity>>()
     val petListPagingData: LiveData<PagingData<PetEntity>> =
@@ -30,9 +41,11 @@ class HomeViewModel @Inject constructor(
     val bodyType: LiveData<FilterBodyType?> = _bodyType
     private val _color = MutableLiveData<FilterColor?>()
     val color: LiveData<FilterColor?> = _color
+    private val _favoritePetList = MutableLiveData<MutableList<FavoritePetEntity>?>()
+    val favoritePetList: LiveData<MutableList<FavoritePetEntity>?> = _favoritePetList
 
     init {
-        getFilterPagingList()
+        getFavoritePetList()
     }
 
     fun setType(type: FilterType?) {
@@ -62,10 +75,46 @@ class HomeViewModel @Inject constructor(
             if (pagingData is DataResult.Success<PagingData<PetEntity>>) {
                 pagingData.data?.let { list ->
                     val filterList =
-                        list.filter { !it.albumFile.isNullOrEmpty() && !it.variety.isNullOrEmpty() && !it.petPlace.isNullOrEmpty() }
+                        list.filter { petEntity ->
+                            !petEntity.albumFile.isNullOrEmpty()
+                                    && !petEntity.variety.isNullOrEmpty()
+                                    && !petEntity.petPlace.isNullOrEmpty()
+                                    && _favoritePetList.value?.map { it.petId }
+                                ?.contains(petEntity.id) != true
+                        }
                     _petListPagingData.postValue(filterList)
                 }
             }
         }
+    }
+
+    fun insertFavoritePet(petId: Int) {
+        val param = InsertFavoritePetUseCase.Param(
+            id = System.currentTimeMillis().toString(),
+            userId = auth.currentUser?.uid ?: "",
+            petId = petId
+        )
+
+        _favoritePetList.value?.add(
+            FavoritePetEntity(
+                id = param.id,
+                userId = param.userId,
+                petId = param.petId
+            )
+        )
+
+        insertFavoritePetUseCase(param).sub {
+        }.addTo(compositeDisposable)
+    }
+
+    fun getFavoritePetList() {
+        val param = GetFavoritePetListUseCase.Param(
+            userId = auth.currentUser?.uid ?: ""
+        )
+
+        getFavoritePetListUseCase(param).sub {
+            _favoritePetList.postValue(it?.toMutableList())
+            getFilterPagingList()
+        }.addTo(compositeDisposable)
     }
 }

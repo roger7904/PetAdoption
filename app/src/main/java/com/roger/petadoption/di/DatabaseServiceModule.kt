@@ -1,5 +1,6 @@
 package com.roger.petadoption.di
 
+import com.roger.data.data_source.pet.FavoritePetDaoService
 import com.roger.data.data_source.user.UserDaoService
 import com.roger.data.local_storage.DatabaseManager
 import dagger.Module
@@ -16,5 +17,11 @@ object DatabaseServiceModule {
     @Provides
     fun provideUserDaoService(db: DatabaseManager): UserDaoService {
         return db.userDaoService()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavoritePetDaoService(db: DatabaseManager): FavoritePetDaoService {
+        return db.favoritePetDaoService()
     }
 }

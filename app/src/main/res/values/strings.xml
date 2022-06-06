@@ -49,6 +49,8 @@
     <string name="home_pet_remark_title">備註</string>
     <string name="home_pet_state_pos">可領養</string>
     <string name="home_pet_state_neg">已被領養</string>
+    <string name="home_set_favorite_success">已加入收藏</string>
+    <string name="home_set_not_favorite_success">已刪除收藏</string>
 
     <!-- Filter -->
     <string name="filter_title">篩選</string>
@@ -83,6 +85,12 @@
     <string name="filter_color_tortoiseshell">玳瑁色</string>
     <string name="filter_color_beige">米色</string>
     <string name="filter_color_casual">不拘</string>
+
+    <!-- Favorite -->
+    <string name="favorite_title">收藏名單</string>
+    <string name="favorite_pet_empty">目前無收藏</string>
+    <string name="favorite_remove_favorite_dialog_title">移除收藏</string>
+    <string name="favorite_remove_favorite_dialog_content">請確認是否要移除收藏</string>
 
     <!-- Profile -->
     <string name="profile_info">個人資料</string>

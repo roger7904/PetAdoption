@@ -15,8 +15,8 @@
             android:id="@+id/iv_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/pet"
             android:scaleType="centerCrop"
+            android:src="@drawable/pet"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +26,7 @@
             android:layout_height="@dimen/dp_60"
             android:layout_marginStart="@dimen/dp_24"
             android:layout_marginBottom="@dimen/dp_35"
+            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="@dimen/dp_25"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -70,9 +71,9 @@
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.P2"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.P2"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_variety"
@@ -85,6 +86,7 @@
             android:layout_height="@dimen/dp_60"
             android:layout_marginEnd="@dimen/dp_24"
             android:layout_marginBottom="@dimen/dp_35"
+            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="@dimen/dp_25"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

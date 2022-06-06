@@ -18,7 +18,16 @@ class PetListPagingSource @Inject constructor(
 ) : RxPagingSource<Int, PetEntity>() {
 
     override fun getRefreshKey(state: PagingState<Int, PetEntity>): Int? {
-        return state.anchorPosition
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.let { anchorPage ->
+                val pageIndex = state.pages.indexOf(anchorPage)
+                if (pageIndex == 0) {
+                    null
+                } else {
+                    state.pages[pageIndex - 1].nextKey
+                }
+            }
+        }
     }
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, PetEntity>> {

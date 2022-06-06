@@ -1,40 +1,34 @@
-package com.roger.petadoption.ui.main.home
+package com.roger.petadoption.ui.main.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.roger.domain.entity.pet.PetEntity
 import com.roger.petadoption.R
-import com.roger.petadoption.databinding.ItemPetInfoBinding
+import com.roger.petadoption.databinding.ItemFavoritePetBinding
 
-class PetListPagingAdapter(
+class FavoritePetAdapter(
     private val clickEvent: ((petEntity: PetEntity) -> Unit),
-    private val favoriteEvent: ((petEntity: PetEntity) -> Unit),
-    private val closeEvent: ((position: Int) -> Unit),
-) : PagingDataAdapter<PetEntity, PetListPagingAdapter.ViewHolder>(
-    DiffCallback
-) {
+    private val removeEvent: ((petEntity: PetEntity) -> Unit),
+) : ListAdapter<PetEntity, FavoritePetAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemPetInfoBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent, false
-            )
+            ItemFavoritePetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        item?.let { holder.onBind(it) }
-
+        val item = currentList[position]
+        holder.onBind(item)
     }
 
-    inner class ViewHolder(val binding: ItemPetInfoBinding) :
+    inner class ViewHolder(val binding: ItemFavoritePetBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.root.setOnClickListener {
                 val pet = getItem(bindingAdapterPosition) ?: return@setOnClickListener
@@ -52,30 +46,20 @@ class PetListPagingAdapter(
                 tvLocation.text = value.petPlace
                 ivGender.setImageResource(if (value.sex == "M") R.drawable.ic_male else R.drawable.ic_female)
 
-                cvFavorite.setOnClickListener {
+                cvRemove.setOnClickListener {
                     val pet = getItem(bindingAdapterPosition) ?: return@setOnClickListener
-                    favoriteEvent.invoke(pet)
-                }
-
-                cvClose.setOnClickListener {
-                    closeEvent.invoke(bindingAdapterPosition)
+                    removeEvent.invoke(pet)
                 }
             }
         }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<PetEntity>() {
-        override fun areItemsTheSame(
-            oldItem: PetEntity,
-            newItem: PetEntity,
-        ): Boolean {
+        override fun areItemsTheSame(oldItem: PetEntity, newItem: PetEntity): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(
-            oldItem: PetEntity,
-            newItem: PetEntity,
-        ): Boolean {
+        override fun areContentsTheSame(oldItem: PetEntity, newItem: PetEntity): Boolean {
             return oldItem == newItem
         }
     }
