@@ -30,8 +30,8 @@ class PetDetailViewModel @Inject constructor(
     private val petId = state.getLiveData<Int>(PetDetailActivity.ARG_PET_ID)
     private val _petInfo = MutableLiveData<PetEntity>()
     val petInfo: LiveData<PetEntity> = _petInfo
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
+    private val _isFavorite = MutableLiveData<Boolean?>()
+    val isFavorite: LiveData<Boolean?> = _isFavorite
     private val _favoritePetList = MutableLiveData<MutableList<FavoritePetEntity>?>()
     val favoritePetList: LiveData<MutableList<FavoritePetEntity>?> = _favoritePetList
 

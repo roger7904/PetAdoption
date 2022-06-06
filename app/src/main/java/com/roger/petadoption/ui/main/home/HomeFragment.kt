@@ -29,18 +29,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                activityViewModel.setType(result.data?.getParcelableExtra(FilterActivity.ARG_TYPE))
-                activityViewModel.setGender(result.data?.getParcelableExtra(FilterActivity.ARG_GENDER))
-                activityViewModel.setBodyType(result.data?.getParcelableExtra(FilterActivity.ARG_BODY_TYPE))
-                activityViewModel.setColor(result.data?.getParcelableExtra(FilterActivity.ARG_COLOR))
-                activityViewModel.getFilterPagingList()
+                viewModel.setType(result.data?.getParcelableExtra(FilterActivity.ARG_TYPE))
+                viewModel.setGender(result.data?.getParcelableExtra(FilterActivity.ARG_GENDER))
+                viewModel.setBodyType(result.data?.getParcelableExtra(FilterActivity.ARG_BODY_TYPE))
+                viewModel.setColor(result.data?.getParcelableExtra(FilterActivity.ARG_COLOR))
+                viewModel.getFilterPagingList()
             }
         }
     private val detailLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 if (result.data?.getBooleanExtra(ARG_IS_SET_FAVORITE, true) == true) {
-                    activityViewModel.getFavoritePetList()
+                    activityViewModel.setIsNeedRefresh(true)
+                    viewModel.getFavoritePetList()
                 }
             }
         }
@@ -71,10 +72,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             cvFilter.setOnClickListener {
                 val intent = FilterActivity.createIntent(
                     activity,
-                    activityViewModel.type.value,
-                    activityViewModel.gender.value,
-                    activityViewModel.bodyType.value,
-                    activityViewModel.color.value,
+                    viewModel.type.value,
+                    viewModel.gender.value,
+                    viewModel.bodyType.value,
+                    viewModel.color.value,
                 )
                 filterLauncher.launch(intent)
             }
@@ -83,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 adapter = petListPagingAdapter
             }
 
-            activityViewModel.petListPagingData.observe(viewLifecycleOwner) {
+            viewModel.petListPagingData.observe(viewLifecycleOwner) {
                 petListPagingAdapter.submitData(lifecycle, it)
             }
 
@@ -107,7 +108,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun rvItemFavoriteClickEvent(petEntity: PetEntity) {
-        activityViewModel.insertFavoritePet(petEntity.id ?: 0)
+        viewModel.insertFavoritePet(petEntity.id ?: 0)
+        activityViewModel.setIsNeedRefresh(true)
         petListPagingAdapter.refresh()
     }
 

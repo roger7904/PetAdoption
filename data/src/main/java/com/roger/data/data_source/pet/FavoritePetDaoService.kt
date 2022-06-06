@@ -20,7 +20,8 @@ interface FavoritePetDaoService {
 
     @Query(
         "SELECT * FROM ${DatabaseManager.TABLE_FAVORITE_PET}" +
-                " WHERE ${FavoritePetModel.COL_USER_ID} = :userId"
+                " WHERE ${FavoritePetModel.COL_USER_ID} = :userId" +
+                " ORDER BY ${FavoritePetModel.COL_PET_ID} DESC"
     )
     fun getFavoritePetList(userId: String): Maybe<List<FavoritePetModel>>
 }

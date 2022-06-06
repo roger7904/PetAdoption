@@ -60,7 +60,7 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
             }
 
             viewModel.isFavorite.observe(this@PetDetailActivity) {
-                ivFavorite.setImageResource(if (it) R.drawable.ic_favorite else R.drawable.ic_favorite_inactive)
+                ivFavorite.setImageResource(if (it == true) R.drawable.ic_favorite else R.drawable.ic_favorite_inactive)
             }
         }
     }

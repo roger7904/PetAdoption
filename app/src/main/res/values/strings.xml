@@ -86,6 +86,12 @@
     <string name="filter_color_beige">米色</string>
     <string name="filter_color_casual">不拘</string>
 
+    <!-- Favorite -->
+    <string name="favorite_title">收藏名單</string>
+    <string name="favorite_pet_empty">目前無收藏</string>
+    <string name="favorite_remove_favorite_dialog_title">移除收藏</string>
+    <string name="favorite_remove_favorite_dialog_content">請確認是否要移除收藏</string>
+
     <!-- Profile -->
     <string name="profile_info">個人資料</string>
     <string name="profile_version">版本紀錄</string>
