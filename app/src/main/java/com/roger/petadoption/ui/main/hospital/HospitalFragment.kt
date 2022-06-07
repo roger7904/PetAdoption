@@ -17,6 +17,11 @@ class HospitalFragment : BaseFragment<FragmentHospitalBinding>() {
     private val regionAdapter: FilterRegionAdapter by lazy {
         FilterRegionAdapter {
             viewModel.setRegion(it)
+            viewModel.getFilterPagingList()
+        }
+    }
+    private val hospitalListPagingAdapter: HospitalListPagingAdapter by lazy {
+        HospitalListPagingAdapter {
         }
     }
 
@@ -47,6 +52,14 @@ class HospitalFragment : BaseFragment<FragmentHospitalBinding>() {
                     selectionType = it
                     notifyDataSetChanged()
                 }
+            }
+
+            with(rvHospitalList) {
+                adapter = hospitalListPagingAdapter
+            }
+
+            viewModel.hospitalListPagingData.observe(viewLifecycleOwner) {
+                hospitalListPagingAdapter.submitData(lifecycle, it)
             }
         }
     }

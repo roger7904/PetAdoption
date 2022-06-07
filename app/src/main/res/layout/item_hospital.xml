@@ -15,20 +15,28 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_hospital_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.H4"
             android:textColor="@color/colorNeutral_N1_primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="伊甸動物醫院" />
+
+        <ImageView
+            android:id="@+id/iv_loaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:src="@drawable/ic_google_maps"
+            app:layout_constraintStart_toEndOf="@id/tv_hospital_name"
+            app:layout_constraintTop_toTopOf="@id/tv_hospital_name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_hospital_mobile"
@@ -36,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:ellipsize="end"
             android:maxLines="1"
@@ -52,9 +60,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.P3"
