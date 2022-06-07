@@ -22,13 +22,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_type"
-            app:spanCount="4"
-            tools:itemCount="4"
+            app:spanCount="5"
+            tools:itemCount="5"
             tools:listitem="@layout/item_filter_region" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favorite_list"
+        android:id="@+id/rv_hospital_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorNeutral_N6_background"
