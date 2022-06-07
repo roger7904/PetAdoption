@@ -1,6 +1,6 @@
 package com.roger.data.data_source.pet
 
-enum class PageMapper(val page: Int, val top: Int, val skip: Int, val total: Int) {
+enum class PetPageMapper(val page: Int, val top: Int, val skip: Int, val total: Int) {
     ONE(1, 100, 0, 10),
     TWO(2, 100, 100, 10),
     THREE(3, 100, 200, 10),
@@ -13,6 +13,6 @@ enum class PageMapper(val page: Int, val top: Int, val skip: Int, val total: Int
     TEN(10, 100, 900, 10);
 
     companion object {
-        fun getPage(page: Int): PageMapper = values().first() { page == it.page }
+        fun getPage(page: Int): PetPageMapper = values().first() { page == it.page }
     }
 }

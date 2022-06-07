@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.roger.petadoption.utils.custom_view.CheckableConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/selector_filter_checkable_constraint">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_region"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.P4"
+        android:textColor="@color/colorNeutral_N1_primary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="北部" />
+
+</com.roger.petadoption.utils.custom_view.CheckableConstraintLayout>

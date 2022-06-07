@@ -1,8 +1,11 @@
 package com.roger.petadoption.di
 
 import com.roger.domain.common.ErrorHandler
+import com.roger.domain.repository.hospital.HospitalRepository
 import com.roger.domain.repository.pet.PetRepository
 import com.roger.domain.repository.user.UserRepository
+import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
+import com.roger.domain.use_case.hospital.GetPagingHospitalListUseCase
 import com.roger.domain.use_case.pet.*
 import com.roger.domain.use_case.user.GetUserUseCase
 import com.roger.domain.use_case.user.InitUserUseCase
@@ -77,5 +80,21 @@ object UseCaseModule {
         errorHandler: ErrorHandler,
     ): GetFavoritePetListUseCase {
         return GetFavoritePetListUseCase(petRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetHospitalInfoUseCase(
+        hospitalRepository: HospitalRepository,
+        errorHandler: ErrorHandler,
+    ): GetHospitalInfoUseCase {
+        return GetHospitalInfoUseCase(hospitalRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetPagingHospitalListUseCase(
+        hospitalRepository: HospitalRepository,
+        errorHandler: ErrorHandler,
+    ): GetPagingHospitalListUseCase {
+        return GetPagingHospitalListUseCase(hospitalRepository, errorHandler)
     }
 }

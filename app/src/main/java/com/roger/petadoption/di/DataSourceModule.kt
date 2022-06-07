@@ -1,5 +1,7 @@
 package com.roger.petadoption.di
 
+import com.roger.data.data_source.hospital.HospitalDataSource
+import com.roger.data.data_source.hospital.HospitalRemoteDataSourceImpl
 import com.roger.data.data_source.pet.PetDataSource
 import com.roger.data.data_source.pet.PetLocalDataSourceImpl
 import com.roger.data.data_source.pet.PetRemoteDataSourceImpl
@@ -21,4 +23,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindUserLocalDataSource(userLocalDataSourceImpl: UserLocalDataSourceImpl): UserDataSource.Local
+
+    @Binds
+    abstract fun bindHospitalRemoteDataSource(hospitalRemoteDataSourceImpl: HospitalRemoteDataSourceImpl): HospitalDataSource.Remote
 }

@@ -40,7 +40,7 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_65"
             android:text="Roger"
-            android:textAppearance="@style/TextAppearance.H5"
+            android:textAppearance="@style/TextAppearance.H4"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_17"
                 android:text="@string/profile_info"
-                android:textAppearance="@style/TextAppearance.P4"
+                android:textAppearance="@style/TextAppearance.P3"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_17"
                 android:text="@string/profile_version"
-                android:textAppearance="@style/TextAppearance.P4"
+                android:textAppearance="@style/TextAppearance.P3"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_version"

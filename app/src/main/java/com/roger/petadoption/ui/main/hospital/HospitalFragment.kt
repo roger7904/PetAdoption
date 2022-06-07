@@ -14,6 +14,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class HospitalFragment : BaseFragment<FragmentHospitalBinding>() {
 
     private val viewModel: HospitalViewModel by viewModels()
+    private val regionAdapter: FilterRegionAdapter by lazy {
+        FilterRegionAdapter {
+            viewModel.setRegion(it)
+            viewModel.getFilterPagingList()
+        }
+    }
+    private val hospitalListPagingAdapter: HospitalListPagingAdapter by lazy {
+        HospitalListPagingAdapter {
+        }
+    }
 
     override fun initParam(data: Bundle) {
     }
@@ -26,10 +36,32 @@ class HospitalFragment : BaseFragment<FragmentHospitalBinding>() {
     override fun initViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): FragmentHospitalBinding = FragmentHospitalBinding.inflate(inflater, container, false)
 
     override fun initView(savedInstanceState: Bundle?) {
+        binding?.run {
+            with(rvRegion) {
+                regionAdapter.selectionType = viewModel.region.value
+                adapter = regionAdapter
+                regionAdapter.submitList(mutableListOf(*FilterRegion.values()))
+            }
+
+            viewModel.region.observe(viewLifecycleOwner) {
+                regionAdapter.apply {
+                    selectionType = it
+                    notifyDataSetChanged()
+                }
+            }
+
+            with(rvHospitalList) {
+                adapter = hospitalListPagingAdapter
+            }
+
+            viewModel.hospitalListPagingData.observe(viewLifecycleOwner) {
+                hospitalListPagingAdapter.submitData(lifecycle, it)
+            }
+        }
     }
 
     companion object {
