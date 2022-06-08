@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -80,15 +81,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 filterLauncher.launch(intent)
             }
 
+            swipeRefresh.setOnRefreshListener {
+                viewModel.getFilterPagingList()
+            }
+
             with(rvPetList) {
                 adapter = petListPagingAdapter
             }
 
-            viewModel.petListPagingData.observe(viewLifecycleOwner) {
-                petListPagingAdapter.submitData(lifecycle, it)
-            }
-
             petListPagingAdapter.addLoadStateListener { loadState ->
+                //show progress bar when the load state is Loading
+                swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
+                rvPetList.isVisible = loadState.refresh is LoadState.NotLoading
+
                 if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && petListPagingAdapter.itemCount < 1) {
                     rvPetList.visibility = View.GONE
                     viewEmpty.visibility = View.VISIBLE
@@ -96,6 +101,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     rvPetList.visibility = View.VISIBLE
                     viewEmpty.visibility = View.GONE
                 }
+            }
+
+            viewModel.petListPagingData.observe(viewLifecycleOwner) {
+                petListPagingAdapter.submitData(lifecycle, it)
             }
         }
     }
