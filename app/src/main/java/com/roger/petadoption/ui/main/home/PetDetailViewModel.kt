@@ -13,6 +13,7 @@ import com.roger.domain.use_case.pet.GetFavoritePetListUseCase
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
 import com.roger.domain.use_case.pet.InsertFavoritePetUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.base.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
@@ -36,6 +37,7 @@ class PetDetailViewModel @Inject constructor(
     val favoritePetList: LiveData<MutableList<FavoritePetEntity>?> = _favoritePetList
 
     init {
+        viewEventPublisher.onNext(ViewEvent.Loading)
         getFavoritePetList()
     }
 
