@@ -1,5 +1,6 @@
 package com.roger.petadoption.ui.main.home
 
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -43,6 +44,7 @@ class PetListPagingAdapter(
         }
 
         fun onBind(value: PetEntity) {
+            var mLastClickTime: Long = 0
             binding.run {
                 Glide.with(itemView)
                     .load(value.albumFile)
@@ -53,6 +55,11 @@ class PetListPagingAdapter(
                 ivGender.setImageResource(if (value.sex == "M") R.drawable.ic_male else R.drawable.ic_female)
 
                 cvFavorite.setOnClickListener {
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                        return@setOnClickListener
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime()
+
                     val pet = getItem(bindingAdapterPosition) ?: return@setOnClickListener
                     favoriteEvent.invoke(pet)
                 }
