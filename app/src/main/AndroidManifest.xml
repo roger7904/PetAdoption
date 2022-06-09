@@ -47,6 +47,9 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="${facebook_client_token}" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_MAPS_API_KEY}" />
     </application>
 
 </manifest>

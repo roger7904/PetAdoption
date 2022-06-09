@@ -5,6 +5,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -147,4 +148,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation "androidx.paging:paging-rxjava3:3.1.1"
     implementation "androidx.paging:paging-guava:3.1.1"
+
+    // Dependency to include Maps SDK for Android
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
