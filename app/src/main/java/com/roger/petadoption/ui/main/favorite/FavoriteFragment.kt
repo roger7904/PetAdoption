@@ -18,7 +18,7 @@ import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.SimpleDialogFragment
 import com.roger.petadoption.ui.main.MainViewModel
 import com.roger.petadoption.ui.main.home.HomeFragment
-import com.roger.petadoption.ui.main.home.PetDetailActivity
+import com.roger.petadoption.ui.main.home.detail.PetDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

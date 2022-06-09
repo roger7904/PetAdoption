@@ -16,10 +16,10 @@
             android:name=".ui.main.home.filter.FilterActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.main.home.PetDetailActivity"
+            android:name=".ui.main.home.detail.PetDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.main.profile.EditProfileActivity"
+            android:name=".ui.main.profile.edit_profile.EditProfileActivity"
             android:exported="true" />
         <activity
             android:name=".ui.auth.SignInActivity"

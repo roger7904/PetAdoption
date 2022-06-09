@@ -1,4 +1,4 @@
-package com.roger.petadoption.ui.main.home
+package com.roger.petadoption.ui.main.home.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

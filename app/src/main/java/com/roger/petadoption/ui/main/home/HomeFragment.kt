@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.roger.petadoption.ui.main.MainViewModel
+import com.roger.petadoption.ui.main.home.detail.PetDetailActivity
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {

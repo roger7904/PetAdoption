@@ -1,4 +1,4 @@
-package com.roger.petadoption.ui.main.home
+package com.roger.petadoption.ui.main.home.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.roger.petadoption.databinding.ActivityPetDetailBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.ViewEvent
+import com.roger.petadoption.ui.main.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -20,6 +20,7 @@ import com.roger.petadoption.ui.base.BaseFragment
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.SimpleDialogFragment
 import com.roger.petadoption.ui.base.ViewEvent
+import com.roger.petadoption.ui.main.profile.edit_profile.EditProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
