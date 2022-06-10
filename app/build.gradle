@@ -150,5 +150,13 @@ dependencies {
     implementation "androidx.paging:paging-guava:3.1.1"
 
     // Dependency to include Maps SDK for Android
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.0'
+    implementation 'com.google.android.libraries.places:places:2.6.0'
+
+    // Maps SDK for Android KTX Library
+    implementation 'com.google.maps.android:maps-ktx:3.3.0'
+
+    // Maps SDK for Android Utility Library KTX Library
+    implementation 'com.google.maps.android:maps-utils-ktx:3.0.0'
 }
