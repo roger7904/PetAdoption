@@ -27,6 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        viewModel.getHospitalList(this)
         binding?.run {
             with(bnvMain) {
                 setOnItemSelectedListener {

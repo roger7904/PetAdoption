@@ -19,6 +19,9 @@ class HospitalDetailViewModel @Inject constructor(
     private val hospitalId = state.getLiveData<String>(HospitalDetailActivity.ARG_HOSPITAL_ID)
     private val _hospitalInfo = MutableLiveData<List<HospitalEntity>>()
     val hospitalInfo: LiveData<List<HospitalEntity>> = _hospitalInfo
+    private val _hospitalLocationList =
+        state.getLiveData<List<HospitalLocationEntity>>(HospitalDetailActivity.ARG_HOSPITAL_LIST)
+    val hospitalLocationList: LiveData<List<HospitalLocationEntity>> = _hospitalLocationList
 
     fun getHospitalInfo() {
         val param = GetHospitalInfoUseCase.Param(

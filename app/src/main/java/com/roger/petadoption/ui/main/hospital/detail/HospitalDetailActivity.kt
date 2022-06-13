@@ -34,6 +34,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
     private var map: GoogleMap? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var locationPermissionGranted = false
+    private var markers: List<Marker>? = null
     private val markerIcon: BitmapDescriptor by lazy {
         BitmapHelper.vectorToBitmap(
             this,
@@ -50,21 +51,29 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         ActivityHospitalDetailBinding.inflate(layoutInflater)
 
     override fun initView(savedInstanceState: Bundle?) {
+        binding?.run {
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(this@HospitalDetailActivity)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+            val mapFragment = supportFragmentManager.findFragmentById(
+                R.id.map_fragment
+            ) as? SupportMapFragment
+            mapFragment?.getMapAsync(this@HospitalDetailActivity)
 
-        val mapFragment = supportFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as? SupportMapFragment
-        mapFragment?.getMapAsync(this@HospitalDetailActivity)
+            viewModel.hospitalInfo.observe(this@HospitalDetailActivity) {
+                addMarkers(it)
+            }
 
-        viewModel.hospitalInfo.observe(this) {
-            addMarkers(it)
+            btnSearch.setOnClickListener {
+                searchArea()
+            }
         }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+
+        map?.setInfoWindowAdapter(HospitalMarkerInfoWindowAdapter(this@HospitalDetailActivity))
 
         getLocationPermission()
 
@@ -75,20 +84,36 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
 
     private fun addMarkers(hospitalList: List<HospitalEntity>) {
         map?.run {
-            hospitalList.forEach { result ->
+            markers = hospitalList.mapNotNull { result ->
                 val latLng = getLocationFromAddress(result.location)
-                val marker = this.addMarker(
+                addMarker(
                     MarkerOptions()
                         .title(result.name)
-                        .position(latLng ?: return@forEach)
                         .icon(markerIcon)
-                )
-                map?.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
-                )
-                // Set place as the tag on the marker object so it can be referenced within
-                marker?.tag = result
-                this.setInfoWindowAdapter(HospitalMarkerInfoWindowAdapter(this@HospitalDetailActivity))
+                        .position(latLng ?: return)
+                ).apply {
+                    map?.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
+                    )
+                    this?.tag = result
+                }
+            }
+        }
+    }
+
+    private fun addMarkersWithLatLng(hospitalList: List<HospitalLocationEntity>?) {
+        map?.run {
+            markers?.forEach { it.remove() }
+            markers = null
+            markers = hospitalList?.mapNotNull { result ->
+                addMarker(
+                    MarkerOptions()
+                        .title(result.name)
+                        .position(LatLng(result.lat ?: return, result.lng ?: return))
+                        .icon(markerIcon)
+                ).apply {
+                    this?.tag = result
+                }
             }
         }
     }
@@ -153,6 +178,19 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         }
     }
 
+    private fun searchArea() {
+        val visibleRegion = map?.projection?.visibleRegion?.latLngBounds ?: return
+        val startLat = visibleRegion.southwest.latitude
+        val endLat = visibleRegion.northeast.latitude
+        val startLng = minOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
+        val endLng = maxOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
+        addMarkersWithLatLng(
+            viewModel.hospitalLocationList.value?.filter {
+                it.lat ?: 0.0 in startLat..endLat && it.lng ?: 0.0 in startLng..endLng
+            }
+        )
+    }
+
     private fun getDeviceLocation() {
         try {
             if (locationPermissionGranted) {
@@ -185,5 +223,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         const val ARG_HOSPITAL_ID = "HOSPITAL_ID"
+        const val ARG_HOSPITAL_LIST = "HOSPITAL_LIST"
     }
 }
