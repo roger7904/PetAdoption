@@ -79,6 +79,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
     private fun rvItemClickEvent(petEntity: PetEntity) {
         val intent = Intent(activity, PetDetailActivity::class.java).apply {
             putExtra(PetDetailActivity.ARG_PET_ID, petEntity.id)
+            putExtra(PetDetailActivity.ARG_IS_FROM_FAVORITE, true)
         }
         detailLauncher.launch(intent)
     }

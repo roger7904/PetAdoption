@@ -29,6 +29,8 @@ class PetDetailViewModel @Inject constructor(
 
     private var auth: FirebaseAuth = Firebase.auth
     private val petId = state.getLiveData<Int>(PetDetailActivity.ARG_PET_ID)
+    private val _isFromFavorite = state.getLiveData<Boolean>(PetDetailActivity.ARG_IS_FROM_FAVORITE)
+    val isFromFavorite: LiveData<Boolean> = _isFromFavorite
     private val _petInfo = MutableLiveData<PetEntity>()
     val petInfo: LiveData<PetEntity> = _petInfo
     private val _isFavorite = MutableLiveData<Boolean?>()
