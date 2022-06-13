@@ -142,6 +142,7 @@ class MainViewModel @Inject constructor(
                         HospitalLocationEntity(
                             name = it.name,
                             mobile = it.mobile,
+                            location = it.location,
                             lat = latLng?.latitude,
                             lng = latLng?.longitude,
                         )

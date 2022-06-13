@@ -284,6 +284,7 @@
                     app:cardElevation="@dimen/dp_3">
 
                     <LinearLayout
+                        android:id="@+id/ll_shelter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -302,7 +303,7 @@
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_shelter"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_12"
                                 android:layout_marginTop="@dimen/dp_12"
@@ -310,6 +311,13 @@
                                 android:textAppearance="@style/TextAppearance.H4"
                                 android:textColor="@color/colorNeutral_N1_primary_text" />
 
+                            <ImageView
+                                android:id="@+id/iv_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:src="@drawable/ic_google_maps" />
                         </LinearLayout>
 
 

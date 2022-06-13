@@ -13,6 +13,7 @@ import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.ViewEvent
 import com.roger.petadoption.ui.main.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 
 @AndroidEntryPoint
 class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
@@ -55,6 +56,14 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
                 tvUpdateTimeContent.text = it.infoUpdateTime
                 tvRemarkContent.text =
                     if (it.remark.isNullOrEmpty()) getString(R.string.home_pet_remark_title) else it.remark
+
+                llShelter.setOnClickListener { _ ->
+                    val intent =
+                        Intent(this@PetDetailActivity, ShelterMapActivity::class.java).apply {
+                            putExtra(ShelterMapActivity.ARG_PET_MAP_ID, it.id)
+                        }
+                    startActivity(intent)
+                }
             }
 
             cvFavorite.setOnClickListener {
@@ -66,7 +75,7 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
             }
 
             viewModel.isFromFavorite.observe(this@PetDetailActivity) {
-                if (it){
+                if (it) {
                     cvFavorite.visibility = View.GONE
                 }
             }

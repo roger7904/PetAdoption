@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.roger.domain.entity.hospital.HospitalEntity
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.base.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
@@ -30,6 +31,7 @@ class HospitalDetailViewModel @Inject constructor(
             filter = "字號+like+${hospitalId.value}"
         )
 
+        viewEventPublisher.onNext(ViewEvent.Loading)
         getHospitalInfoUseCase(param).sub {
             _hospitalInfo.postValue(it)
         }.addTo(compositeDisposable)

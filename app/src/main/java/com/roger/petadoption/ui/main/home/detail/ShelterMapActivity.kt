@@ -1,8 +1,9 @@
-package com.roger.petadoption.ui.main.hospital.detail
+package com.roger.petadoption.ui.main.home.detail
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -11,25 +12,24 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-import com.roger.domain.entity.hospital.HospitalEntity
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.roger.domain.entity.pet.PetEntity
 import com.roger.petadoption.R
-import com.roger.petadoption.databinding.ActivityHospitalDetailBinding
+import com.roger.petadoption.databinding.ActivityPetMapBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.utils.BitmapHelper
 import dagger.hilt.android.AndroidEntryPoint
-import android.location.Geocoder
-import com.google.android.gms.maps.model.LatLng
 import java.io.IOException
 
 @AndroidEntryPoint
-class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), OnMapReadyCallback {
+class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(), OnMapReadyCallback {
 
-    private val viewModel: HospitalDetailViewModel by viewModels()
+    private val viewModel: PetMapViewModel by viewModels()
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
-    private var markers: List<Marker>? = null
     private val markerIcon: BitmapDescriptor by lazy {
         BitmapHelper.vectorToBitmap(
             this,
@@ -42,22 +42,18 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    override fun initViewBinding(): ActivityHospitalDetailBinding =
-        ActivityHospitalDetailBinding.inflate(layoutInflater)
+    override fun initViewBinding(): ActivityPetMapBinding =
+        ActivityPetMapBinding.inflate(layoutInflater)
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.run {
             val mapFragment = supportFragmentManager.findFragmentById(
                 R.id.map_fragment
             ) as? SupportMapFragment
-            mapFragment?.getMapAsync(this@HospitalDetailActivity)
+            mapFragment?.getMapAsync(this@ShelterMapActivity)
 
-            viewModel.hospitalInfo.observe(this@HospitalDetailActivity) {
+            viewModel.petInfo.observe(this@ShelterMapActivity) {
                 addMarkers(it)
-            }
-
-            btnSearch.setOnClickListener {
-                searchArea()
             }
         }
     }
@@ -65,20 +61,20 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map?.setInfoWindowAdapter(HospitalMarkerInfoWindowAdapter(this@HospitalDetailActivity))
+        map?.setInfoWindowAdapter(ShelterMarkerInfoWindowAdapter(this@ShelterMapActivity))
 
         getLocationPermission()
 
         updateLocationUISetting()
     }
 
-    private fun addMarkers(hospitalList: List<HospitalEntity>) {
+    private fun addMarkers(petEntity: PetEntity) {
         map?.run {
-            markers = hospitalList.mapNotNull { result ->
-                val latLng = getLocationFromAddress(result.location)
+            petEntity.let { result ->
+                val latLng = getLocationFromAddress(result.shelterAddress)
                 addMarker(
                     MarkerOptions()
-                        .title(result.name)
+                        .title(result.petPlace)
                         .icon(markerIcon)
                         .position(latLng ?: return)
                 ).apply {
@@ -86,28 +82,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                         CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
                     )
                     this?.tag = result
-                }
-            }
-        }
-    }
-
-    private fun addMarkersWithLatLng(hospitalList: List<HospitalLocationEntity>?) {
-        map?.run {
-            markers?.forEach { it.remove() }
-            markers = null
-            markers = hospitalList?.mapNotNull { result ->
-                addMarker(
-                    MarkerOptions()
-                        .title(result.name)
-                        .position(LatLng(result.lat ?: return, result.lng ?: return))
-                        .icon(markerIcon)
-                ).apply {
-                    this?.tag =
-                        HospitalEntity(
-                            name = result.name,
-                            mobile = result.mobile,
-                            location = result.location,
-                        )
                 }
             }
         }
@@ -136,7 +110,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
-            viewModel.getHospitalInfo()
+            viewModel.getPetInfo()
         } else {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -157,7 +131,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
-                    viewModel.getHospitalInfo()
+                    viewModel.getPetInfo()
                 }
             }
         }
@@ -172,23 +146,9 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         }
     }
 
-    private fun searchArea() {
-        val visibleRegion = map?.projection?.visibleRegion?.latLngBounds ?: return
-        val startLat = visibleRegion.southwest.latitude
-        val endLat = visibleRegion.northeast.latitude
-        val startLng = minOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
-        val endLng = maxOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
-        addMarkersWithLatLng(
-            viewModel.hospitalLocationList.value?.filter {
-                it.lat ?: 0.0 in startLat..endLat && it.lng ?: 0.0 in startLng..endLng
-            }
-        )
-    }
-
     companion object {
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-        const val ARG_HOSPITAL_ID = "HOSPITAL_ID"
-        const val ARG_HOSPITAL_LIST = "HOSPITAL_LIST"
+        const val ARG_PET_MAP_ID = "ARG_PET_MAP_ID"
     }
 }
