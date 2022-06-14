@@ -82,7 +82,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                         .icon(markerIcon)
                         .position(latLng ?: return)
                 ).apply {
-                    map?.moveCamera(
+                    map?.animateCamera(
                         CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
                     )
                     this?.tag = result

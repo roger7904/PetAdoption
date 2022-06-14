@@ -86,6 +86,10 @@
     <string name="filter_color_beige">米色</string>
     <string name="filter_color_casual">不拘</string>
 
+    <!-- ShelterMap -->
+    <string name="shelter_map_route_exception">取得路線時發生錯誤</string>
+    <string name="shelter_map_device_location_exception">取得裝置位置時發生錯誤</string>
+
     <!-- Favorite -->
     <string name="favorite_title">收藏名單</string>
     <string name="favorite_pet_empty">目前無收藏</string>

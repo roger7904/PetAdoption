@@ -153,6 +153,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
     implementation 'com.google.android.libraries.places:places:2.6.0'
+    implementation 'com.google.maps:google-maps-services:2.1.0'
 
     // Maps SDK for Android KTX Library
     implementation 'com.google.maps.android:maps-ktx:3.3.0'
