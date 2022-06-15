@@ -3,6 +3,8 @@
     package="com.roger.petadoption">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".PetAdoptionApplication"
@@ -13,13 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoption">
         <activity
+            android:name=".ui.main.home.detail.ShelterMapActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.hospital.detail.HospitalDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.main.home.filter.FilterActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.main.home.PetDetailActivity"
+            android:name=".ui.main.home.detail.PetDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.main.profile.EditProfileActivity"
+            android:name=".ui.main.profile.edit_profile.EditProfileActivity"
             android:exported="true" />
         <activity
             android:name=".ui.auth.SignInActivity"
@@ -47,6 +55,9 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="${facebook_client_token}" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_MAPS_API_KEY}" />
     </application>
 
 </manifest>

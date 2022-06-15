@@ -18,7 +18,7 @@ import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.SimpleDialogFragment
 import com.roger.petadoption.ui.main.MainViewModel
 import com.roger.petadoption.ui.main.home.HomeFragment
-import com.roger.petadoption.ui.main.home.PetDetailActivity
+import com.roger.petadoption.ui.main.home.detail.PetDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,6 +79,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
     private fun rvItemClickEvent(petEntity: PetEntity) {
         val intent = Intent(activity, PetDetailActivity::class.java).apply {
             putExtra(PetDetailActivity.ARG_PET_ID, petEntity.id)
+            putExtra(PetDetailActivity.ARG_IS_FROM_FAVORITE, true)
         }
         detailLauncher.launch(intent)
     }

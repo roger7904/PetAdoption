@@ -1,4 +1,4 @@
-package com.roger.petadoption.ui.main.profile
+package com.roger.petadoption.ui.main.profile.edit_profile
 
 import android.content.Intent
 import android.os.Bundle

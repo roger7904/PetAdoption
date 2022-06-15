@@ -9,7 +9,6 @@ import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.main.favorite.FavoriteFragment
 import com.roger.petadoption.ui.main.home.HomeFragment
 import com.roger.petadoption.ui.main.hospital.HospitalFragment
-import com.roger.petadoption.ui.main.map.MapFragment
 import com.roger.petadoption.ui.main.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        viewModel.getHospitalList(this)
         binding?.run {
             with(bnvMain) {
                 setOnItemSelectedListener {
@@ -43,12 +43,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                                 findFragmentByTag(FavoriteFragment::class.java.name)
                                     ?: FavoriteFragment.newInstance()
                             switchBottomNavigationFragment(R.id.fcv_main, favoriteFragment)
-                        }
-
-                        R.id.menuItem_bnv_theme -> {
-                            val themeFragment = findFragmentByTag(MapFragment::class.java.name)
-                                ?: MapFragment.newInstance()
-                            switchBottomNavigationFragment(R.id.fcv_main, themeFragment)
                         }
 
                         R.id.menuItem_bnv_hospital -> {

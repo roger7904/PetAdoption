@@ -11,11 +11,6 @@
         android:title="@string/bnv_favorite" />
 
     <item
-        android:id="@+id/menuItem_bnv_theme"
-        android:icon="@drawable/selector_tab_map"
-        android:title="@string/bnv_map" />
-
-    <item
         android:id="@+id/menuItem_bnv_hospital"
         android:icon="@drawable/selector_tab_hospital"
         android:title="@string/bnv_hospital" />

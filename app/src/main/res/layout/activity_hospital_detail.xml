@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.hospital.detail.HospitalDetailActivity">
+
+    <fragment
+        android:id="@+id/map_fragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="148dp"
+        android:minHeight="40dp"
+        android:paddingHorizontal="16dp"
+        android:scaleType="centerCrop"
+        android:text="@string/hospital_search_nearby"
+        android:textAppearance="@style/TextAppearance.H6"
+        android:textColor="@color/colorNeutral_N3_info_text"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_search"
+        app:iconPadding="8dp"
+        app:iconSize="16dp"
+        app:iconTint="@color/colorNeutral_N3_info_text"
+        app:layout_dodgeInsetEdges="bottom" />
+</FrameLayout>
