@@ -6,11 +6,11 @@ import android.location.Geocoder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.roger.domain.common.DataResult
+import com.roger.domain.entity.hospital.HospitalEntity
 import com.roger.domain.entity.pet.FavoritePetEntity
 import com.roger.domain.entity.pet.PetEntity
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
@@ -134,38 +134,37 @@ class MainViewModel @Inject constructor(
             filter = null
         )
 
-        getHospitalInfoUseCase(param).sub {
-            Thread {
-                _hospitalLocationList.postValue(
-                    ArrayList(it?.map {
-                        val latLng = getLocationFromAddress(context, it.location)
-                        HospitalLocationEntity(
-                            name = it.name,
-                            mobile = it.mobile,
-                            location = it.location,
-                            lat = latLng?.latitude,
-                            lng = latLng?.longitude,
-                        )
-                    })
-                )
-            }.start()
+        getHospitalInfoUseCase(param).sub { hospitalList ->
+            _hospitalLocationList.postValue(
+                getLocationFromAddress(context, hospitalList)
+            )
         }.addTo(compositeDisposable)
     }
 
-    private fun getLocationFromAddress(context: Context, strAddress: String?): LatLng? {
+    private fun getLocationFromAddress(
+        context: Context,
+        hospitalList: List<HospitalEntity>?,
+    ): ArrayList<HospitalLocationEntity> {
         val coder = Geocoder(context)
-        val address: List<Address>?
-        var p1: LatLng? = null
+        val hospitalLocationEntityList: MutableList<HospitalLocationEntity> = mutableListOf()
         try {
-            address = coder.getFromLocationName(strAddress, 5)
-            if (address == null) {
-                return null
+            hospitalList?.forEach { hospitalEntity ->
+                val address =
+                    coder.getFromLocationName(hospitalEntity.location, 5) ?: return@forEach
+                val location: Address = address[0]
+                hospitalLocationEntityList.add(
+                    HospitalLocationEntity(
+                        name = hospitalEntity.name,
+                        mobile = hospitalEntity.mobile,
+                        location = hospitalEntity.location,
+                        lat = location.latitude,
+                        lng = location.longitude,
+                    )
+                )
             }
-            val location: Address = address[0]
-            p1 = LatLng(location.latitude, location.longitude)
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        return p1
+        return ArrayList(hospitalLocationEntityList)
     }
 }
