@@ -89,6 +89,7 @@
     <!-- ShelterMap -->
     <string name="shelter_map_route_exception">取得路線時發生錯誤</string>
     <string name="shelter_map_device_location_exception">取得裝置位置時發生錯誤</string>
+    <string name="shelter_map_weather">%1$s - %2$s °C</string>
 
     <!-- Favorite -->
     <string name="favorite_title">收藏名單</string>
@@ -98,6 +99,7 @@
 
     <!-- Hospital -->
     <string name="hospital_search_nearby">搜尋附近地區</string>
+    <string name="hospital_map_weather">%1$s - %2$s °C</string>
 
     <!-- Profile -->
     <string name="profile_info">個人資料</string>

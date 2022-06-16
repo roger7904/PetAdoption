@@ -22,12 +22,14 @@ android {
             debuggable true
             minifyEnabled false
             buildConfigField("String", "BASE_URL", '"https://data.coa.gov.tw/Service/OpenData/"')
+            buildConfigField("String", "BASE_URL_WEATHER", '"https://opendata.cwb.gov.tw/"')
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             debuggable false
             minifyEnabled true
             buildConfigField("String", "BASE_URL", '"https://data.coa.gov.tw/Service/OpenData/"')
+            buildConfigField("String", "BASE_URL_WEATHER", '"https://opendata.cwb.gov.tw/"')
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

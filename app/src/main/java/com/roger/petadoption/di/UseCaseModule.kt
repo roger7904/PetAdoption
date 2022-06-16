@@ -4,12 +4,14 @@ import com.roger.domain.common.ErrorHandler
 import com.roger.domain.repository.hospital.HospitalRepository
 import com.roger.domain.repository.pet.PetRepository
 import com.roger.domain.repository.user.UserRepository
+import com.roger.domain.repository.weather.WeatherRepository
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.domain.use_case.hospital.GetPagingHospitalListUseCase
 import com.roger.domain.use_case.pet.*
 import com.roger.domain.use_case.user.GetUserUseCase
 import com.roger.domain.use_case.user.InitUserUseCase
 import com.roger.domain.use_case.user.UpdateUserUseCase
+import com.roger.domain.use_case.weather.GetWeatherUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -96,5 +98,13 @@ object UseCaseModule {
         errorHandler: ErrorHandler,
     ): GetPagingHospitalListUseCase {
         return GetPagingHospitalListUseCase(hospitalRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetWeatherUseCase(
+        weatherRepository: WeatherRepository,
+        errorHandler: ErrorHandler,
+    ): GetWeatherUseCase {
+        return GetWeatherUseCase(weatherRepository, errorHandler)
     }
 }

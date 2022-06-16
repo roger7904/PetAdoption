@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.roger.data.BuildConfig
 import com.roger.data.network.NetworkManager
 import com.roger.data.network.SimpleCallAdapterFactory
+import com.roger.data.network.WeatherNetworkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -47,9 +49,25 @@ object NetworkModule {
         return interceptor
     }
 
+    @GovAuth
     @Singleton
     @Provides
     fun provideHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        stethoInterceptor: StethoInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .addNetworkInterceptor(stethoInterceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @WeatherAuth
+    @Singleton
+    @Provides
+    fun provideWeatherHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         stethoInterceptor: StethoInterceptor
     ): OkHttpClient {
@@ -67,10 +85,11 @@ object NetworkModule {
         return RxJava3CallAdapterFactory.create()
     }
 
+    @GovAuth
     @Singleton
     @Provides
     fun provideRetrofit(
-        httpClient: OkHttpClient,
+        @GovAuth httpClient: OkHttpClient,
         gson: Gson,
         simpleCallAdapterFactory: SimpleCallAdapterFactory
     ): Retrofit {
@@ -82,9 +101,39 @@ object NetworkModule {
             .build()
     }
 
+    @WeatherAuth
     @Singleton
     @Provides
-    fun provideNetworkManager(retrofit: Retrofit): NetworkManager {
+    fun provideWeatherRetrofit(
+        @WeatherAuth httpClient: OkHttpClient,
+        gson: Gson,
+        simpleCallAdapterFactory: SimpleCallAdapterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL_WEATHER)
+            .client(httpClient)
+            .addCallAdapterFactory(simpleCallAdapterFactory)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkManager(@GovAuth retrofit: Retrofit): NetworkManager {
         return NetworkManager(retrofit)
     }
+
+    @Singleton
+    @Provides
+    fun provideWeatherNetworkManager(@WeatherAuth retrofit: Retrofit): WeatherNetworkManager {
+        return WeatherNetworkManager(retrofit)
+    }
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GovAuth
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class WeatherAuth

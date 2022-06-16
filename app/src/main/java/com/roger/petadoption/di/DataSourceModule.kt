@@ -7,6 +7,8 @@ import com.roger.data.data_source.pet.PetLocalDataSourceImpl
 import com.roger.data.data_source.pet.PetRemoteDataSourceImpl
 import com.roger.data.data_source.user.UserDataSource
 import com.roger.data.data_source.user.UserLocalDataSourceImpl
+import com.roger.data.data_source.weather.WeatherDataSource
+import com.roger.data.data_source.weather.WeatherRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,4 +28,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindHospitalRemoteDataSource(hospitalRemoteDataSourceImpl: HospitalRemoteDataSourceImpl): HospitalDataSource.Remote
+
+    @Binds
+    abstract fun bindWeatherRemoteDataSource(weatherRemoteDataSourceImpl: WeatherRemoteDataSourceImpl): WeatherDataSource.Remote
 }
