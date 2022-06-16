@@ -18,14 +18,12 @@ import com.roger.domain.use_case.pet.DeleteFavoritePetUseCase
 import com.roger.domain.use_case.pet.GetFavoritePetListUseCase
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
-import com.roger.petadoption.ui.main.hospital.detail.HospitalLocationEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.IOException
 import javax.inject.Inject
-import com.roger.petadoption.BuildConfig
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -40,8 +38,8 @@ class MainViewModel @Inject constructor(
     private val _isNeedRefresh = MutableLiveData<Boolean?>()
     private val _favoritePetInfoList = MutableLiveData<MutableList<PetEntity>?>()
     val favoritePetInfoList: LiveData<MutableList<PetEntity>?> = _favoritePetInfoList
-    private val _hospitalLocationList = MutableLiveData<ArrayList<HospitalLocationEntity>>()
-    val hospitalLocationList: LiveData<ArrayList<HospitalLocationEntity>> = _hospitalLocationList
+    private val _hospitalLocationList = MutableLiveData<ArrayList<HospitalEntity>>()
+    val hospitalLocationList: LiveData<ArrayList<HospitalEntity>> = _hospitalLocationList
 
     init {
         getFavoritePetList()
@@ -145,16 +143,16 @@ class MainViewModel @Inject constructor(
     private fun getLocationFromAddress(
         context: Context,
         hospitalList: List<HospitalEntity>?,
-    ): ArrayList<HospitalLocationEntity> {
+    ): ArrayList<HospitalEntity> {
         val coder = Geocoder(context)
-        val hospitalLocationEntityList: MutableList<HospitalLocationEntity> = mutableListOf()
+        val hospitalEntityList: MutableList<HospitalEntity> = mutableListOf()
         try {
             hospitalList?.forEach { hospitalEntity ->
                 val address =
                     coder.getFromLocationName(hospitalEntity.location, 5) ?: return@forEach
                 val location: Address = address[0]
-                hospitalLocationEntityList.add(
-                    HospitalLocationEntity(
+                hospitalEntityList.add(
+                    HospitalEntity(
                         name = hospitalEntity.name,
                         mobile = hospitalEntity.mobile,
                         location = hospitalEntity.location,
@@ -166,6 +164,6 @@ class MainViewModel @Inject constructor(
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        return ArrayList(hospitalLocationEntityList)
+        return ArrayList(hospitalEntityList)
     }
 }

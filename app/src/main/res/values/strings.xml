@@ -99,6 +99,7 @@
 
     <!-- Hospital -->
     <string name="hospital_search_nearby">搜尋附近地區</string>
+    <string name="hospital_map_weather">%1$s - %2$s °C</string>
 
     <!-- Profile -->
     <string name="profile_info">個人資料</string>

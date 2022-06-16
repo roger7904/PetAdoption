@@ -73,7 +73,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                 addMarkers(it)
             }
 
-            if (viewModel.hospitalLocationList.value.isNullOrEmpty()){
+            if (viewModel.hospitalList.value.isNullOrEmpty()) {
                 btnSearch.visibility = View.GONE
             }
 
@@ -100,9 +100,9 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         getDeviceLocation()
     }
 
-    private fun addMarkers(hospitalList: List<HospitalEntity>) {
+    private fun addMarkers(hospitalEntity: HospitalEntity) {
         map?.run {
-            markers = hospitalList.mapNotNull { result ->
+            markers = listOf(hospitalEntity.let { result ->
                 val latLng = getLocationFromAddress(result.location)
                 addMarker(
                     MarkerOptions()
@@ -115,11 +115,11 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                     )
                     this?.tag = result
                 }
-            }
+            } ?: return)
         }
     }
 
-    private fun addMarkersWithLatLng(hospitalList: List<HospitalLocationEntity>?) {
+    private fun addMarkersWithLatLng(hospitalList: List<HospitalEntity>?) {
         map?.run {
             markers?.forEach { it.remove() }
             markers = null
@@ -130,12 +130,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                         .position(LatLng(result.lat ?: return, result.lng ?: return))
                         .icon(markerIcon)
                 ).apply {
-                    this?.tag =
-                        HospitalEntity(
-                            name = result.name,
-                            mobile = result.mobile,
-                            location = result.location,
-                        )
+                    this?.tag = result
                 }
             }
         }
@@ -292,7 +287,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         val startLng = minOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
         val endLng = maxOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
         addMarkersWithLatLng(
-            viewModel.hospitalLocationList.value?.filter {
+            viewModel.hospitalList.value?.filter {
                 it.lat ?: 0.0 in startLat..endLat && it.lng ?: 0.0 in startLng..endLng
             }
         )

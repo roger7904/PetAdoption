@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.roger.domain.entity.hospital.HospitalEntity
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
+import com.roger.domain.use_case.weather.GetWeatherUseCase
+import com.roger.petadoption.BuildConfig
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.base.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,14 +17,15 @@ import javax.inject.Inject
 class HospitalDetailViewModel @Inject constructor(
     private val state: SavedStateHandle,
     private val getHospitalInfoUseCase: GetHospitalInfoUseCase,
+    private val getWeatherUseCase: GetWeatherUseCase,
 ) : BaseViewModel(state) {
 
     private val hospitalId = state.getLiveData<String>(HospitalDetailActivity.ARG_HOSPITAL_ID)
-    private val _hospitalInfo = MutableLiveData<List<HospitalEntity>>()
-    val hospitalInfo: LiveData<List<HospitalEntity>> = _hospitalInfo
-    private val _hospitalLocationList =
-        state.getLiveData<List<HospitalLocationEntity>>(HospitalDetailActivity.ARG_HOSPITAL_LIST)
-    val hospitalLocationList: LiveData<List<HospitalLocationEntity>> = _hospitalLocationList
+    private val _hospitalInfo = MutableLiveData<HospitalEntity>()
+    val hospitalInfo: LiveData<HospitalEntity> = _hospitalInfo
+    private val _hospitalList =
+        state.getLiveData<List<HospitalEntity>>(HospitalDetailActivity.ARG_HOSPITAL_LIST)
+    val hospitalList: LiveData<List<HospitalEntity>> = _hospitalList
 
     fun getHospitalInfo() {
         val param = GetHospitalInfoUseCase.Param(
@@ -33,7 +36,45 @@ class HospitalDetailViewModel @Inject constructor(
 
         viewEventPublisher.onNext(ViewEvent.Loading)
         getHospitalInfoUseCase(param).sub {
-            _hospitalInfo.postValue(it)
+            getWeather(it?.get(0))
+        }.addTo(compositeDisposable)
+    }
+
+    private fun getWeather(hospitalEntity: HospitalEntity?) {
+        val param = GetWeatherUseCase.Param(
+            authorization = BuildConfig.WEATHER_API_KEY,
+            locationName = hospitalEntity?.city,
+            sort = "time",
+        )
+
+        var min: String? = null
+        var max: String? = null
+        var wx: String? = null
+
+        getWeatherUseCase(param).sub {
+            it?.records?.location?.get(0)?.weatherElement?.forEach { element ->
+                when (element.elementName) {
+                    "MinT" -> {
+                        min = element.time?.get(0)?.parameter?.parameterName!!
+                    }
+                    "MaxT" -> {
+                        max = element.time?.get(0)?.parameter?.parameterName!!
+                    }
+                    "Wx" -> {
+                        wx = element.time?.get(0)?.parameter?.parameterValue!!
+                    }
+                }
+            }
+            _hospitalInfo.postValue(
+                HospitalEntity(
+                    name = hospitalEntity?.name,
+                    mobile = hospitalEntity?.mobile,
+                    location = hospitalEntity?.location,
+                    weatherMin = min,
+                    weatherMax = max,
+                    weatherWx = wx,
+                )
+            )
         }.addTo(compositeDisposable)
     }
 }
