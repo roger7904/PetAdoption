@@ -29,12 +29,21 @@
                 tools:text="伊甸動物醫院" />
 
             <ImageView
-                android:id="@+id/iv_location"
+                android:id="@+id/iv_weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_google_maps" />
+                android:src="@drawable/ic_sun" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.P4"
+                android:textColor="@color/colorNeutral_N3_info_text"
+                tools:text="@string/shelter_map_weather" />
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView

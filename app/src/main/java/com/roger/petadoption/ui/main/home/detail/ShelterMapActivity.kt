@@ -39,7 +39,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
     OnMapReadyCallback {
 
-    private val viewModel: PetMapViewModel by viewModels()
+    private val viewModel: ShelterMapViewModel by viewModels()
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
     private var lastKnownLocation: LatLng = DEFAULT_LOCATION

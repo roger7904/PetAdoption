@@ -3,7 +3,6 @@ package com.roger.petadoption.ui.main
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -18,7 +17,6 @@ import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.domain.use_case.pet.DeleteFavoritePetUseCase
 import com.roger.domain.use_case.pet.GetFavoritePetListUseCase
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
-import com.roger.domain.use_case.weather.GetWeatherUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.ui.main.hospital.detail.HospitalLocationEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +34,6 @@ class MainViewModel @Inject constructor(
     private val getPetInfoUseCase: GetPetInfoUseCase,
     private val deleteFavoritePetUseCase: DeleteFavoritePetUseCase,
     private val getHospitalInfoUseCase: GetHospitalInfoUseCase,
-    private val getWeatherUseCase: GetWeatherUseCase
 ) : BaseViewModel(state) {
     private var auth: FirebaseAuth = Firebase.auth
     private val _favoritePetList = MutableLiveData<MutableList<FavoritePetEntity>?>()
@@ -48,15 +45,6 @@ class MainViewModel @Inject constructor(
 
     init {
         getFavoritePetList()
-        val param = GetWeatherUseCase.Param(
-            authorization = BuildConfig.WEATHER_API_KEY,
-            locationName = "臺北市",
-            sort = "time",
-        )
-
-        getWeatherUseCase(param).sub {
-            Log.d("TAG", "getWeatherUseCase: ${it}")
-        }.addTo(compositeDisposable)
     }
 
     fun setIsNeedRefresh(value: Boolean) {

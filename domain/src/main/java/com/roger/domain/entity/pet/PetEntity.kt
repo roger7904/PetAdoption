@@ -29,4 +29,7 @@ data class PetEntity(
     val shelterAddress: String? = null, // 地址
     val shelterTel: String? = null, // 連絡電話
     val variety: String? = null, // 動物品種
+    val weatherMin: String? = null, // 最低溫度
+    val weatherMax: String? = null, // 最高溫度
+    val weatherWx: String? = null, // 天氣現象
 )
