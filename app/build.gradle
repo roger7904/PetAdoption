@@ -38,6 +38,7 @@ android {
             minifyEnabled false
             buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
             resValue("string", "facebook_app_id", facebook_app_id)
+            resValue("string", "app_name", "(debug)寵物領養")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
@@ -45,6 +46,7 @@ android {
             minifyEnabled true
             buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
             resValue("string", "facebook_app_id", facebook_app_id)
+            resValue("string", "app_name", "寵物領養")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
