@@ -17,7 +17,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -38,6 +38,7 @@ android {
             minifyEnabled false
             buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
             resValue("string", "facebook_app_id", facebook_app_id)
+            resValue("string", "app_name", "(debug)寵物領養")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
@@ -45,6 +46,7 @@ android {
             minifyEnabled true
             buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
             resValue("string", "facebook_app_id", facebook_app_id)
+            resValue("string", "app_name", "寵物領養")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -137,8 +139,8 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
 
     // stetho
-    debugImplementation "com.facebook.stetho:stetho:1.6.0"
-    debugImplementation "com.facebook.stetho:stetho-okhttp3:1.6.0"
+    implementation "com.facebook.stetho:stetho:1.6.0"
+    implementation "com.facebook.stetho:stetho-okhttp3:1.6.0"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
