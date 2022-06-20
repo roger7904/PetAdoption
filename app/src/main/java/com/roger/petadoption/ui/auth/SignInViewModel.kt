@@ -44,8 +44,13 @@ class SignInViewModel @Inject constructor(
         auth.signInWithEmailAndPassword(account ?: "", password ?: "")
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    viewEventPublisher.onNext(ViewEvent.Done)
-                    viewEventPublisher.onNext(SignInViewEvent.LoginSuccess)
+                    val param = InitUserUseCase.Param(
+                        auth.currentUser?.uid ?: "",
+                        auth.currentUser?.displayName ?: "User"
+                    )
+                    initUserUseCase(param).sub {
+                        viewEventPublisher.onNext(SignInViewEvent.LoginSuccess)
+                    }.addTo(compositeDisposable)
                 } else {
                     viewEventPublisher.onNext(ViewEvent.Done)
                     viewEventPublisher.onNext(SignInViewEvent.PasswordLoginFail)
