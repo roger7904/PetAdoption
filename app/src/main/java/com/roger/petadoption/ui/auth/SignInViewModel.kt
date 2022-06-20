@@ -7,6 +7,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.roger.domain.use_case.user.InitUserUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.base.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
@@ -20,18 +21,34 @@ class SignInViewModel @Inject constructor(
     private var auth: FirebaseAuth = Firebase.auth
 
     fun firebaseLogin(credential: AuthCredential) {
+        viewEventPublisher.onNext(ViewEvent.Loading)
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val param = InitUserUseCase.Param(
                         auth.currentUser?.uid ?: "",
-                        auth.currentUser?.displayName ?: ""
+                        auth.currentUser?.displayName ?: "User"
                     )
                     initUserUseCase(param).sub {
                         viewEventPublisher.onNext(SignInViewEvent.LoginSuccess)
                     }.addTo(compositeDisposable)
                 } else {
+                    viewEventPublisher.onNext(ViewEvent.Done)
                     viewEventPublisher.onNext(SignInViewEvent.LoginFail)
+                }
+            }
+    }
+
+    fun passwordSignIn(account: String?, password: String?) {
+        viewEventPublisher.onNext(ViewEvent.Loading)
+        auth.signInWithEmailAndPassword(account ?: "", password ?: "")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    viewEventPublisher.onNext(ViewEvent.Done)
+                    viewEventPublisher.onNext(SignInViewEvent.LoginSuccess)
+                } else {
+                    viewEventPublisher.onNext(ViewEvent.Done)
+                    viewEventPublisher.onNext(SignInViewEvent.PasswordLoginFail)
                 }
             }
     }

@@ -54,8 +54,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         binding?.run {
             Glide.with(this@ProfileFragment)
-                .load(auth.currentUser?.photoUrl)
-                .centerCrop()
+                .load(auth.currentUser?.photoUrl ?: R.drawable.ic_profile)
                 .into(ivAvatar)
 
             viewModel.userName.observe(viewLifecycleOwner) {

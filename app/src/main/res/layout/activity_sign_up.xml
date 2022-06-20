@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.auth.SignUpActivity">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        app:srcCompat="@drawable/logo" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/sign_in_welcome"
+        android:textColor="#242424"
+        android:textSize="@dimen/dp_20" />
+
+    <com.roger.petadoption.utils.custom_view.PetAdoptionTextInput
+        android:id="@+id/til_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_30"
+        android:inputType="textNoSuggestions"
+        app:TextInput_hint="@string/sign_in_account_hint"
+        app:TextInput_title="@string/sign_in_account"
+        app:endIconMode="clear_text" />
+
+    <com.roger.petadoption.utils.custom_view.PetAdoptionTextInput
+        android:id="@+id/til_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:inputType="textNoSuggestions"
+        app:TextInput_descText="@string/sign_in_password_desc"
+        app:TextInput_hint="@string/sign_in_password_hint"
+        app:TextInput_title="@string/sign_in_password"
+        app:endIconMode="password_toggle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        style="@style/PrimaryButton.Large"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_50"
+        android:text="@string/sign_in_register_btn" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_go_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:textAppearance="@style/TextAppearance.P3"
+        android:textColor="@color/colorNeutral_N4_placeholder"
+        tools:text="@string/sign_in_go_sign_in" />
+</LinearLayout>

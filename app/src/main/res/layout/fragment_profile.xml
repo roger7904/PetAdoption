@@ -72,7 +72,7 @@
                 android:background="@drawable/shape_circle"
                 android:backgroundTint="@color/colorNeutral_N6_background"
                 android:padding="@dimen/dp_10"
-                android:src="@drawable/ic_profile"
+                android:src="@drawable/ic_tab_profile_inactive"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

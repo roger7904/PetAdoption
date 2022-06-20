@@ -2,8 +2,12 @@ package com.roger.petadoption.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -74,6 +78,37 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                     }
                 }
                 .addTo(compositeDisposable)
+
+            btnSignIn.clicks()
+                .subscribeBy {
+                    viewModel.passwordSignIn(
+                        tilAccount.getEditText()?.text?.toString(),
+                        tilPassword.getEditText()?.text?.toString()
+                    )
+                }
+                .addTo(compositeDisposable)
+
+            with(tvRegister) {
+                val ssb =
+                    SpannableStringBuilder(getString(R.string.sign_in_register)).apply {
+                        setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.colorBlue_BL3_action
+                                )
+                            ),
+                            length - 4,
+                            length,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                    }
+                text = ssb
+                setOnClickListener {
+                    val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
@@ -90,6 +125,16 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                 val dialog = SimpleDialogFragment.newInstance(
                     title = getString(R.string.sign_in_authentication_failed),
                     content = getString(R.string.sign_in_account_already_exists),
+                    btnConfirm = getString(R.string.confirm),
+                    btnCancel = getString(R.string.cancel)
+                )
+                showDialog(dialog)
+            }
+
+            is SignInViewEvent.PasswordLoginFail -> {
+                val dialog = SimpleDialogFragment.newInstance(
+                    title = getString(R.string.sign_in_password_login_failed_title),
+                    content = getString(R.string.sign_in_password_login_failed_content),
                     btnConfirm = getString(R.string.confirm),
                     btnCancel = getString(R.string.cancel)
                 )
