@@ -41,6 +41,7 @@
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_8"
         android:inputType="textNoSuggestions"
+        app:TextInput_descText="@string/sign_in_password_desc"
         app:TextInput_hint="@string/sign_in_password_hint"
         app:TextInput_title="@string/sign_in_password"
         app:endIconMode="password_toggle" />
@@ -53,4 +54,12 @@
         android:layout_marginTop="@dimen/dp_50"
         android:text="@string/sign_in_register_btn" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_go_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:textAppearance="@style/TextAppearance.P3"
+        android:textColor="@color/colorNeutral_N4_placeholder"
+        tools:text="@string/sign_in_go_sign_in" />
 </LinearLayout>

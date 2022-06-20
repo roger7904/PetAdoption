@@ -31,14 +31,24 @@
     <string name="sign_in_continue_with_facebook">以 Facebook 繼續</string>
     <string name="sign_in_continue_with_google">以 Google 繼續</string>
     <string name="sign_in_welcome">歡迎使用寵物領養</string>
-    <string name="sign_in_account">帳號</string>
-    <string name="sign_in_account_hint">請輸入帳號</string>
+    <string name="sign_in_account">E-mail</string>
+    <string name="sign_in_account_hint">請輸入 E-mail</string>
     <string name="sign_in_password">密碼</string>
     <string name="sign_in_password_hint">請輸入密碼</string>
     <string name="sign_in_title">登入</string>
     <string name="sign_in_register">還沒有帳號？立即註冊</string>
     <string name="sign_in_register_btn">註冊</string>
+    <string name="sign_in_password_desc">請設定 8 &#8211; 20 位數的英數字混合密碼</string>
+    <string name="sign_in_go_sign_in">已經有帳號了？點此登入</string>
+    <string name="sign_in_password_invalid_title">密碼格式錯誤</string>
+    <string name="sign_in_password_invalid_content">請設定 8 &#8211; 20 位數的英數字混合密碼</string>
+    <string name="sign_in_empty_title">帳號密碼不可為空</string>
+    <string name="sign_in_empty_content">請設定 8 &#8211; 20 位數的英數字混合密碼</string>
+    <string name="sign_up_fail_title">註冊失敗</string>
+    <string name="sign_up_fail_content">E-mail 輸入錯誤或重複，請重新註冊</string>
     <string name="sign_in_authentication_failed">Authentication failed</string>
+    <string name="sign_in_password_login_failed_title">登入失敗</string>
+    <string name="sign_in_password_login_failed_content">帳號或密碼錯誤，請重新登入或註冊</string>
     <string name="sign_in_account_already_exists">An account may already exists with the same email address</string>
 
     <!-- Home -->
