@@ -26,6 +26,10 @@ class ShelterMapViewModel @Inject constructor(
     private val _petInfo = MutableLiveData<PetEntity>()
     val petInfo: LiveData<PetEntity> = _petInfo
 
+    init {
+        viewEventPublisher.onNext(ViewEvent.Loading)
+    }
+
     fun getPetInfo() {
         val param = GetPetInfoUseCase.Param(
             animalId = petId.value,
@@ -37,7 +41,6 @@ class ShelterMapViewModel @Inject constructor(
             animalColour = null
         )
 
-        viewEventPublisher.onNext(ViewEvent.Loading)
         getPetInfoUseCase(param).sub { petEntity ->
             getWeather(petEntity?.get(0))
         }.addTo(compositeDisposable)

@@ -27,6 +27,10 @@ class HospitalDetailViewModel @Inject constructor(
         state.getLiveData<List<HospitalEntity>>(HospitalDetailActivity.ARG_HOSPITAL_LIST)
     val hospitalList: LiveData<List<HospitalEntity>> = _hospitalList
 
+    init {
+        viewEventPublisher.onNext(ViewEvent.Loading)
+    }
+
     fun getHospitalInfo() {
         val param = GetHospitalInfoUseCase.Param(
             top = null,
@@ -34,7 +38,6 @@ class HospitalDetailViewModel @Inject constructor(
             filter = "字號+like+${hospitalId.value}"
         )
 
-        viewEventPublisher.onNext(ViewEvent.Loading)
         getHospitalInfoUseCase(param).sub {
             getWeather(it?.get(0))
         }.addTo(compositeDisposable)
