@@ -37,6 +37,7 @@
     <string name="sign_in_password_hint">請輸入密碼</string>
     <string name="sign_in_title">登入</string>
     <string name="sign_in_register">還沒有帳號？立即註冊</string>
+    <string name="sign_in_register_btn">註冊</string>
     <string name="sign_in_authentication_failed">Authentication failed</string>
     <string name="sign_in_account_already_exists">An account may already exists with the same email address</string>
 
