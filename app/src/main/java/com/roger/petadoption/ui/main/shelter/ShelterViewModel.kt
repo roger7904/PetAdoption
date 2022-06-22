@@ -8,6 +8,7 @@ import com.roger.domain.common.DataResult
 import com.roger.domain.entity.shelter.ShelterEntity
 import com.roger.domain.use_case.shelter.GetPagingShelterListUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.main.shelter.filter.FilterCity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,14 +22,20 @@ class ShelterViewModel @Inject constructor(
         MutableLiveData<PagingData<ShelterEntity>>()
     val shelterListPagingData: LiveData<PagingData<ShelterEntity>> =
         _shelterListPagingData
+    private val _city = MutableLiveData<FilterCity?>()
+    val city: LiveData<FilterCity?> = _city
 
     init {
         getFilterPagingList()
     }
 
+    fun setCity(value: FilterCity?) {
+        _city.value = value
+    }
+
     fun getFilterPagingList() {
         val param = GetPagingShelterListUseCase.Param(
-            cityName = null,
+            cityName = _city.value?.content,
         )
 
         getPagingShelterListUseCase(param).cache().subscribe { pagingData ->

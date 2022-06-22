@@ -46,11 +46,39 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shelter_list"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorNeutral_N6_background"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_hospital" />
+        android:layout_height="match_parent"
+        android:background="@color/colorNeutral_N6_background">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shelter_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_shelter" />
+
+        <LinearLayout
+            android:id="@+id/view_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <ImageView
+                android:layout_width="@dimen/dp_78"
+                android:layout_height="@dimen/dp_140"
+                android:src="@drawable/ic_empty_pet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_34"
+                android:text="@string/shelter_filter_empty"
+                android:textAppearance="@style/TextAppearance.P3" />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
