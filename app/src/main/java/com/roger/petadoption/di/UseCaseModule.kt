@@ -9,6 +9,7 @@ import com.roger.domain.repository.weather.WeatherRepository
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.domain.use_case.hospital.GetPagingHospitalListUseCase
 import com.roger.domain.use_case.pet.*
+import com.roger.domain.use_case.shelter.GetPagingShelterListUseCase
 import com.roger.domain.use_case.shelter.GetShelterInfoUseCase
 import com.roger.domain.use_case.user.GetUserUseCase
 import com.roger.domain.use_case.user.InitUserUseCase
@@ -116,5 +117,13 @@ object UseCaseModule {
         errorHandler: ErrorHandler,
     ): GetShelterInfoUseCase {
         return GetShelterInfoUseCase(shelterRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetPagingShelterListUseCase(
+        shelterRepository: ShelterRepository,
+        errorHandler: ErrorHandler,
+    ): GetPagingShelterListUseCase {
+        return GetPagingShelterListUseCase(shelterRepository, errorHandler)
     }
 }
