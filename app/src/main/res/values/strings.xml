@@ -23,6 +23,7 @@
     <!-- Main -->
     <string name="bnv_home">配對</string>
     <string name="bnv_favorite">收藏</string>
+    <string name="bnv_shelter">收容所</string>
     <string name="bnv_map">地圖</string>
     <string name="bnv_hospital">醫院</string>
     <string name="bnv_profile">個人</string>

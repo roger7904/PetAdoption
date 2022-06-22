@@ -10,6 +10,7 @@ import com.roger.petadoption.ui.main.favorite.FavoriteFragment
 import com.roger.petadoption.ui.main.home.HomeFragment
 import com.roger.petadoption.ui.main.hospital.HospitalFragment
 import com.roger.petadoption.ui.main.profile.ProfileFragment
+import com.roger.petadoption.ui.main.shelter.ShelterFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,6 +44,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                                 findFragmentByTag(FavoriteFragment::class.java.name)
                                     ?: FavoriteFragment.newInstance()
                             switchBottomNavigationFragment(R.id.fcv_main, favoriteFragment)
+                        }
+
+                        R.id.menuItem_bnv_shelter -> {
+                            val shelterFragment =
+                                findFragmentByTag(ShelterFragment::class.java.name)
+                                    ?: ShelterFragment.newInstance()
+                            switchBottomNavigationFragment(R.id.fcv_main, shelterFragment)
                         }
 
                         R.id.menuItem_bnv_hospital -> {

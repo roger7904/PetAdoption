@@ -11,6 +11,11 @@
         android:title="@string/bnv_favorite" />
 
     <item
+        android:id="@+id/menuItem_bnv_shelter"
+        android:icon="@drawable/selector_tab_shelter"
+        android:title="@string/bnv_shelter" />
+
+    <item
         android:id="@+id/menuItem_bnv_hospital"
         android:icon="@drawable/selector_tab_hospital"
         android:title="@string/bnv_hospital" />
