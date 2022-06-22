@@ -2,6 +2,7 @@ package com.roger.petadoption.di
 
 import com.roger.data.data_source.hospital.HospitalApiService
 import com.roger.data.data_source.pet.PetApiService
+import com.roger.data.data_source.shelter.ShelterApiService
 import com.roger.data.network.NetworkManager
 import dagger.Module
 import dagger.Provides
@@ -22,5 +23,11 @@ object ApiServiceModule {
     @Provides
     fun provideHospitalApiService(networkManager: NetworkManager): HospitalApiService {
         return networkManager.getApiService(HospitalApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideShelterApiService(networkManager: NetworkManager): ShelterApiService {
+        return networkManager.getApiService(ShelterApiService::class.java)
     }
 }
