@@ -131,4 +131,8 @@
     <string name="editProfile_success">成功編輯暱稱</string>
     <string name="editProfile_back_dialog_title">資料尚未儲存</string>
     <string name="editProfile_back_dialog_content">您的個人資料尚未儲存，請確認是否離開</string>
+
+    <!-- Shelter -->
+    <string name="shelter_search_nearby">搜尋附近地區</string>
+    <string name="shelter_title">收容所</string>
 </resources>

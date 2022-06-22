@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.shelter.ShelterFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="@dimen/dp_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_12"
+            android:text="@string/shelter_title"
+            android:textAppearance="@style/TextAppearance.H4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:drawableStart="@drawable/ic_filter"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/filter_btn"
+            android:textAppearance="@style/TextAppearance.P2"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_shelter_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNeutral_N6_background"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_hospital" />
+</LinearLayout>
