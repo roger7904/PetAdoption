@@ -1,9 +1,5 @@
 package com.roger.petadoption.ui.main
 
-import android.content.Context
-import android.location.Address
-import android.location.Geocoder
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -11,20 +7,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.roger.domain.common.DataResult
-import com.roger.domain.entity.hospital.HospitalEntity
 import com.roger.domain.entity.pet.FavoritePetEntity
 import com.roger.domain.entity.pet.PetEntity
-import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.domain.use_case.pet.DeleteFavoritePetUseCase
 import com.roger.domain.use_case.pet.GetFavoritePetListUseCase
 import com.roger.domain.use_case.pet.GetPetInfoUseCase
-import com.roger.domain.use_case.shelter.GetShelterInfoUseCase
 import com.roger.petadoption.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,26 +25,16 @@ class MainViewModel @Inject constructor(
     private val getFavoritePetListUseCase: GetFavoritePetListUseCase,
     private val getPetInfoUseCase: GetPetInfoUseCase,
     private val deleteFavoritePetUseCase: DeleteFavoritePetUseCase,
-    private val getHospitalInfoUseCase: GetHospitalInfoUseCase,
-    private val getShelterInfoUseCase: GetShelterInfoUseCase
 ) : BaseViewModel(state) {
+
     private var auth: FirebaseAuth = Firebase.auth
     private val _favoritePetList = MutableLiveData<MutableList<FavoritePetEntity>?>()
     private val _isNeedRefresh = MutableLiveData<Boolean?>()
     private val _favoritePetInfoList = MutableLiveData<MutableList<PetEntity>?>()
     val favoritePetInfoList: LiveData<MutableList<PetEntity>?> = _favoritePetInfoList
-    private val _hospitalLocationList = MutableLiveData<ArrayList<HospitalEntity>>()
-    val hospitalLocationList: LiveData<ArrayList<HospitalEntity>> = _hospitalLocationList
 
     init {
         getFavoritePetList()
-        val param = GetShelterInfoUseCase.Param(
-            null
-        )
-
-        getShelterInfoUseCase(param).sub {
-            Log.d("TAG", "getShelterInfoUseCase: $it")
-        }.addTo(compositeDisposable)
     }
 
     fun setIsNeedRefresh(value: Boolean) {
@@ -134,46 +116,5 @@ class MainViewModel @Inject constructor(
         deleteFavoritePetUseCase(param).sub {
 
         }.addTo(compositeDisposable)
-    }
-
-    fun getHospitalList(context: Context) {
-        val param = GetHospitalInfoUseCase.Param(
-            top = 100,
-            skip = 0,
-            filter = null
-        )
-
-        getHospitalInfoUseCase(param).sub { hospitalList ->
-            _hospitalLocationList.postValue(
-                getLocationFromAddress(context, hospitalList)
-            )
-        }.addTo(compositeDisposable)
-    }
-
-    private fun getLocationFromAddress(
-        context: Context,
-        hospitalList: List<HospitalEntity>?,
-    ): ArrayList<HospitalEntity> {
-        val coder = Geocoder(context)
-        val hospitalEntityList: MutableList<HospitalEntity> = mutableListOf()
-        try {
-            hospitalList?.forEach { hospitalEntity ->
-                val address =
-                    coder.getFromLocationName(hospitalEntity.location, 5) ?: return@forEach
-                val location: Address = address[0]
-                hospitalEntityList.add(
-                    HospitalEntity(
-                        name = hospitalEntity.name,
-                        mobile = hospitalEntity.mobile,
-                        location = hospitalEntity.location,
-                        lat = location.latitude,
-                        lng = location.longitude,
-                    )
-                )
-            }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-        return ArrayList(hospitalEntityList)
     }
 }

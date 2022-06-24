@@ -23,9 +23,6 @@ class HospitalDetailViewModel @Inject constructor(
     private val hospitalId = state.getLiveData<String>(HospitalDetailActivity.ARG_HOSPITAL_ID)
     private val _hospitalInfo = MutableLiveData<HospitalEntity>()
     val hospitalInfo: LiveData<HospitalEntity> = _hospitalInfo
-    private val _hospitalList =
-        state.getLiveData<List<HospitalEntity>>(HospitalDetailActivity.ARG_HOSPITAL_LIST)
-    val hospitalList: LiveData<List<HospitalEntity>> = _hospitalList
 
     init {
         viewEventPublisher.onNext(ViewEvent.Loading)
