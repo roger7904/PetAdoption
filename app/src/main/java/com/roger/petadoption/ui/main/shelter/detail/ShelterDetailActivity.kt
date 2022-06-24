@@ -1,10 +1,8 @@
-package com.roger.petadoption.ui.main.home.detail
+package com.roger.petadoption.ui.main.shelter.detail
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -18,30 +16,29 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.maps.model.LatLng
-import com.roger.domain.entity.pet.PetEntity
-import com.roger.petadoption.R
-import com.roger.petadoption.databinding.ActivityPetMapBinding
-import com.roger.petadoption.ui.base.BaseActivity
-import com.roger.petadoption.ui.base.BaseViewModel
-import com.roger.petadoption.utils.BitmapHelper
-import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 import com.google.maps.DirectionsApi
 import com.google.maps.DirectionsApiRequest
 import com.google.maps.GeoApiContext
 import com.google.maps.model.*
+import com.roger.domain.entity.shelter.ShelterEntity
 import com.roger.petadoption.BuildConfig
+import com.roger.petadoption.R
+import com.roger.petadoption.databinding.ActivityShelterDetailBinding
+import com.roger.petadoption.ui.base.BaseActivity
+import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.utils.BitmapHelper
 import com.roger.petadoption.utils.toPx
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
-import com.google.android.gms.maps.model.LatLngBounds
 
 @AndroidEntryPoint
-class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
-    OnMapReadyCallback {
+class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMapReadyCallback {
 
-    private val viewModel: ShelterMapViewModel by viewModels()
+    private val viewModel: ShelterDetailViewModel by viewModels()
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
+    private var markers: List<Marker>? = null
+    private var polyline: Polyline? = null
     private var lastKnownLocation: LatLng = DEFAULT_LOCATION
     private val fusedLocationProviderClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(this)
@@ -58,18 +55,22 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    override fun initViewBinding(): ActivityPetMapBinding =
-        ActivityPetMapBinding.inflate(layoutInflater)
+    override fun initViewBinding(): ActivityShelterDetailBinding =
+        ActivityShelterDetailBinding.inflate(layoutInflater)
 
     override fun initView(savedInstanceState: Bundle?) {
         binding?.run {
             val mapFragment = supportFragmentManager.findFragmentById(
                 R.id.map_fragment
             ) as? SupportMapFragment
-            mapFragment?.getMapAsync(this@ShelterMapActivity)
+            mapFragment?.getMapAsync(this@ShelterDetailActivity)
 
-            viewModel.petInfo.observe(this@ShelterMapActivity) {
+            viewModel.shelterInfo.observe(this@ShelterDetailActivity) {
                 addMarkers(it)
+            }
+
+            btnSearch.setOnClickListener {
+                searchArea()
             }
         }
     }
@@ -78,7 +79,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map?.setInfoWindowAdapter(ShelterMapMarkerInfoWindowAdapter(this@ShelterMapActivity))
+        map?.setInfoWindowAdapter(ShelterMarkerInfoWindowAdapter(this@ShelterDetailActivity))
 
         map?.setOnInfoWindowClickListener { marker ->
             infoWindowClickEvent(marker)
@@ -91,43 +92,47 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
         getDeviceLocation()
     }
 
-    private fun addMarkers(petEntity: PetEntity) {
+    private fun addMarkers(shelterEntity: ShelterEntity) {
         map?.run {
-            petEntity.let { result ->
-                val latLng = getLocationFromAddress(result.shelterAddress)
+            markers = listOf(shelterEntity.let { result ->
+                val latLng =
+                    LatLng(result.lat?.toDouble() ?: return, result.lon?.toDouble() ?: return)
                 addMarker(
                     MarkerOptions()
-                        .title(result.petPlace)
+                        .title(result.shelterName)
                         .icon(markerIcon)
-                        .position(latLng ?: return)
+                        .position(latLng)
                 ).apply {
                     map?.animateCamera(
                         CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
                     )
                     this?.tag = result
                 }
-            }
+            } ?: return)
         }
     }
 
-    private fun getLocationFromAddress(strAddress: String?): LatLng? {
-        val coder = Geocoder(this)
-        val address: List<Address>?
-        var p1: LatLng? = null
-        try {
-            address = coder.getFromLocationName(strAddress, 5)
-            if (address == null) {
-                return null
+    private fun addMarkersWithLatLng(shelterList: List<ShelterEntity>?) {
+        map?.run {
+            markers?.forEach { it.remove() }
+            markers = null
+            markers = shelterList?.mapNotNull { result ->
+                addMarker(
+                    MarkerOptions()
+                        .title(result.shelterName)
+                        .position(LatLng(result.lat?.toDouble() ?: return,
+                            result.lon?.toDouble() ?: return))
+                        .icon(markerIcon)
+                ).apply {
+                    this?.tag = result
+                }
             }
-            val location: Address = address[0]
-            p1 = LatLng(location.latitude, location.longitude)
-        } catch (ex: IOException) {
-            ex.printStackTrace()
         }
-        return p1
     }
 
     private fun infoWindowClickEvent(marker: Marker) {
+        polyline?.remove()
+        polyline = null
         val departureLatLng = lastKnownLocation
         val destinationLatLng = marker.position
 
@@ -194,7 +199,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
                 .addAll(path)
                 .color(ContextCompat.getColor(this, R.color.colorPrimary))
                 .width(5.toPx(this))
-            map?.addPolyline(opts)
+            polyline = map?.addPolyline(opts)
         }
 
         val builder = LatLngBounds.Builder()
@@ -216,7 +221,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
-            viewModel.getPetInfo()
+            viewModel.getShelterInfo()
         } else {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -237,7 +242,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
-                    viewModel.getPetInfo()
+                    viewModel.getShelterInfo()
                 }
             }
         }
@@ -250,6 +255,19 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
             uiSettings.isMapToolbarEnabled = locationPermissionGranted
             uiSettings.isMyLocationButtonEnabled = locationPermissionGranted
         }
+    }
+
+    private fun searchArea() {
+        val visibleRegion = map?.projection?.visibleRegion?.latLngBounds ?: return
+        val startLat = visibleRegion.southwest.latitude
+        val endLat = visibleRegion.northeast.latitude
+        val startLng = minOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
+        val endLng = maxOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
+        addMarkersWithLatLng(
+            viewModel.shelterList.value?.filter {
+                it.lat?.toDouble() ?: 0.0 in startLat..endLat && it.lon?.toDouble() ?: 0.0 in startLng..endLng
+            }
+        )
     }
 
     private fun getDeviceLocation() {
@@ -269,10 +287,11 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
         }
     }
 
+
     companion object {
         private val DEFAULT_LOCATION = LatLng(25.0530895, 121.6047654)
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-        const val ARG_PET_MAP_ID = "ARG_PET_MAP_ID"
+        const val ARG_SHELTER_ID = "SHELTER_ID"
     }
 }

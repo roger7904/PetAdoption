@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoption">
         <activity
+            android:name=".ui.main.shelter.detail.ShelterDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.main.shelter.filter.ShelterFilterActivity"
             android:exported="true" />
         <activity

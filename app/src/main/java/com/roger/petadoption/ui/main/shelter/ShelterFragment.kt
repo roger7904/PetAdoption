@@ -2,6 +2,7 @@ package com.roger.petadoption.ui.main.shelter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.paging.LoadState
 import com.roger.petadoption.databinding.FragmentShelterBinding
 import com.roger.petadoption.ui.base.BaseFragment
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.main.shelter.detail.ShelterDetailActivity
 import com.roger.petadoption.ui.main.shelter.filter.ShelterFilterActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,10 +23,10 @@ class ShelterFragment : BaseFragment<FragmentShelterBinding>() {
     private val viewModel: ShelterViewModel by viewModels()
     private val shelterListPagingAdapter: ShelterListPagingAdapter by lazy {
         ShelterListPagingAdapter {
-//            val intent = Intent(activity, HospitalDetailActivity::class.java).apply {
-//                putExtra(HospitalDetailActivity.ARG_HOSPITAL_ID, it.number)
-//            }
-//            startActivity(intent)
+            val intent = Intent(activity, ShelterDetailActivity::class.java).apply {
+                putExtra(ShelterDetailActivity.ARG_SHELTER_ID, it.id)
+            }
+            startActivity(intent)
         }
     }
     private val filterLauncher =

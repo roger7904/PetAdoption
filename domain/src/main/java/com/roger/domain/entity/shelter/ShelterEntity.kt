@@ -10,4 +10,7 @@ data class ShelterEntity(
     val url: String? = null,
     val lon: String? = null,
     val lat: String? = null,
+    val weatherMin: String? = null, // 最低溫度
+    val weatherMax: String? = null, // 最高溫度
+    val weatherWx: String? = null, // 天氣現象
 )
