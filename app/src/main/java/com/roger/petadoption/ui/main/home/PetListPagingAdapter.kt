@@ -48,6 +48,7 @@ class PetListPagingAdapter(
             binding.run {
                 Glide.with(itemView)
                     .load(value.albumFile)
+                    .placeholder(R.color.colorNeutral_N4_placeholder)
                     .into(ivCover)
 
                 tvVariety.text = value.variety

@@ -37,6 +37,7 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
             viewModel.petInfo.observe(this@PetDetailActivity) {
                 Glide.with(this@PetDetailActivity)
                     .load(it.albumFile)
+                    .placeholder(R.color.colorNeutral_N4_placeholder)
                     .into(ivCover)
 
                 tvVariety.text = it.variety
