@@ -78,7 +78,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map?.setInfoWindowAdapter(ShelterMarkerInfoWindowAdapter(this@ShelterMapActivity))
+        map?.setInfoWindowAdapter(ShelterMapMarkerInfoWindowAdapter(this@ShelterMapActivity))
 
         map?.setOnInfoWindowClickListener { marker ->
             infoWindowClickEvent(marker)

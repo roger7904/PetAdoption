@@ -3,11 +3,14 @@ package com.roger.petadoption.di
 import com.roger.domain.common.ErrorHandler
 import com.roger.domain.repository.hospital.HospitalRepository
 import com.roger.domain.repository.pet.PetRepository
+import com.roger.domain.repository.shelter.ShelterRepository
 import com.roger.domain.repository.user.UserRepository
 import com.roger.domain.repository.weather.WeatherRepository
 import com.roger.domain.use_case.hospital.GetHospitalInfoUseCase
 import com.roger.domain.use_case.hospital.GetPagingHospitalListUseCase
 import com.roger.domain.use_case.pet.*
+import com.roger.domain.use_case.shelter.GetPagingShelterListUseCase
+import com.roger.domain.use_case.shelter.GetShelterInfoUseCase
 import com.roger.domain.use_case.user.GetUserUseCase
 import com.roger.domain.use_case.user.InitUserUseCase
 import com.roger.domain.use_case.user.UpdateUserUseCase
@@ -106,5 +109,21 @@ object UseCaseModule {
         errorHandler: ErrorHandler,
     ): GetWeatherUseCase {
         return GetWeatherUseCase(weatherRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetShelterInfoUseCase(
+        shelterRepository: ShelterRepository,
+        errorHandler: ErrorHandler,
+    ): GetShelterInfoUseCase {
+        return GetShelterInfoUseCase(shelterRepository, errorHandler)
+    }
+
+    @Provides
+    fun provideGetPagingShelterListUseCase(
+        shelterRepository: ShelterRepository,
+        errorHandler: ErrorHandler,
+    ): GetPagingShelterListUseCase {
+        return GetPagingShelterListUseCase(shelterRepository, errorHandler)
     }
 }

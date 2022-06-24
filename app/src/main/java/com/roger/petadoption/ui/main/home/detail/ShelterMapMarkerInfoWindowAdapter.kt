@@ -10,7 +10,7 @@ import com.roger.domain.entity.pet.PetEntity
 import com.roger.petadoption.R
 import com.roger.petadoption.databinding.ShelterMarkerInfoContentsBinding
 
-class ShelterMarkerInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWindowAdapter {
+class ShelterMapMarkerInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWindowAdapter {
     override fun getInfoContents(marker: Marker): View? {
         return null
     }

@@ -23,6 +23,7 @@
     <!-- Main -->
     <string name="bnv_home">配對</string>
     <string name="bnv_favorite">收藏</string>
+    <string name="bnv_shelter">收容所</string>
     <string name="bnv_map">地圖</string>
     <string name="bnv_hospital">醫院</string>
     <string name="bnv_profile">個人</string>
@@ -130,4 +131,14 @@
     <string name="editProfile_success">成功編輯暱稱</string>
     <string name="editProfile_back_dialog_title">資料尚未儲存</string>
     <string name="editProfile_back_dialog_content">您的個人資料尚未儲存，請確認是否離開</string>
+
+    <!-- Shelter -->
+    <string name="shelter_search_nearby">搜尋附近地區</string>
+    <string name="shelter_title">收容所</string>
+
+    <!-- ShelterFilter -->
+    <string name="shelter_filter_title">篩選</string>
+    <string name="shelter_filter_btn">篩選</string>
+    <string name="shelter_filter_city">城市</string>
+    <string name="shelter_filter_empty">此城市無收容所</string>
 </resources>

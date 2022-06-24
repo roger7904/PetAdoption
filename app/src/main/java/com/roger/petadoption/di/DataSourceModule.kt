@@ -5,6 +5,8 @@ import com.roger.data.data_source.hospital.HospitalRemoteDataSourceImpl
 import com.roger.data.data_source.pet.PetDataSource
 import com.roger.data.data_source.pet.PetLocalDataSourceImpl
 import com.roger.data.data_source.pet.PetRemoteDataSourceImpl
+import com.roger.data.data_source.shelter.ShelterDataSource
+import com.roger.data.data_source.shelter.ShelterRemoteDataSourceImpl
 import com.roger.data.data_source.user.UserDataSource
 import com.roger.data.data_source.user.UserLocalDataSourceImpl
 import com.roger.data.data_source.weather.WeatherDataSource
@@ -31,4 +33,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindWeatherRemoteDataSource(weatherRemoteDataSourceImpl: WeatherRemoteDataSourceImpl): WeatherDataSource.Remote
+
+    @Binds
+    abstract fun bindShelterRemoteDataSource(shelterRemoteDataSourceImpl: ShelterRemoteDataSourceImpl): ShelterDataSource.Remote
 }

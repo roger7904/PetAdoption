@@ -41,7 +41,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
     private val viewModel: HospitalDetailViewModel by viewModels()
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
-    private var markers: List<Marker>? = null
     private var polyline: Polyline? = null
     private var lastKnownLocation: LatLng = DEFAULT_LOCATION
     private val fusedLocationProviderClient: FusedLocationProviderClient by lazy {
@@ -72,14 +71,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
             viewModel.hospitalInfo.observe(this@HospitalDetailActivity) {
                 addMarkers(it)
             }
-
-            if (viewModel.hospitalList.value.isNullOrEmpty()) {
-                btnSearch.visibility = View.GONE
-            }
-
-            btnSearch.setOnClickListener {
-                searchArea()
-            }
         }
     }
 
@@ -102,7 +93,7 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
 
     private fun addMarkers(hospitalEntity: HospitalEntity) {
         map?.run {
-            markers = listOf(hospitalEntity.let { result ->
+            hospitalEntity.let { result ->
                 val latLng = getLocationFromAddress(result.location)
                 addMarker(
                     MarkerOptions()
@@ -113,23 +104,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
                     map?.animateCamera(
                         CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
                     )
-                    this?.tag = result
-                }
-            } ?: return)
-        }
-    }
-
-    private fun addMarkersWithLatLng(hospitalList: List<HospitalEntity>?) {
-        map?.run {
-            markers?.forEach { it.remove() }
-            markers = null
-            markers = hospitalList?.mapNotNull { result ->
-                addMarker(
-                    MarkerOptions()
-                        .title(result.name)
-                        .position(LatLng(result.lat ?: return, result.lng ?: return))
-                        .icon(markerIcon)
-                ).apply {
                     this?.tag = result
                 }
             }
@@ -280,19 +254,6 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         }
     }
 
-    private fun searchArea() {
-        val visibleRegion = map?.projection?.visibleRegion?.latLngBounds ?: return
-        val startLat = visibleRegion.southwest.latitude
-        val endLat = visibleRegion.northeast.latitude
-        val startLng = minOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
-        val endLng = maxOf(visibleRegion.northeast.longitude, visibleRegion.southwest.longitude)
-        addMarkersWithLatLng(
-            viewModel.hospitalList.value?.filter {
-                it.lat ?: 0.0 in startLat..endLat && it.lng ?: 0.0 in startLng..endLng
-            }
-        )
-    }
-
     private fun getDeviceLocation() {
         try {
             if (locationPermissionGranted) {
@@ -316,6 +277,5 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         const val ARG_HOSPITAL_ID = "HOSPITAL_ID"
-        const val ARG_HOSPITAL_LIST = "HOSPITAL_LIST"
     }
 }
