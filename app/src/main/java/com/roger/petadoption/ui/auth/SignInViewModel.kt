@@ -41,7 +41,12 @@ class SignInViewModel @Inject constructor(
 
     fun passwordSignIn(account: String?, password: String?) {
         viewEventPublisher.onNext(ViewEvent.Loading)
-        auth.signInWithEmailAndPassword(account ?: "", password ?: "")
+        if (account.isNullOrEmpty() || password.isNullOrEmpty()) {
+            viewEventPublisher.onNext(ViewEvent.Done)
+            viewEventPublisher.onNext(SignInViewEvent.PasswordLoginFail)
+            return
+        }
+        auth.signInWithEmailAndPassword(account, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val param = InitUserUseCase.Param(
