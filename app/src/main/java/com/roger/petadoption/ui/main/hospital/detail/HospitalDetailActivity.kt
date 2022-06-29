@@ -21,7 +21,6 @@ import com.roger.petadoption.ui.base.BaseViewModel
 import com.roger.petadoption.utils.BitmapHelper
 import dagger.hilt.android.AndroidEntryPoint
 import android.location.Geocoder
-import android.view.View
 import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -31,6 +30,8 @@ import com.google.maps.DirectionsApiRequest
 import com.google.maps.GeoApiContext
 import com.google.maps.model.*
 import com.roger.petadoption.BuildConfig
+import com.roger.petadoption.ui.base.SimpleDialogFragment
+import com.roger.petadoption.ui.base.ViewEvent
 import com.roger.petadoption.utils.toPx
 import java.io.IOException
 import java.lang.Exception
@@ -89,6 +90,21 @@ class HospitalDetailActivity : BaseActivity<ActivityHospitalDetailBinding>(), On
         updateLocationUISetting()
 
         getDeviceLocation()
+    }
+
+    override fun handleViewEvent(event: ViewEvent) {
+        super.handleViewEvent(event)
+        when (event) {
+            is HospitalDetailViewEvent.HospitalInfoEmpty -> {
+                val dialog = SimpleDialogFragment.newInstance(
+                    title = getString(R.string.hospital_info_empty_dialog_title),
+                    content = getString(R.string.hospital_info_empty_dialog_content),
+                    btnConfirm = getString(R.string.confirm),
+                    btnCancel = getString(R.string.cancel)
+                )
+                showDialog(dialog)
+            }
+        }
     }
 
     private fun addMarkers(hospitalEntity: HospitalEntity) {

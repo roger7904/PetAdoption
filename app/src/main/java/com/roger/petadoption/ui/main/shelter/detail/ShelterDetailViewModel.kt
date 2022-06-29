@@ -48,7 +48,11 @@ class ShelterDetailViewModel @Inject constructor(
         )
 
         getShelterInfoUseCase(param).sub {
-            getWeather(it?.get(0))
+            if (it?.isEmpty() == true) {
+                viewEventPublisher.onNext(ShelterDetailViewEvent.ShelterInfoEmpty)
+            } else {
+                getWeather(it?.get(0))
+            }
         }.addTo(compositeDisposable)
     }
 
