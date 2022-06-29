@@ -36,7 +36,11 @@ class HospitalDetailViewModel @Inject constructor(
         )
 
         getHospitalInfoUseCase(param).sub {
-            getWeather(it?.get(0))
+            if (it?.isEmpty() == true) {
+                viewEventPublisher.onNext(HospitalDetailViewEvent.HospitalInfoEmpty)
+            } else {
+                getWeather(it?.get(0))
+            }
         }.addTo(compositeDisposable)
     }
 

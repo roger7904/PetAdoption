@@ -26,6 +26,8 @@ import com.roger.petadoption.R
 import com.roger.petadoption.databinding.ActivityShelterDetailBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.base.SimpleDialogFragment
+import com.roger.petadoption.ui.base.ViewEvent
 import com.roger.petadoption.utils.BitmapHelper
 import com.roger.petadoption.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,6 +92,21 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
         updateLocationUISetting()
 
         getDeviceLocation()
+    }
+
+    override fun handleViewEvent(event: ViewEvent) {
+        super.handleViewEvent(event)
+        when (event) {
+            is ShelterDetailViewEvent.ShelterInfoEmpty -> {
+                val dialog = SimpleDialogFragment.newInstance(
+                    title = getString(R.string.shelter_info_empty_dialog_title),
+                    content = getString(R.string.shelter_info_empty_dialog_content),
+                    btnConfirm = getString(R.string.confirm),
+                    btnCancel = getString(R.string.cancel)
+                )
+                showDialog(dialog)
+            }
+        }
     }
 
     private fun addMarkers(shelterEntity: ShelterEntity) {

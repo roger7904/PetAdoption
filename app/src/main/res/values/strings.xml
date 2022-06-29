@@ -115,6 +115,8 @@
     <!-- Hospital -->
     <string name="hospital_search_nearby">搜尋附近地區</string>
     <string name="hospital_map_weather">%1$s - %2$s °C</string>
+    <string name="hospital_info_empty_dialog_title">找不到此資料</string>
+    <string name="hospital_info_empty_dialog_content">尋找此醫院資料時發生錯誤，請重新嘗試</string>
 
     <!-- Profile -->
     <string name="profile_info">個人資料</string>
@@ -135,6 +137,8 @@
     <!-- Shelter -->
     <string name="shelter_search_nearby">搜尋附近地區</string>
     <string name="shelter_title">收容所</string>
+    <string name="shelter_info_empty_dialog_title">找不到此資料</string>
+    <string name="shelter_info_empty_dialog_content">尋找此收容所資料時發生錯誤，請重新嘗試</string>
 
     <!-- ShelterFilter -->
     <string name="shelter_filter_title">篩選</string>
