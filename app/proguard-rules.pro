@@ -51,3 +51,6 @@
 
 -keep class com.roger.data.dto.** { *; }
 -keep class com.roger.domain.entity.** { *; }
+
+# Direction API
+-keep class com.google.maps.** { *; }
