@@ -16,7 +16,7 @@ android {
         applicationId "com.roger.petadoption"
         minSdk 21
         targetSdk 32
-        versionCode 8
+        versionCode 9
         versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -36,7 +36,7 @@ android {
 
         debug {
             debuggable true
-            minifyEnabled true
+            minifyEnabled false
             buildConfigField("String", "GOOGLE_SERVER_CLIENT_ID", GOOGLE_SERVER_CLIENT_ID)
             resValue("string", "facebook_app_id", facebook_app_id)
             resValue("string", "app_name", "(debug)寵物領養")
