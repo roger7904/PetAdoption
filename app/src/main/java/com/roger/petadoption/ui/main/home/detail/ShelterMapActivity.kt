@@ -134,7 +134,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
         val path: MutableList<LatLng> = ArrayList()
 
         val context = GeoApiContext.Builder()
-            .apiKey(BuildConfig.GOOGLE_MAPS_DIRECTION_API_KEY)
+            .apiKey(BuildConfig.GOOGLE_MAPS_API_KEY)
             .build()
 
         val req: DirectionsApiRequest =
