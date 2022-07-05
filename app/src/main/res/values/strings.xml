@@ -102,8 +102,6 @@
     <string name="filter_color_casual">不拘</string>
 
     <!-- ShelterMap -->
-    <string name="shelter_map_route_exception">取得路線時發生錯誤</string>
-    <string name="shelter_map_device_location_exception">取得裝置位置時發生錯誤</string>
     <string name="shelter_map_weather">%1$s - %2$s °C</string>
 
     <!-- Favorite -->
@@ -145,4 +143,11 @@
     <string name="shelter_filter_btn">篩選</string>
     <string name="shelter_filter_city">城市</string>
     <string name="shelter_filter_empty">此城市無收容所</string>
+
+    <!-- Location -->
+    <string name="route_exception">取得路線時發生錯誤</string>
+    <string name="device_location_exception">取得裝置位置時發生錯誤，請打開定位再重新嘗試</string>
+    <string name="gps_exception">取得裝置位置時發生錯誤，請打開定位再重新嘗試此功能</string>
+    <string name="permission_exception_dialog_title">未取得權限</string>
+    <string name="permission_exception_dialog_content">取得權限時發生錯誤，請開啟位置權限後再重新嘗試此功能</string>
 </resources>
