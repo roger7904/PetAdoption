@@ -2,7 +2,9 @@ package com.roger.petadoption.ui.main.shelter.detail
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -41,7 +43,11 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
     private var locationPermissionGranted = false
     private var markers: List<Marker>? = null
     private var polyline: Polyline? = null
-    private var lastKnownLocation: LatLng = DEFAULT_LOCATION
+    private val locationManager: LocationManager by lazy {
+        this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    }
+    private var gpsEnabled = false
+    private var lastKnownLocation: LatLng? = null
     private val fusedLocationProviderClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(this)
     }
@@ -90,8 +96,6 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
         getLocationPermission()
 
         updateLocationUISetting()
-
-        getDeviceLocation()
     }
 
     override fun handleViewEvent(event: ViewEvent) {
@@ -150,7 +154,22 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
     private fun infoWindowClickEvent(marker: Marker) {
         polyline?.remove()
         polyline = null
-        val departureLatLng = lastKnownLocation
+        getDeviceLocation()
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
+            ).show()
+        }
+        if (!locationPermissionGranted || !gpsEnabled || lastKnownLocation == null) {
+            Toast.makeText(
+                this, getString(R.string.gps_exception), Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val departureLatLng = lastKnownLocation ?: return
         val destinationLatLng = marker.position
 
         val path: MutableList<LatLng> = ArrayList()
@@ -206,7 +225,7 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
             }
         } catch (ex: Exception) {
             Toast.makeText(
-                this, getString(R.string.shelter_map_route_exception), Toast.LENGTH_SHORT
+                this, getString(R.string.route_exception), Toast.LENGTH_SHORT
             ).show()
         }
 
@@ -233,12 +252,20 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
     }
 
     private fun getLocationPermission() {
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
+            ).show()
+        }
         if (ContextCompat.checkSelfPermission(this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
             viewModel.getShelterInfo()
+            getDeviceLocation()
         } else {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -260,6 +287,24 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
                 ) {
                     locationPermissionGranted = true
                     viewModel.getShelterInfo()
+                    getDeviceLocation()
+                } else {
+                    val dialog = SimpleDialogFragment.newInstance(
+                        title = getString(R.string.permission_exception_dialog_title),
+                        content = getString(R.string.permission_exception_dialog_content),
+                        btnConfirm = getString(R.string.confirm),
+                        btnCancel = getString(R.string.cancel),
+                        clickEvent = object : SimpleDialogFragment.ClickEvent {
+                            override fun onConfirmClick() {
+                                onBackPressed()
+                            }
+
+                            override fun onCancelClick() {
+                                onBackPressed()
+                            }
+                        }
+                    )
+                    showDialog(dialog)
                 }
             }
         }
@@ -289,7 +334,8 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
 
     private fun getDeviceLocation() {
         try {
-            if (locationPermissionGranted) {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            if (locationPermissionGranted && gpsEnabled) {
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -299,14 +345,13 @@ class ShelterDetailActivity : BaseActivity<ActivityShelterDetailBinding>(), OnMa
             }
         } catch (e: SecurityException) {
             Toast.makeText(
-                this, getString(R.string.shelter_map_device_location_exception), Toast.LENGTH_SHORT
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
             ).show()
         }
     }
 
 
     companion object {
-        private val DEFAULT_LOCATION = LatLng(25.0530895, 121.6047654)
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         const val ARG_SHELTER_ID = "SHELTER_ID"

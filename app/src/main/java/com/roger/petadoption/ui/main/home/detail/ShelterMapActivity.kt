@@ -2,6 +2,7 @@ package com.roger.petadoption.ui.main.home.detail
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -34,6 +35,8 @@ import com.roger.petadoption.BuildConfig
 import com.roger.petadoption.utils.toPx
 import java.lang.Exception
 import com.google.android.gms.maps.model.LatLngBounds
+import android.location.LocationManager
+import com.roger.petadoption.ui.base.SimpleDialogFragment
 
 @AndroidEntryPoint
 class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
@@ -41,8 +44,12 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
 
     private val viewModel: ShelterMapViewModel by viewModels()
     private var map: GoogleMap? = null
+    private val locationManager: LocationManager by lazy {
+        this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    }
+    private var gpsEnabled = false
     private var locationPermissionGranted = false
-    private var lastKnownLocation: LatLng = DEFAULT_LOCATION
+    private var lastKnownLocation: LatLng ?= null
     private val fusedLocationProviderClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(this)
     }
@@ -87,8 +94,6 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
         getLocationPermission()
 
         updateLocationUISetting()
-
-        getDeviceLocation()
     }
 
     private fun addMarkers(petEntity: PetEntity) {
@@ -128,7 +133,22 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
     }
 
     private fun infoWindowClickEvent(marker: Marker) {
-        val departureLatLng = lastKnownLocation
+        getDeviceLocation()
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
+            ).show()
+        }
+        if (!locationPermissionGranted || !gpsEnabled || lastKnownLocation == null) {
+            Toast.makeText(
+                this, getString(R.string.gps_exception), Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val departureLatLng = lastKnownLocation ?: return
         val destinationLatLng = marker.position
 
         val path: MutableList<LatLng> = ArrayList()
@@ -184,7 +204,7 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
             }
         } catch (ex: Exception) {
             Toast.makeText(
-                this, getString(R.string.shelter_map_route_exception), Toast.LENGTH_SHORT
+                this, getString(R.string.route_exception), Toast.LENGTH_SHORT
             ).show()
         }
 
@@ -211,12 +231,20 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
     }
 
     private fun getLocationPermission() {
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
+            ).show()
+        }
         if (ContextCompat.checkSelfPermission(this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
             viewModel.getPetInfo()
+            getDeviceLocation()
         } else {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -238,6 +266,24 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
                 ) {
                     locationPermissionGranted = true
                     viewModel.getPetInfo()
+                    getDeviceLocation()
+                } else {
+                    val dialog = SimpleDialogFragment.newInstance(
+                        title = getString(R.string.permission_exception_dialog_title),
+                        content = getString(R.string.permission_exception_dialog_content),
+                        btnConfirm = getString(R.string.confirm),
+                        btnCancel = getString(R.string.cancel),
+                        clickEvent = object : SimpleDialogFragment.ClickEvent {
+                            override fun onConfirmClick() {
+                                onBackPressed()
+                            }
+
+                            override fun onCancelClick() {
+                                onBackPressed()
+                            }
+                        }
+                    )
+                    showDialog(dialog)
                 }
             }
         }
@@ -254,7 +300,8 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
 
     private fun getDeviceLocation() {
         try {
-            if (locationPermissionGranted) {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            if (locationPermissionGranted && gpsEnabled) {
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -264,13 +311,12 @@ class ShelterMapActivity : BaseActivity<ActivityPetMapBinding>(),
             }
         } catch (e: SecurityException) {
             Toast.makeText(
-                this, getString(R.string.shelter_map_device_location_exception), Toast.LENGTH_SHORT
+                this, getString(R.string.device_location_exception), Toast.LENGTH_SHORT
             ).show()
         }
     }
 
     companion object {
-        private val DEFAULT_LOCATION = LatLng(25.0530895, 121.6047654)
         private const val DEFAULT_ZOOM = 12f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         const val ARG_PET_MAP_ID = "ARG_PET_MAP_ID"
