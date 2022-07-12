@@ -1,6 +1,7 @@
 package com.roger.petadoption.ui.main.home.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,10 +11,10 @@ import com.roger.petadoption.R
 import com.roger.petadoption.databinding.ActivityPetDetailBinding
 import com.roger.petadoption.ui.base.BaseActivity
 import com.roger.petadoption.ui.base.BaseViewModel
+import com.roger.petadoption.ui.base.SimpleDialogFragment
 import com.roger.petadoption.ui.base.ViewEvent
 import com.roger.petadoption.ui.main.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 
 @AndroidEntryPoint
 class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
@@ -46,10 +47,12 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
                 ivGender2.setImageResource(if (it.sex == ANIMAL_GENDER_MALE) R.drawable.ic_male else R.drawable.ic_female)
                 tvGender.text =
                     if (it.sex == ANIMAL_GENDER_MALE) getString(R.string.male) else getString(
-                        R.string.female)
+                        R.string.female
+                    )
                 tvState.text =
                     if (it.status == ANIMAL_STATE_OPEN) getString(R.string.home_pet_state_pos) else getString(
-                        R.string.home_pet_state_neg)
+                        R.string.home_pet_state_neg
+                    )
                 tvColor.text = it.colour
                 tvShelterContent.text = it.shelterName
                 tvShelterAddressContent.text = it.shelterAddress
@@ -69,6 +72,37 @@ class PetDetailActivity : BaseActivity<ActivityPetDetailBinding>() {
 
             cvFavorite.setOnClickListener {
                 viewModel.setFavorite()
+            }
+
+            btnIntentToWeb.setOnClickListener {
+                showDialog(
+                    SimpleDialogFragment.newInstance(
+                        getString(R.string.home_intent_to_web_dialog_title),
+                        getString(
+                            R.string.home_intent_to_web_dialog_content,
+                            viewModel.petInfo.value?.subId
+                        ),
+                        btnConfirm = getString(R.string.confirm),
+                        btnCancel = getString(R.string.cancel),
+                        clickEvent = object : SimpleDialogFragment.ClickEvent {
+                            override fun onConfirmClick() {
+                                val intent = Intent(Intent.ACTION_VIEW).apply {
+                                    data = Uri.parse(
+                                        getString(
+                                            R.string.home_intent_to_web_url,
+                                            viewModel.petInfo.value?.id,
+                                            viewModel.petInfo.value?.subId,
+                                        )
+                                    )
+                                }
+                                startActivity(intent)
+                            }
+
+                            override fun onCancelClick() {
+                            }
+                        }
+                    )
+                )
             }
 
             viewModel.isFavorite.observe(this@PetDetailActivity) {

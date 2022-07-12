@@ -486,6 +486,14 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_intent_to_web"
+                    style="@style/PrimaryButton.Large"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/home_btn_intent_to_web" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
