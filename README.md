@@ -8,4 +8,39 @@
 
 [<img width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/>](https://play.google.com/store/apps/details?id=com.roger.petadoption)
 
-:dog:
+## Features
+### :paw_prints: ...
+
+## Implementation
+* Design Pattern
+  * MVVM
+* Android Jetpack
+  * View Binding
+  * Lifecycle
+  * LiveData
+  * ViewModel
+  * Paging
+* DI
+  * Hilt
+* User Interface
+  * RecyclerView
+  * ViewPager2
+* Internet
+  * [Retrofit2](https://github.com/square/retrofit)
+  * [OkHttp](https://github.com/square/okhttp)
+* Tools
+  * Firebase `Authentication` `Crashlytics`
+  * Google Cloud Platform API `Map API` `Place API` `Direction API`
+* Third Party Libraries
+  * [Timber](https://github.com/JakeWharton/timber)
+  * [Retrofit](https://github.com/square/retrofit)
+  * [RxBinding](https://github.com/JakeWharton/RxBinding)
+  * [stetho](https://github.com/facebook/stetho)
+  * [Glide](https://github.com/bumptech/glide)
+
+## Requirements
+* Android SDK 21
+
+## Contact
+Roger Chang - rogerchang7904@gmail.com 
+[<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>](https://www.linkedin.com/in/%E6%9F%8F%E6%99%BA-%E6%98%8C-60441221b)
