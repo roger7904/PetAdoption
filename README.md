@@ -42,5 +42,6 @@
 * Android SDK 21
 
 ## Contact
-Roger Chang - rogerchang7904@gmail.com 
+Roger Chang - rogerchang7904@gmail.com
+
 [<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>](https://www.linkedin.com/in/%E6%9F%8F%E6%99%BA-%E6%98%8C-60441221b)
