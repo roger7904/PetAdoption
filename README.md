@@ -1,6 +1,7 @@
 <img width="5%" src="docs/logo.png"/>
 
-# PetAdoption [<img src="https://img.shields.io/badge/version-1.1.1-orange"/>](https://play.google.com/store/apps/details?id=com.roger.petadoption)
+# PetAdoption [<img src="https://img.shields.io/badge/version-v1.1.0-blue"/>][<img 
+src = "https://img.shields.io/badge/platform-Android-brightgreen"/>][<img src="https://img.shields.io/badge/kotlin-Language-blue"/>]
 
 ...
 
