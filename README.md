@@ -4,7 +4,8 @@
 [<img src="https://img.shields.io/badge/kotlin-Language-blue"/>](https://img.shields.io/badge/kotlin-Language-blue)
 
 [<a href="url"><img src="docs/banner.png" width="800" style="border-radius:2%"></a>](https://play.google.com/store/apps/details?id=com.roger.petadoption)
-...
+
+This application is a matching platform for pet adoption. By interfacing pet adoption open data provided by government pet, users can learn about pet adoption information through this platform, reducing the time and cost of going to the shelter. It also provides map information of shelters and pet hospitals, so that users can go to the shelter for adoption after finding their favorite pet.
 
 [<img width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/>](https://play.google.com/store/apps/details?id=com.roger.petadoption)
 
@@ -34,7 +35,12 @@
   * MVVM with clean architecture
   * multi module(app、domain、data)
 * Design Pattern
-  * MVVM
+  * Singleton
+  * Dependency Injection
+  * Adapter
+  * Facade
+  * Command
+  * Observer
 * Android Jetpack
   * View Binding
   * Lifecycle
@@ -45,7 +51,8 @@
   * Hilt
 * User Interface
   * RecyclerView
-  * ViewPager2
+  * CoordinatorLayout
+  * CollapsingToolbarLayout
 * Internet
   * [Retrofit2](https://github.com/square/retrofit)
   * [OkHttp](https://github.com/square/okhttp)
