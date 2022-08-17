@@ -9,9 +9,14 @@
 [<img width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/>](https://play.google.com/store/apps/details?id=com.roger.petadoption)
 
 ## Features
-### :paw_prints: ...
+### :paw_prints: Look for pets
+
+<img  width="20%" src="docs/home.gif">
 
 ## Implementation
+* Architecture
+  * MVVM with clean architecture
+  * multi module(app、domain、data)
 * Design Pattern
   * MVVM
 * Android Jetpack
