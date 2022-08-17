@@ -7,7 +7,7 @@
 
 This application is a matching platform for pet adoption. 
 
-By interfacing pet adoption open data provided by government pet, users can learn about pet adoption information through this platform, reducing the time and cost of going to the shelter. 
+By interfacing pet adoption open data provided by government, users can learn about pet adoption information through this platform, reducing the time and cost of going to the shelter. 
 
 It also provides map information of shelters and pet hospitals, so that users can go to the shelter for adoption after finding their favorite pet.
 
