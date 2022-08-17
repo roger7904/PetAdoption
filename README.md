@@ -27,7 +27,7 @@
 
 ### :paw_prints: Map
 
-<img  width="20%" src="docs/favorite.jpg">
+<img  width="20%" src="docs/map.gif">
 
 ## Implementation
 * Architecture
