@@ -51,6 +51,7 @@ It also provides map information of shelters and pet hospitals, so that users ca
   * LiveData
   * ViewModel
   * Paging
+  * Room
 * DI
   * Hilt
 * User Interface
@@ -71,10 +72,11 @@ It also provides map information of shelters and pet hospitals, so that users ca
   * [Glide](https://github.com/bumptech/glide)
 
 ## Data
-open data provided by goverment
+open data provided by government
  * [PetAdoption](https://data.gov.tw/dataset/85903?fbclid=IwAR132RQqrjrwjHYPq8lrm3uguDuFgqmAa5EBUlvojBvlAPOM068v3YZJVWs)
  * [Shelter](https://data.gov.tw/dataset/134284)
  * [Veterinary](https://data.coa.gov.tw/OpenData/Query/AdvSearch.aspx?id=078)
+
 ## Requirements
 * Android SDK 21
 
