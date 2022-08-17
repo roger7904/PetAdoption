@@ -13,6 +13,22 @@
 
 <img  width="20%" src="docs/home.gif">
 
+### :paw_prints: Filter
+
+<img  width="20%" src="docs/filter.jpg">
+
+### :paw_prints: Favorite
+
+<img  width="20%" src="docs/favorite.jpg">
+
+### :paw_prints: Shelter and Hospital
+
+<img  width="20%" src="docs/shelter.jpg"> <img  width="20%" src="docs/shelter_filter.jpg"> <img  width="20%" src="docs/hospital.jpg">
+
+### :paw_prints: Map
+
+<img  width="20%" src="docs/favorite.jpg">
+
 ## Implementation
 * Architecture
   * MVVM with clean architecture
