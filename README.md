@@ -102,4 +102,4 @@ open data provided by government
 ## Contact
 Roger Chang - rogerchang7904@gmail.com
 
-[<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>](www.linkedin.com/in/rogerchang7904)
+[<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>](https://www.linkedin.com/in/rogerchang7904)
