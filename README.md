@@ -16,21 +16,39 @@ It also provides map information of shelters and pet hospitals, so that users ca
 ## Features
 ### :paw_prints: Look for pets
 
+Rendering a list of pets using Paging, user can choose to swipe or favorite the pet.
+
+Click the item can view detailed information, including gender, coat color, shelter map, etc.
+
+And you can also click the "Take Me Home" button to guide the National Animal Shelter System to make an appointment for on-site evaluation and adoption.
+
 <img  width="20%" src="docs/home.gif">
 
 ### :paw_prints: Filter
+
+Provides a variety of filtering options to make it easier to find your favorite pet.
 
 <img  width="20%" src="docs/filter.jpg">
 
 ### :paw_prints: Favorite
 
+Using Room to store a user's favorite pets, where you can view the list of favorites and choose the one you like the most.
+
 <img  width="20%" src="docs/favorite.jpg">
 
 ### :paw_prints: Shelter and Hospital
 
+Use Paging to present a list of shelters and hospitals, and provide a variety of filtering methods.
+
 <img  width="20%" src="docs/shelter.jpg"> <img  width="20%" src="docs/shelter_filter.jpg"> <img  width="20%" src="docs/hospital.jpg">
 
 ### :paw_prints: Map
+
+Click the item of shelter or hospital list to view the map information, including the address and the weather and temperature of the place, etc.
+
+At the same time, you can click the marker to view the route information.
+
+Also it provides the function of "searching nearby areas", you can see where there are shelters in the nearby areas.
 
 <img  width="20%" src="docs/map.gif">
 
@@ -74,6 +92,7 @@ It also provides map information of shelters and pet hospitals, so that users ca
 ## Data
 open data provided by government
  * [PetAdoption](https://data.gov.tw/dataset/85903?fbclid=IwAR132RQqrjrwjHYPq8lrm3uguDuFgqmAa5EBUlvojBvlAPOM068v3YZJVWs)
+ * [Weather](https://opendata.cwb.gov.tw/index)
  * [Shelter](https://data.gov.tw/dataset/134284)
  * [Veterinary](https://data.coa.gov.tw/OpenData/Query/AdvSearch.aspx?id=078)
 
