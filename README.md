@@ -76,6 +76,7 @@ Also it provides the function of "searching nearby areas", you can see where the
   * RecyclerView
   * CoordinatorLayout
   * CollapsingToolbarLayout
+  * Custom View Component
 * Internet
   * [Retrofit2](https://github.com/square/retrofit)
   * [OkHttp](https://github.com/square/okhttp)
