@@ -56,6 +56,7 @@ Also it provides the function of "searching nearby areas", you can see where the
 * Architecture
   * MVVM with clean architecture
   * multi module(app、domain、data)
+<img src="docs/Architecture.png" width="800" style="border-radius:2%">
 * Design Pattern
   * Singleton
   * Dependency Injection
