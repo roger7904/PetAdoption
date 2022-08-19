@@ -59,6 +59,8 @@ Also it provides the function of "searching nearby areas", you can see where the
 
 <img src="docs/Architecture.png" width="800" style="border-radius:2%">
 
+[Google recommended and  best practices architecture](https://developer.android.com/topic/architecture)
+
 * Design Pattern
   * Singleton
   * Dependency Injection
