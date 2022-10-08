@@ -66,7 +66,6 @@ Also it provides the function of "searching nearby areas", you can see where the
   * Dependency Injection
   * Adapter
   * Facade
-  * Command
   * Observer
 * Android Jetpack
   * View Binding
